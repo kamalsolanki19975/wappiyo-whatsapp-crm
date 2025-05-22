@@ -99,7 +99,7 @@ class UserService
                 'email' => $request->input('email'),
                 'avatar' => $avatarPath,
                 'role' => $role,
-                'phone' => $request->input('phone') ? phone($request->input('phone'))->formatE164() : null,
+                'phone' => $request->input('phone') ? phone($request->input('phone'), 'IN')->formatE164() : null,
                 'address' => json_encode([
                     'street' => $request->input('street'),
                     'city' => $request->input('city'),

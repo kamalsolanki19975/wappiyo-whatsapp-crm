@@ -108,6 +108,7 @@
             <TableHeaderRow>
                 <TableHeaderRowItem :position="'first'">{{ $t('Name') }}</TableHeaderRowItem>
                 <TableHeaderRowItem class="hidden sm:table-cell">{{ $t('Email') }}</TableHeaderRowItem>
+                 <TableHeaderRowItem class="hidden sm:table-cell">{{ $t('Mobile') }}</TableHeaderRowItem>
                 <TableHeaderRowItem v-if="type === 'admin' || showRole === true" class="hidden sm:table-cell">{{ $t('Role') }}</TableHeaderRowItem>
                 <TableHeaderRowItem>
                     <span class="">{{ $t('Status') }}</span>
@@ -122,6 +123,7 @@
             <TableBodyRow v-for="(item, index) in rows.data" :key="index" :class="!isLastRow(index) ? 'border-b' : ''">
                 <TableBodyRowItem :position="'first'" class="capitalize">{{ item.full_name }}</TableBodyRowItem>
                 <TableBodyRowItem class="hidden sm:table-cell">{{ item.email }}</TableBodyRowItem>
+                <TableBodyRowItem class="hidden sm:table-cell">{{ item.phone }}</TableBodyRowItem>
                 <TableBodyRowItem v-if="type === 'admin' || showRole === true" class="hidden sm:table-cell capitalize">{{ item.role }}</TableBodyRowItem>
                 <TableBodyRowItem class="capitalize">
                     <span class="py-1 rounded-[5px] text-xs px-3 bg-[#ddebf7] text-slate-700">{{ statusLabel(item.status) }}</span>

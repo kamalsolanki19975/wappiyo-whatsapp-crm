@@ -55,3 +55,4 @@ Route::middleware([AuthenticateBearerToken::class])->group(function () {
     Route::put('/canned-replies/{uuid}', [App\Http\Controllers\ApiController::class, 'storeCannedReply']);
     Route::delete('/canned-replies/{uuid}', [App\Http\Controllers\ApiController::class, 'destroyCannedReply']);
 });
+Route::post('/paypal_webhook', [App\Http\Controllers\ApiController::class, 'paypalWebhook']);

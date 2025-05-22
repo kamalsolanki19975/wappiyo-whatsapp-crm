@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('otps', function (Blueprint $table) {
             $table->id();
-            $table->string('mobile')->index();
+            $table->string('phone')->index();
             $table->string('otp');
             $table->timestamps();
         });

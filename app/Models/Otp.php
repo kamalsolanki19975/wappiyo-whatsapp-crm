@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Otp extends Model
 {
     use HasFactory;
-    protected $fillable = ['mobile', 'otp', 'expires_at'];
+    protected $fillable = ['phone', 'otp'];
 
 }

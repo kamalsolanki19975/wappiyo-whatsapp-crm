@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
+use Propaganistas\LaravelPhone\PhoneNumber;
 use App\Models\Otp;
 use Carbon\Carbon;
 use Inertia\Inertia;
@@ -39,11 +40,13 @@ class AuthController extends BaseController
 {
     protected $userService;
     protected $role;
+    protected $accessToken;
 
     public function __construct($role = 'user')
     {
         $this->userService = new UserService($role);
         $this->role = $role;
+        $this->accessToken = 'EAApDmi22WZA0BO9z25XzJaJ66lrrVZBC5MtZA4lMaBa0J5qDv6vNlZAMKw8U8cMZBSv0IKe3PKh42rZADoJtNlZCH2Om9UsZBsTfTDfoeB8lzLK0pdvxeGPkJIBPUlEHlISmwefBpWDK8T4XduhBfHl23pwTzdGNr4ZAGxyAU8P9tHacWo8vCCzgfsS1G4CRvn29lpwZDZD';
     }
 
     public function showLoginForm()
@@ -433,62 +436,100 @@ class AuthController extends BaseController
     public function sendOtp(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'mobile' => 'required|digits:10',
+            'phone' => 'required|phone',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'Invalid mobile number',
+                'success' => false,
+                'message' => 'Invalid phone number',
                 'errors' => $validator->errors()
             ], 422);
         }
 
-        $mobile = $request->input('mobile');
+        $phone = $request->input('phone');
         $otp = rand(1000, 9999);
 
-        // Store OTP in database
         Otp::updateOrCreate(
-            ['mobile' => $mobile],
+            ['phone' => $phone],
             ['otp' => $otp]
         );
 
-        // Format mobile with country code
-        $formattedMobile = '91' . $mobile;
+        // $formattedphone = $phone;
+        $formattedPhoneE164 = phone($request->input('phone'), $request->input('country'))->formatE164();
+        $formattedphone = ltrim($formattedPhoneE164, '+');
+
 
         try {
-            $response = Http::withHeaders([
-                'accept' => 'application/json',
-                'authkey' => '282280AEE4Kj2nzJG67fe5ee3P1',
-                'content-type' => 'application/json',
-            ])->post('https://control.msg91.com/api/v5/flow', [
-                        'template_id' => '677fb3c1d6fc05016e7de192',
-                        'recipients' => [
-                            [
-                                'mobiles' => $formattedMobile,
-                                'var1' => $otp,  // Pass OTP to MSG91 template
+            // $response = Http::withHeaders([
+            //     'accept' => 'application/json',
+            //     'authkey' => '282280AEE4Kj2nzJG67fe5ee3P1',
+            //     'content-type' => 'application/json',
+            // ])->post('https://control.msg91.com/api/v5/flow', [
+            //             'template_id' => '677fb3c1d6fc05016e7de192',
+            //             'recipients' => [
+            //                 [
+            //                     'mobiles' => $formattedphone,
+            //                     'var1' => $otp,
+            //                 ]
+            //             ]
+            //         ]);
+
+            // Log::info('MSG91 OTP Send Response:', $response->json());
+
+            $url = "https://graph.facebook.com/v18.0/675025299022404/messages";
+            $response = Http::withToken($this->accessToken)->post($url, [
+                'messaging_product' => 'whatsapp',
+                'to' => $formattedphone, // Format: 15551234567
+                'type' => 'template',
+                'template' => [
+                    'name' => 'singup',
+                    'language' => [
+                        'code' => 'en'
+                    ],
+                    'components' => [
+                        [
+                            'type' => 'body',
+                            'parameters' => [
+                                [
+                                    'type' => 'text',
+                                    'text' => $otp
+                                ]
                             ]
                         ]
-                    ]);
+                    ]
+                ]
+            ]);
 
-            // Log response from MSG91
-            Log::info('MSG91 OTP Send Response:', $response->json());
-
+            //Log::info('Whatsaoo OTP Send Response:', $response->json());
             if (!$response->successful()) {
-                return response()->json(['message' => 'Failed to send OTP via SMS'], 500);
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to send OTP via SMS'
+                ], 500);
             }
 
-            return response()->json(['message' => 'OTP sent successfully']);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'OTP sent successfully on your whatsapp number'
+            ]);
         } catch (\Exception $e) {
             Log::error('MSG91 Error: ' . $e->getMessage());
 
-            return response()->json(['message' => 'Error sending OTP', 'error' => $e->getMessage()], 500);
+            return response()->json([
+                'success' => false,
+                'message' => 'Error sending OTP',
+                'error' => $e->getMessage()
+            ], 500);
         }
     }
+
 
     public function verifyOtp(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'mobile' => 'required|digits:10',
+            'phone' => 'required|phone',
             'otp' => 'required|digits:4',
         ]);
 
@@ -499,23 +540,27 @@ class AuthController extends BaseController
             ], 422);
         }
 
-        $mobile = $request->input('mobile');
+        $phone = $request->input('phone');
         $otp = $request->input('otp');
 
-        $otpRecord = Otp::where('mobile', $mobile)->first();
+        $otpRecord = Otp::where('phone', $phone)->first();
 
         if (!$otpRecord) {
-            return response()->json(['message' => 'OTP not found'], 422);
+            return response()->json([ 'success' => false,'message' => 'OTP not found'], 422);
         }
 
         if ($otpRecord->otp !== $otp) {
-            return response()->json(['message' => 'Invalid OTP'], 422);
+            return response()->json([ 'success' => false,'message' => 'Invalid OTP'], 422);
         }
 
         // OTP verified, remove record
         $otpRecord->delete();
 
-        return response()->json(['message' => 'OTP verified', 'verified' => true]);
+        return response()->json([
+            'success' => true,
+            'message' => 'OTP verified'
+        ]);
+
     }
 
 

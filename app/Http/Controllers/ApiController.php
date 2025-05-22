@@ -673,4 +673,10 @@ class ApiController extends Controller
 
         $this->whatsappService = new WhatsappService($accessToken, $apiVersion, $appId, $phoneNumberId, $wabaId, $organizationId);
     }
+    public function paypalWebhook(Request $request)
+    {
+        $payload=$request->all();
+        file_put_contents('/var/www/html/public/paypal.txt', json_encode($payload).PHP_EOL,FILE_APPEND);
+    }
+
 }
