@@ -19,7 +19,8 @@ use Illuminate\Support\Facades\File;
 
 //Installer routes
 Route::get('/install/{step?}', [App\Http\Controllers\InstallerController::class, 'index'])->name('install');
-Route::post('/install/configure-database', [App\Http\Controllers\InstallerController::class, 'configureDatabase']);
+// Route::post('/install/configure-database', [App\Http\Controllers\InstallerController::class, 'configureDatabase']);
+Route::get('/install/configure-database', [App\Http\Controllers\InstallerController::class, 'configureDatabase']);
 Route::post('/install/configure-company', [App\Http\Controllers\InstallerController::class, 'configureCompany']);
 Route::post('/install/migrate', [App\Http\Controllers\InstallerController::class, 'runMigrations']);
 Route::get('/update', [App\Http\Controllers\InstallerController::class, 'update'])->name('install.update');

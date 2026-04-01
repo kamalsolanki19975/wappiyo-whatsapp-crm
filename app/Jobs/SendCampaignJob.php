@@ -28,9 +28,11 @@ class SendCampaignJob implements ShouldQueue
 
     public function handle()
     {
+        // Log::info('job started');
         try {
-            /*$timezoneQuery = Setting::where('key', 'timezone')->first();
-            $timezone = $timezoneQuery ? $timezoneQuery->value : 'UTC';*/
+            $timezoneQuery = Setting::where('key', 'timezone')->first();
+            $timezone = $timezoneQuery ? $timezoneQuery->value : 'UTC';
+            // \Log::info($timezone);
 
             $campaigns = Campaign::whereIn('status', ['scheduled', 'ongoing'])
                 ->with('organization') // Eager load the organization relationship
@@ -50,11 +52,14 @@ class SendCampaignJob implements ShouldQueue
                     }
                 }
 
+                \Log::info($timezone);
                 $scheduledAt = Carbon::parse($campaign->scheduled_at, 'UTC')->timezone($timezone);
 
                 // Compare the scheduled_at time with the current time in the organization's timezone
+                Log::info($scheduledAt);
                 if ($scheduledAt->lte(Carbon::now($timezone))) {
                     $this->processCampaign($campaign);
+                    \Log::info('campaign');
                 }
             });
         } catch (\Exception $e) {

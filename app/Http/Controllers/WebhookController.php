@@ -66,7 +66,7 @@ class WebhookController extends BaseController
 
     public function handle(Request $request, $identifier = null)
     {
-        //Log::info('Webhook Handler: Start processing for identifier ' . $identifier);
+        // Log::info('Webhook Handler: Start processing for identifier ' . $identifier);
         $organization = $this->getOrganizationByIdentifier($identifier);
 
         if (!$organization) {
@@ -83,6 +83,7 @@ class WebhookController extends BaseController
 
     protected function handleMethod(Request $request, Organization $organization)
     {
+        // Log::info('webhook called');
         if ($request->isMethod('get')) {
             return $this->handleGetRequest($request, $organization);
         } elseif ($request->isMethod('post')) {

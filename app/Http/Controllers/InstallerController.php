@@ -44,6 +44,24 @@ class InstallerController extends BaseController
             ) {
                 return redirect('install/folders');
             }
+
+             session()->put('database', [
+                    'host' => '127.0.0.1',//$request->input('host'),
+                    'port' => 3306, //$request->input('port'),
+                    'database' =>'whatsappio', //$request->input('dbname'),
+                    'username' =>'master', //$request->input('dbuser'),
+                    'password' =>'Kamal@2025', //$request->input('dbpass'),
+             ]);
+            session()->put('user', [
+            'project_name' => 'Whatasappiyp',
+            'project_url' => 'http://wappiyo.kamcodify.in/',
+            'first_name' => 'Kamal', 
+            'last_name' => 'Solanki',
+            'email' => 'prashantdixit.official@gmail.com',
+            'password' => '1234567890',
+        ]);
+
+
         }
 
         if($step === 'app'){
@@ -63,6 +81,7 @@ class InstallerController extends BaseController
                 !session()->has('database') ||
                 !session()->has('user')
             ) {
+                dd('session_faild');
                 return redirect('install/app');
             }
         }
@@ -89,11 +108,11 @@ class InstallerController extends BaseController
                 'connections' => [
                     "db_check" => [
                         'driver' => 'mysql',
-                        'host' => $request->input('host'),
-                        'port' => $request->input('port'),
-                        'database' => $request->input('dbname'),
-                        'username' => $request->input('dbuser'),
-                        'password' => $request->input('dbpass'),
+                        'host' => '127.0.0.1',//$request->input('host'),
+                        'port' => 3306, //$request->input('port'),
+                        'database' =>'whatsappio', //$request->input('dbname'),
+                        'username' =>'master', //$request->input('dbuser'),
+                        'password' =>'Kamal@2025', //$request->input('dbpass'),
                     ],
                 ],
             ],
@@ -120,6 +139,14 @@ class InstallerController extends BaseController
                     'username' => $request->input('dbuser'),
                     'password' => $request->input('dbpass'),
                 ]);
+
+                // session()->put('database', [
+                //     'host' => '127.0.0.1',//$request->input('host'),
+                //     'port' => 3306, //$request->input('port'),
+                //     'database' =>'whatsappio', //$request->input('dbname'),
+                //     'username' =>'master', //$request->input('dbuser'),
+                //     'password' =>'Kamal@2025', //$request->input('dbpass'),
+                // ]);
 
                 return redirect('install/app');
             } else {
@@ -187,7 +214,7 @@ class InstallerController extends BaseController
             return redirect('install/folders');
         }
         try {
-            $this->h($request->input('purchase_code'));
+            // $this->h($request->input('purchase_code'));
 
             $migrateOutput = Artisan::call('migrate', [
                 '--force' => true,

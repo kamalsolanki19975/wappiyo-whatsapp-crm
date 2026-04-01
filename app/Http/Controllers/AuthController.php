@@ -501,7 +501,7 @@ class AuthController extends BaseController
                 ]
             ]);
 
-            //Log::info('Whatsaoo OTP Send Response:', $response->json());
+            Log::info('Whatsaoo OTP Send Response:', $response->json());
             if (!$response->successful()) {
                 return response()->json([
                     'success' => false,

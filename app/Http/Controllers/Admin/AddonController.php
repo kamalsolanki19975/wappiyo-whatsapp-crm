@@ -47,6 +47,7 @@ class AddonController extends BaseController
 
     public function install(Request $request)
     {
+        // dd($request);
         $ModuleService = new ModuleService;
 
         return $ModuleService->install($request);
