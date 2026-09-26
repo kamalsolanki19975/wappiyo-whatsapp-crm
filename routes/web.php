@@ -231,9 +231,7 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::resource('billing', App\Http\Controllers\Admin\BillingController::class);
     Route::resource('addons', App\Http\Controllers\Admin\AddonController::class);
     Route::post('addons/install', [App\Http\Controllers\Admin\AddonController::class, 'install']);
-    Route::post('/addons/setup/google-recaptcha', [App\Http\Controllers\Admin\AddonController::class, 'store']);
-    Route::post('/addons/setup/google-analytics', [App\Http\Controllers\Admin\AddonController::class, 'store']);
-    Route::post('/addons/setup/google-maps', [App\Http\Controllers\Admin\AddonController::class, 'store']);
+    Route::post('/addons/setup/{slug?}', [App\Http\Controllers\Admin\AddonController::class, 'store']);
     Route::resource('payment-gateways', App\Http\Controllers\Admin\PaymentGatewayController::class)->only(['index', 'show', 'update']);
     Route::get('/languages/{language}/export', [App\Http\Controllers\Admin\LanguageController::class, 'export']);
     Route::post('/languages/{language}/import', [App\Http\Controllers\Admin\LanguageController::class, 'import']);
@@ -278,12 +276,4 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
 
     Route::put('/profile', [App\Http\Controllers\ProfileController::class, 'update']);
     Route::put('/profile/password', [App\Http\Controllers\ProfileController::class, 'updatePassword']);
-});
-
-Route::prefix('api/')->group(function() {
-    Route::get('chats/{lastmessagetime}', 'ChatController@chatlist');
-    Route::get('chat/{contact}', 'ChatController@chatmessages');
-    Route::post('send/{contact}', 'ChatController@sendMessageToContact');
-    Route::post('sendimage/{contact}', 'ChatController@sendImageMessageToContact');
-    Route::post('sendfile/{contact}', 'ChatController@sendDocumentMessageToContact');
 });

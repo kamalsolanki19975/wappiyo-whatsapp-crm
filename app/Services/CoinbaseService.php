@@ -16,12 +16,18 @@ use App\Traits\ConsumesExternalServices;
 
 class CoinbaseService
 {
+    protected $config;
+    protected $baseUri;
+    protected $apiKey;
+
     public function __construct()
     {
-        $coinbaseInfo = DB::table('integrations')->where('name', 'Coinbase')->first();
-        $this->config = unserialize($coinbaseInfo->data);
+        $gateway = \App\Models\PaymentGateway::where('name', 'Coinbase')->first();
+        $meta = is_array($gateway?->metadata) ? $gateway->metadata : json_decode($gateway?->metadata ?? '[]', true);
+        
+        $this->config = $meta ?? [];
         $this->baseUri = 'https://api.commerce.coinbase.com';
-        $this->secretKey = $this->config['api_key'];
+        $this->apiKey = $this->config['api_key'] ?? env('COINBASE_API_KEY', '');
     }
 
     public function makeRequest($method, $url, $body)

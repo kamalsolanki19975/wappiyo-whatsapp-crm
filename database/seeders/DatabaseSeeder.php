@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             AddonsTableSeeder::class,
             AddonsTableSeeder2::class,
             AddonsTableSeeder3::class,
+            AddonsTableSeeder4::class,
+            AddonsLicenseSeeder::class,
             PageSeeder::class,
         ]);
     }

@@ -16,11 +16,22 @@ use App\Traits\ConsumesExternalServices;
 
 class RazorPayService
 {
+    protected $config;
+    protected $razorpay;
+
     public function __construct()
     {
-        $razorpayInfo = DB::table('integrations')->where('name', 'RazorPay')->first();
-        $this->config = unserialize($razorpayInfo->data);
-        $this->razorpay = new \Razorpay\Api\Api($this->config['public_key'], $this->config['secret_key']);
+        $publicKey = \App\Models\Setting::where('key', 'razorpay_key_id')->value('value') ?? '';
+        $secretKey = \App\Models\Setting::where('key', 'razorpay_secret_key')->value('value') ?? '';
+        
+        $this->config = [
+            'public_key' => $publicKey,
+            'secret_key' => $secretKey,
+        ];
+
+        if (!empty($publicKey) && !empty($secretKey) && class_exists('\Razorpay\Api\Api')) {
+            $this->razorpay = new \Razorpay\Api\Api($publicKey, $secretKey);
+        }
     }
 
     public function createPlan($plan, $razorpayPlan, $razorpayAmount)

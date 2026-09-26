@@ -57,7 +57,9 @@ return [
     ],
 
     'razorpay' => [
-        'class' => Modules\Razorpay\Controllers\ProcessPayment::class,
+        'class' => class_exists('Modules\Razorpay\Controllers\ProcessPayment') 
+            ? Modules\Razorpay\Controllers\ProcessPayment::class 
+            : App\Services\RazorPayService::class,
     ],
 ];
 

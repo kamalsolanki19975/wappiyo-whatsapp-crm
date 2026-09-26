@@ -33,7 +33,7 @@ class AddonsTableSeeder4 extends Seeder
         ];
 
         foreach ($rows as $row) {
-            Addon::create($row);
+            Addon::firstOrCreate(['name' => $row['name']], $row);
         }
     }
 }

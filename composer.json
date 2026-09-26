@@ -23,6 +23,7 @@
         "phpoffice/phpword": "^1.2",
         "propaganistas/laravel-phone": "^5.0",
         "pusher/pusher-php-server": "^7.2",
+        "razorpay/razorpay": "^2.9",
         "resend/resend-laravel": "^0.11.0",
         "smalot/pdfparser": "^2.10",
         "stripe/stripe-php": "^13.12"

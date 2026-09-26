@@ -16,12 +16,18 @@ use App\Traits\ConsumesExternalServices;
 
 class PayStackService
 {
+    protected $config;
+    protected $baseUri;
+    protected $secretKey;
+
     public function __construct()
     {
-        $paystackInfo = DB::table('integrations')->where('name', 'PayStack')->first();
-        $this->config = unserialize($paystackInfo->data);
+        $gateway = \App\Models\PaymentGateway::where('name', 'Paystack')->first();
+        $meta = is_array($gateway?->metadata) ? $gateway->metadata : json_decode($gateway?->metadata ?? '[]', true);
+        
+        $this->config = $meta ?? [];
         $this->baseUri = 'https://api.paystack.co';
-        $this->secretKey = $this->config['secret_key'];
+        $this->secretKey = $this->config['secret_key'] ?? env('PAYSTACK_SECRET_KEY', '');
     }
 
     public function makeRequest($method, $url, $body)
