@@ -1,0 +1,358 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "Outfit";
+    src: local('Outfit'), url("../fonts/Outfit/Outfit-Light.ttf") format("truetype");
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Outfit";
+    src: local('Outfit'), url("../fonts/Outfit/Outfit-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Outfit";
+    src: local('Outfit'), url("../fonts/Outfit/Outfit-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Outfit";
+    src: local('Outfit'), url("../fonts/Outfit/Outfit-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Outfit";
+    src: local('Outfit'), url("../fonts/Outfit/Outfit-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Outfit";
+    src: local('Outfit'), url("../fonts/Outfit/Outfit-ExtraBold.ttf") format("truetype");
+    font-weight: 800;
+    font-style: normal;
+}
+
+:root {
+    /* Wappiyo Vibrant Brand Colors */
+    --wappiyo-purple: #6C5CE7;
+    --wappiyo-violet: #8B5CF6;
+    --wappiyo-cyan: #06B6D4;
+    --wappiyo-pink: #EC4899;
+    --wappiyo-emerald: #22C55E;
+    --wappiyo-orange: #F97316;
+
+    /* Strategic Gradients */
+    --gradient-primary: linear-gradient(135deg, #6C5CE7 0%, #8B5CF6 100%);
+    --gradient-secondary: linear-gradient(135deg, #06B6D4 0%, #6C5CE7 100%);
+    --gradient-ai: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+    --gradient-accent: linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%);
+    --gradient-glow: radial-gradient(circle at 50% 50%, rgba(108, 92, 231, 0.15) 0%, transparent 70%);
+
+    /* Theme variables - Light Mode */
+    --color-bg-base: #F8FAFC;
+    --color-bg-surface: #FFFFFF;
+    --color-bg-elevated: #FFFFFF;
+    --color-border: #E2E8F0;
+    --color-border-subtle: #F1F5F9;
+    --color-text-primary: #0F172A;
+    --color-text-secondary: #475569;
+    --color-text-muted: #94A3B8;
+
+    --primary: 258 78% 63%;
+}
+
+.dark {
+    /* Theme variables - Dark Mode */
+    --color-bg-base: #09090B;
+    --color-bg-surface: #111113;
+    --color-bg-elevated: #18181B;
+    --color-border: #27272A;
+    --color-border-subtle: #1F1F23;
+    --color-text-primary: #FAFAFA;
+    --color-text-secondary: #A1A1AA;
+    --color-text-muted: #71717A;
+}
+
+/* Base typography */
+body {
+    font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: var(--color-bg-base);
+    color: var(--color-text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: -0.015em;
+}
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(148, 163, 184, 0.35);
+    border-radius: 9999px;
+    transition: background-color 0.2s ease;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background-color: rgba(113, 113, 122, 0.4);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(108, 92, 231, 0.6);
+}
+
+/* Gradients */
+.bg-gradient-wappiyo {
+    background: var(--gradient-primary);
+}
+
+.bg-gradient-secondary {
+    background: var(--gradient-secondary);
+}
+
+.bg-gradient-ai {
+    background: var(--gradient-ai);
+}
+
+.bg-gradient-accent {
+    background: var(--gradient-accent);
+}
+
+.text-gradient-wappiyo {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-ai {
+    background: var(--gradient-ai);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Glassmorphism utilities */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.dark .glass-panel {
+    background: rgba(17, 17, 19, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-header {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.dark .glass-header {
+    background: rgba(9, 9, 11, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(39, 39, 42, 0.8);
+}
+
+/* Micro-interaction helpers */
+.hover-lift {
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hover-lift:hover {
+    transform: translateY(-2px);
+}
+
+.glow-hover {
+    transition: box-shadow 0.25s ease;
+}
+
+.glow-hover:hover {
+    box-shadow: 0 0 25px -4px rgba(108, 92, 231, 0.4);
+}
+
+/* Shimmer overlay */
+.shimmer-mask {
+    position: relative;
+    overflow: hidden;
+}
+
+.shimmer-mask::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.2) 20%,
+        rgba(255, 255, 255, 0.5) 60%,
+        rgba(255, 255, 255, 0)
+    );
+    animation: shimmer 2s infinite;
+    content: '';
+}
+
+.dark .shimmer-mask::after {
+    background-image: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.05) 20%,
+        rgba(255, 255, 255, 0.1) 60%,
+        rgba(255, 255, 255, 0)
+    );
+}
+
+/* Form input focus state */
+.input-focus-ring {
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.input-focus-ring:focus {
+    outline: none;
+    border-color: #6C5CE7;
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.18);
+}
+
+.dark .input-focus-ring:focus {
+    border-color: #8B5CF6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
+}
+
+/* Vue Tel Input custom styles */
+.vue-tel-input:focus-within {
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.18) !important;
+    border-color: #6C5CE7 !important;
+}
+
+.vue-tel-input {
+    border-radius: 0.5rem !important;
+    display: flex;
+    border: 1px solid #E2E8F0 !important;
+    text-align: left;
+    transition: all 0.15s ease;
+}
+
+.dark .vue-tel-input {
+    background-color: #111113 !important;
+    border-color: #27272A !important;
+    color: #FAFAFA !important;
+}
+
+.vti__dropdown {
+    background-color: inherit !important;
+}
+
+.vti__input {
+    border: none;
+    border-radius: 0 0.5rem 0.5rem 0 !important;
+    width: 100%;
+    outline: none;
+    padding-left: 8px;
+}
+
+.dark .vti__input {
+    background-color: transparent !important;
+    color: #FAFAFA !important;
+}
+
+.ql-editor p {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+}
+
+.chat-bg {
+    background-color: #F8FAFC;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(108, 92, 231, 0.04) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(0, 206, 201, 0.04) 0px, transparent 50%),
+        radial-gradient(rgba(148, 163, 184, 0.18) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 28px 28px;
+}
+
+.dark .chat-bg {
+    background-color: #09090B;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(108, 92, 231, 0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(0, 206, 201, 0.06) 0px, transparent 50%),
+        radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 28px 28px;
+}
+
+.speech-bubble-right::before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 5px solid #d8fad4;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #d8fad4;
+    border-bottom: 5px solid transparent;
+    right: -10px;
+    top: 0;
+}
+
+.speech-bubble-left::before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 5px solid transparent;
+    border-right: 5px solid white;
+    border-top: 5px solid white;
+    border-bottom: 5px solid transparent;
+    left: -10px;
+    top: 0;
+}
+
+/* Accessibility: Focus-visible rings */
+:focus-visible {
+    outline: 2px solid #6C5CE7;
+    outline-offset: 2px;
+}
+
+.dark :focus-visible {
+    outline: 2px solid #8B5CF6;
+    outline-offset: 2px;
+}
+
+/* Accessibility: Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

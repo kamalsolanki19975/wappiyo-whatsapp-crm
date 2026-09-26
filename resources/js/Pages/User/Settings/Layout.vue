@@ -1,0 +1,170 @@
+<template>
+    <AppLayout>
+        <div class="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
+            <!-- Header Section -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200/80 dark:border-white/10 pb-6">
+                <div>
+                    <div class="flex items-center gap-2.5 mb-1">
+                        <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-primary/10 text-primary dark:bg-primary/20 shadow-sm">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </span>
+                        <h1 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+                            {{ $t('Settings & Preferences') }}
+                        </h1>
+                    </div>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">
+                        {{ $t('Manage organization details, WhatsApp Cloud API connections, contact attributes, and billing.') }}
+                    </p>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <Link
+                        href="/developer-tools/access-tokens"
+                        class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200/80 dark:border-white/10 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5 text-xs font-semibold shadow-xs transition"
+                    >
+                        <svg class="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                        </svg>
+                        <span>{{ $t('API Keys') }}</span>
+                    </Link>
+
+                    <Link
+                        href="/billing"
+                        class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-primary text-white text-xs font-bold shadow-sm shadow-purple-600/30 hover:bg-primary/90 transition"
+                    >
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                        </svg>
+                        <span>{{ $t('Billing') }}</span>
+                    </Link>
+                </div>
+            </div>
+
+            <!-- Two-Column Layout (Sidebar + Content) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                <!-- Sidebar Navigation (Desktop & Mobile Pills) -->
+                <div class="lg:col-span-3">
+                    <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-white/10 p-3 shadow-sm space-y-1">
+                        <!-- Navigation Items -->
+                        <Link
+                            v-for="item in navItems"
+                            :key="item.href"
+                            :href="item.href"
+                            v-show="!item.hidden"
+                            class="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-semibold transition group"
+                            :class="isActive(item.href)
+                                ? 'bg-primary text-white shadow-xs'
+                                : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white'"
+                        >
+                            <span
+                                class="w-7 h-7 rounded-xl flex items-center justify-center transition shrink-0"
+                                :class="isActive(item.href) ? 'bg-white/20 text-white' : 'bg-slate-100 dark:bg-white/5 text-slate-500 group-hover:text-primary'"
+                                v-html="item.icon"
+                            ></span>
+                            <div class="min-w-0 flex-1">
+                                <div class="truncate">{{ item.label }}</div>
+                            </div>
+                        </Link>
+                    </div>
+
+                    <!-- Quick Help / Documentation Card -->
+                    <div class="mt-4 p-4 rounded-3xl border border-slate-200/80 dark:border-white/10 bg-slate-50/60 dark:bg-white/[0.02] text-xs text-slate-500 dark:text-slate-400 hidden lg:block">
+                        <div class="font-bold text-slate-900 dark:text-white mb-1">
+                            {{ $t('Need help configuring?') }}
+                        </div>
+                        <p class="text-[11px] leading-relaxed mb-3">
+                            {{ $t('Check our developer documentation for WhatsApp Cloud API webhooks and REST endpoints.') }}
+                        </p>
+                        <Link
+                            href="/developer-tools/access-tokens"
+                            class="text-primary font-bold hover:underline inline-flex items-center gap-1 text-[11px]"
+                        >
+                            <span>{{ $t('View API Docs') }}</span>
+                            &rarr;
+                        </Link>
+                    </div>
+                </div>
+
+                <!-- Main Settings Content Area -->
+                <div class="lg:col-span-9">
+                    <slot />
+                </div>
+            </div>
+        </div>
+    </AppLayout>
+</template>
+
+<script setup>
+import { computed } from 'vue';
+import { Link, usePage } from '@inertiajs/vue3';
+import AppLayout from '../Layout/App.vue';
+
+const props = defineProps({
+    modules: {
+        type: Array,
+        default: () => [],
+    },
+});
+
+const page = usePage();
+
+function moduleActive(moduleName) {
+    if (!props.modules || !props.modules.length) return false;
+    const mod = props.modules.find((m) => m.name === moduleName);
+    return mod && mod.status === 1;
+}
+
+const navItems = computed(() => [
+    {
+        label: 'General & Organization',
+        href: '/settings',
+        icon: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>',
+    },
+    {
+        label: 'WhatsApp Cloud API',
+        href: '/settings/whatsapp',
+        icon: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>',
+    },
+    {
+        label: 'Contact Fields',
+        href: '/settings/contacts',
+        icon: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>',
+    },
+    {
+        label: 'Ticket Workflow',
+        href: '/settings/tickets',
+        icon: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" /></svg>',
+    },
+    {
+        label: 'Automation Sequencing',
+        href: '/settings/automation',
+        hidden: !moduleActive('AI Assistant') && !moduleActive('Flow builder'),
+        icon: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>',
+    },
+    {
+        label: 'API Keys & Developer',
+        href: '/developer-tools/access-tokens',
+        icon: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>',
+    },
+    {
+        label: 'Team & Agents',
+        href: '/team',
+        icon: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>',
+    },
+    {
+        label: 'Billing & Plan',
+        href: '/billing',
+        icon: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>',
+    },
+]);
+
+function isActive(href) {
+    if (href === '/settings') {
+        return page.url === '/settings';
+    }
+    return page.url.startsWith(href);
+}
+</script>
