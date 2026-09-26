@@ -75,7 +75,8 @@ class RazorPayService
             $razorpayPlanQuery = $this->createSubscription($plan, $razorpayPlanQuery->data, $amount, $coupon, $taxRates, $interval);
             return redirect($razorpayPlanQuery->data->short_url);
         } else {
-            dd($razorpayPlanQuery);
+            \Log::error('RazorPay Plan Creation Failed', ['error' => $razorpayPlanQuery]);
+            return redirect()->route('billing')->with('status', ['type' => 'error', 'message' => __('Unable to process payment with Razorpay.')]);
         }
     }
 

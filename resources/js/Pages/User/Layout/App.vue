@@ -179,9 +179,11 @@ const playSound = () => {
 
 const doSomething = () => {};
 
+let cleanupKeyboard = null;
+
 onMounted(() => {
     initTheme();
-    setupKeyboardListener();
+    cleanupKeyboard = setupKeyboardListener();
     setupSound();
 
     if (organization.value?.id) {
@@ -208,6 +210,9 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+    if (cleanupKeyboard) {
+        cleanupKeyboard();
+    }
     if (organization.value?.id) {
         try {
             const echo = getEchoInstance(

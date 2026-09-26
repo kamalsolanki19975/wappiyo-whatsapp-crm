@@ -81,7 +81,6 @@ class InstallerController extends BaseController
                 !session()->has('database') ||
                 !session()->has('user')
             ) {
-                dd('session_faild');
                 return redirect('install/app');
             }
         }

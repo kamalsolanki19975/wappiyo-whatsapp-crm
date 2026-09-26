@@ -45,7 +45,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue';
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 import { usePage } from "@inertiajs/vue3";
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
@@ -77,8 +77,16 @@ watch(() => [usePage().props.flash, { deep: true }], () => {
     }
 });
 
+let cleanupKeyboard = null;
+
 onMounted(() => {
     initTheme();
-    setupKeyboardListener();
+    cleanupKeyboard = setupKeyboardListener();
+});
+
+onUnmounted(() => {
+    if (cleanupKeyboard) {
+        cleanupKeyboard();
+    }
 });
 </script>

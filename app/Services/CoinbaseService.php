@@ -81,7 +81,8 @@ class CoinbaseService
         if($charge->success){
             return redirect($charge->data->data->hosted_url);
         } else {
-            dd($charge->error);
+            \Log::error('Coinbase Charge Failed', ['error' => $charge->error]);
+            return redirect()->route('billing')->with('status', ['type' => 'error', 'message' => __('Unable to process payment with Coinbase.')]);
         }
     }
 

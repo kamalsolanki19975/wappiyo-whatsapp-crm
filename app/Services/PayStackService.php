@@ -96,7 +96,8 @@ class PayStackService
             $paystackSubscription = $this->createSubscription($plan, $paystackPlan->data, $paystackAmount);
             return redirect($paystackSubscription->data->data->authorization_url);
         } else {
-            dd($paystackPlan);
+            \Log::error('PayStack Plan Creation Failed', ['error' => $paystackPlan]);
+            return redirect()->route('billing')->with('status', ['type' => 'error', 'message' => __('Unable to process payment with PayStack.')]);
         } 
     }
 
