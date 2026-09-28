@@ -20,6 +20,8 @@ use Inertia\Inertia;
 
 class DashboardController extends BaseController
 {
+    protected $subscriptionService;
+
     public function __construct()
     {
         $this->subscriptionService = new SubscriptionService();
@@ -28,7 +30,8 @@ class DashboardController extends BaseController
     public function index(Request $request){
         $organizationId = session()->get('current_organization');
         $data['subscription'] = Subscription::with('plan')->where('organization_id', $organizationId)->first();
-        $data['subscriptionDetails'] = SubscriptionService::calculateSubscriptionBillingDetails($organizationId, $data['subscription']->plan_id);
+        $planId = $data['subscription'] ? $data['subscription']->plan_id : null;
+        $data['subscriptionDetails'] = $planId ? SubscriptionService::calculateSubscriptionBillingDetails($organizationId, $planId) : null;
         $data['subscriptionIsActive'] = SubscriptionService::isSubscriptionActive($organizationId);
         $data['chatCount'] = Chat::where('organization_id', $organizationId)->whereNull('deleted_at')->count();
         $data['campaignCount'] = Campaign::where('organization_id', $organizationId)->count();
@@ -55,6 +58,27 @@ class DashboardController extends BaseController
         $data['appId'] = $settings->get('whatsapp_client_id', null);
         $data['configId'] = $settings->get('whatsapp_config_id', null);
         $data['title'] = __('Dashboard');
+
+        $onboardingMeta = $config['onboarding'] ?? [];
+        $hasWhatsapp = !empty($config['whatsapp']['phone_number_id']) || !empty($config['whatsapp']['access_token']);
+        $hasTemplate = Template::where('organization_id', $organizationId)->whereNull('deleted_at')->exists();
+        $hasTeam = \App\Models\Team::where('organization_id', $organizationId)->count() > 1 || \App\Models\TeamInvite::where('organization_id', $organizationId)->exists();
+        $hasProfile = !empty($organization->name) && (!empty($organization->timezone) || !empty($config['industry']));
+        $completedStepsCount = ($hasProfile ? 1 : 0) + ($hasWhatsapp ? 1 : 0) + ($hasTemplate ? 1 : 0) + ($hasTeam ? 1 : 0);
+
+        $data['onboardingState'] = [
+            'completed' => (bool) ($onboardingMeta['completed'] ?? false),
+            'dismissed' => (bool) ($onboardingMeta['dismissed'] ?? false),
+            'progress' => (int) round(($completedStepsCount / 4) * 100),
+            'completedCount' => $completedStepsCount,
+            'totalCount' => 4,
+            'steps' => [
+                'profile' => $hasProfile,
+                'whatsapp' => $hasWhatsapp,
+                'template' => $hasTemplate,
+                'team' => $hasTeam,
+            ]
+        ];
 
         return Inertia::render('User/Dashboard', $data);
     }

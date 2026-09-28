@@ -67,7 +67,18 @@ class AuthController extends BaseController
         if ($guard == 'user') {
             $teams = Team::where('user_id', auth()->user()->id);
             if ($teams->count() == 1) {
-                session()->put('current_organization', $teams->first()->organization_id);
+                $organizationId = $teams->first()->organization_id;
+                session()->put('current_organization', $organizationId);
+
+                // Check onboarding status for workspace owners
+                if ($teams->first()->role === 'owner') {
+                    $org = Organization::find($organizationId);
+                    $meta = $org && $org->metadata ? json_decode($org->metadata, true) : [];
+                    $onboardingStatus = $meta['onboarding']['status'] ?? 'NOT_STARTED';
+                    if ($onboardingStatus !== 'COMPLETED') {
+                        return redirect('/onboarding');
+                    }
+                }
             }
         }
 
@@ -79,7 +90,7 @@ class AuthController extends BaseController
         $user = $this->userService->store($request);
         $authService = (new AuthService($user))->authenticateSession($request);
 
-        return redirect('/dashboard');
+        return redirect('/onboarding');
     }
 
     public function socialLogin(Request $request, $type)
@@ -228,6 +239,8 @@ class AuthController extends BaseController
                 $organization = Organization::create([
                     'identifier' => $timestamp . $user->id . $randomString,
                     'name' => $name[0] . "'s organization",
+                    'timezone' => 'Asia/Kolkata',
+                    'metadata' => json_encode(['timezone' => 'Asia/Kolkata']),
                     'created_by' => $user->id
                 ]);
 
@@ -260,7 +273,7 @@ class AuthController extends BaseController
 
                 Auth::guard('user')->login($user, true);
 
-                return redirect('dashboard');
+                return redirect('/onboarding');
             }
         } catch (\Exception $e) {
             // Handle exception, possibly log the error and redirect to an error page
@@ -279,6 +292,8 @@ class AuthController extends BaseController
         $organization = Organization::create([
             'identifier' => $timestamp . $user->id . $randomString,
             'name' => $user->first_name . "'s organization",
+            'timezone' => 'Asia/Kolkata',
+            'metadata' => json_encode(['timezone' => 'Asia/Kolkata']),
             'created_by' => $user->id
         ]);
 
@@ -306,10 +321,14 @@ class AuthController extends BaseController
         return $organization;
     }
 
-    public function showRegistrationForm()
+    public function showRegistrationForm(Request $request)
     {
         $keys = ['logo', 'company_name', 'address', 'email', 'phone', 'socials', 'trial_period', 'allow_facebook_login', 'allow_google_login'];
         $data['companyConfig'] = Setting::whereIn('key', $keys)->pluck('value', 'key')->toArray();
+        $data['selectedPlan'] = $request->query('plan');
+        if ($request->query('plan')) {
+            session()->put('selected_plan', $request->query('plan'));
+        }
 
         return Inertia::render('Auth/Register', $data);
     }
@@ -320,11 +339,15 @@ class AuthController extends BaseController
         $authService = (new AuthService($user))->authenticateSession($request);
         $config = Setting::where('key', 'verify_email')->first();
 
+        if ($request->filled('plan')) {
+            session()->put('selected_plan', $request->input('plan'));
+        }
+
         if (isset($config->value) && $config->value == '1') {
             $user->sendEmailVerificationNotification();
         }
 
-        return redirect('/dashboard');
+        return redirect('/onboarding');
     }
 
     public function viewInvite($uuid)

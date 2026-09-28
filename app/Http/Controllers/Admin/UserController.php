@@ -124,5 +124,12 @@ class UserController extends BaseController
     public function destroy($uuid)
     {
         $this->userService->destroy($uuid);
+
+        return back()->with(
+            'status', [
+                'type' => 'success', 
+                'message' => __('User deleted successfully!')
+            ]
+        );
     }
 }

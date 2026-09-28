@@ -104,6 +104,8 @@ class OrganizationService
             $organization = Organization::create([
                 'name' => $request->input('name'),
                 'identifier' => $timestamp . $userId . $randomString,
+                'timezone' => 'Asia/Kolkata',
+                'metadata' => json_encode(['timezone' => 'Asia/Kolkata']),
                 'address' => json_encode([
                     'street' => $request->street,
                     'city' => $request->city,
@@ -193,7 +195,8 @@ class OrganizationService
                 'payment' => BillingPayment::class,
             };
 
-            $transactionData = [
+            $type = $request->type;
+            $entryData = [
                 'organization_id' => $organization->id,
                 'amount' => $request->amount,
             ];

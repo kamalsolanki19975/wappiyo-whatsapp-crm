@@ -57,7 +57,7 @@ const userFullName = computed(() => {
                 class="inline-flex items-center gap-2.5 px-3 py-1.5 text-xs sm:text-sm text-slate-500 dark:text-zinc-400 bg-slate-100/80 dark:bg-zinc-800/80 hover:bg-slate-200/80 dark:hover:bg-zinc-700/80 rounded-xl border border-slate-200/80 dark:border-zinc-700/80 transition-all duration-150 cursor-pointer shadow-subtle group"
                 @click="openCommandPalette"
             >
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-400 dark:text-zinc-500 group-hover:text-[#6C5CE7] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-400 dark:text-zinc-500 group-hover:text-emerald-600 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 <span class="hidden sm:inline">Search or command...</span>
                 <span class="sm:hidden">Search...</span>
                 <kbd class="hidden md:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono font-medium text-slate-400 dark:text-zinc-500 bg-white dark:bg-zinc-900 rounded border border-slate-200 dark:border-zinc-700 ml-2">
@@ -72,13 +72,13 @@ const userFullName = computed(() => {
             <button
                 v-if="organization && organization.name"
                 type="button"
-                class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-[#6C5CE7] dark:text-purple-300 bg-purple-50 dark:bg-purple-950/40 rounded-lg border border-purple-200/60 dark:border-purple-800/40 hover:bg-purple-100 dark:hover:bg-purple-900/50 transition-colors"
+                class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 rounded-lg border border-emerald-200/60 dark:border-emerald-800/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors"
                 @click="emit('switchTeams')"
                 title="Switch Workspace"
             >
-                <span class="w-1.5 h-1.5 rounded-full bg-[#6C5CE7] animate-pulse"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span class="max-w-[120px] truncate">{{ organization.name }}</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
             </button>
 
             <!-- Language Switcher -->
@@ -92,7 +92,7 @@ const userFullName = computed(() => {
             <!-- Dark / Light Mode Toggle -->
             <button
                 type="button"
-                class="rounded-xl p-2 text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800 hover:text-slate-900 dark:hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6C5CE7]"
+                class="rounded-xl p-2 text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800 hover:text-slate-900 dark:hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                 :title="isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
                 @click="toggleTheme"
             >

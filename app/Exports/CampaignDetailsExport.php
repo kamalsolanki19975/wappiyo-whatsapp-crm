@@ -21,7 +21,13 @@ class CampaignDetailsExport implements FromCollection, WithHeadings
     */
     public function collection()
     {
-        $campaign = Campaign::with('template')->where('uuid', $this->uuid)->first();
+        $orgId = session('current_organization');
+        $query = Campaign::with('template')->where('uuid', $this->uuid);
+        if ($orgId) {
+            $query->where('organization_id', $orgId);
+        }
+        $campaign = $query->firstOrFail();
+
         $campaignLogs = CampaignLog::with('contact', 'chat.logs')
             ->where('campaign_id', $campaign->id)
             ->orderBy('id')
@@ -30,12 +36,12 @@ class CampaignDetailsExport implements FromCollection, WithHeadings
         $logs = $campaignLogs->map(function ($log) use ($campaign) {
             return [
                 'campaign_name' => $campaign->name,
-                'template_name' => $campaign->template->name,
-                'first_name' => $log->contact->first_name,
-                'last_name' => $log->contact->last_name,
-                'phone' => $log->contact->formatted_phone_number,
+                'template_name' => $campaign->template ? $campaign->template->name : '',
+                'first_name' => $log->contact ? $log->contact->first_name : '',
+                'last_name' => $log->contact ? $log->contact->last_name : '',
+                'phone' => $log->contact ? $log->contact->formatted_phone_number : '',
                 'updated_at' => $log->updated_at,
-                'status' => $log->status == 'success' ? $log->chat->status : $log->status
+                'status' => ($log->status == 'success' && $log->chat) ? $log->chat->status : $log->status
             ];
         });
 

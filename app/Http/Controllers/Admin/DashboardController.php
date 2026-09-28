@@ -43,6 +43,9 @@ class DashboardController extends BaseController
                 $query->whereNull('deleted_at');
             })->where('status', '=', 'open')->count();
         $data['totalMessages'] = Chat::count();
+        $data['totalLeads'] = \App\Models\Lead::count();
+        $data['newLeads'] = \App\Models\Lead::where('status', 'new')->count();
+        $data['recentLeads'] = \App\Models\Lead::latest()->limit(5)->get();
         $data['payments'] = BillingResource::collection($billingRows);
         $data['period'] = $this->period();
         $data['newUsers'] = $this->newUsers();
@@ -80,19 +83,19 @@ class DashboardController extends BaseController
     }
 
     private function revenue(){
-        $billingCounts = [];
+        $billingAmounts = [];
 
         foreach($this->period() as $dateString){
             $date = Carbon::parse($dateString);
-            $billingCount = BillingTransaction::whereHas('organization', function ($query) {
+            $billingAmount = (float) BillingTransaction::whereHas('organization', function ($query) {
                     $query->whereNull('deleted_at');
                 })->where('entity_type', '=', 'payment')
                 ->whereDate('updated_at', $date->toDateString())
-                ->count();
+                ->sum('amount');
                 
-            $billingCounts[] = $billingCount;
+            $billingAmounts[] = round($billingAmount, 2);
         }
 
-        return $billingCounts;
+        return $billingAmounts;
     }
 }

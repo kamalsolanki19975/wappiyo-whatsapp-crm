@@ -19,6 +19,8 @@ use Validator;
 
 class TaxController extends BaseController
 {
+    protected $taxService;
+
     public function __construct(TaxService $taxService)
     {
         $this->taxService = $taxService;

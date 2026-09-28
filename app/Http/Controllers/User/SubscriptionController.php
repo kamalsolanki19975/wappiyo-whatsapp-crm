@@ -36,7 +36,8 @@ class SubscriptionController extends BaseController
         $data['taxes'] = TaxRate::where('status', 'active')->where('deleted_at', NULL)->get();
         $data['plans'] = $this->subscriptionPlanService->get($request);
         $data['methods'] = $this->paymentMethods();
-        $data['subscriptionDetails'] = SubscriptionService::calculateSubscriptionBillingDetails($organizationId, $data['subscription']->plan_id);
+        $planId = $data['subscription'] ? $data['subscription']->plan_id : null;
+        $data['subscriptionDetails'] = $planId ? SubscriptionService::calculateSubscriptionBillingDetails($organizationId, $planId) : null;
         $data['title'] = __('Billing');
 
         return Inertia::render('User/Billing/Plan', $data);

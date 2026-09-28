@@ -16,26 +16,31 @@ class Subscription extends Model {
 
     public function getCreatedAtAttribute($value)
     {
-        return DateTimeHelper::convertToOrganizationTimezone($value)->toDateTimeString();
+        return DateTimeHelper::convertToOrganizationTimezone($value)?->toDateTimeString();
     }
 
     public function getUpdatedAtAttribute($value)
     {
-        return DateTimeHelper::convertToOrganizationTimezone($value)->toDateTimeString();
+        return DateTimeHelper::convertToOrganizationTimezone($value)?->toDateTimeString();
     }
 
     public function getValidUntilAttribute($value)
     {
-        return DateTimeHelper::convertToOrganizationTimezone($value)->toDateTimeString();
+        return DateTimeHelper::convertToOrganizationTimezone($value)?->toDateTimeString();
     }
 
     public function getStartDateAttribute($value)
     {
-        return DateTimeHelper::convertToOrganizationTimezone($value)->toDateTimeString();
+        return DateTimeHelper::convertToOrganizationTimezone($value)?->toDateTimeString();
     }
 
     public function plan()
     {
         return $this->belongsTo(SubscriptionPlan::class, 'plan_id', 'id');
+    }
+
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class, 'organization_id', 'id');
     }
 }

@@ -49,6 +49,7 @@ class SettingController extends BaseController
         }
 
         $settings = $this->settingService->updateSettings($request);
+        \App\Helpers\DateTimeHelper::clearCache();
 
         return Redirect::back()->with(
             'status', [

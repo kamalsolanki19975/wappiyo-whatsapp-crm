@@ -56,13 +56,33 @@ class ProfileController extends BaseController
     public function updateOrganization(StoreProfileAddress $request)
     {
         $organizationId = session('current_organization');
-        $organizationConfig = Organization::where('id', $organizationId)->first();
+        if (! $organizationId) {
+            abort(403, 'No active organization session.');
+        }
+
+        $user = auth()->user();
+        if ($user->role !== 'admin') {
+            $teamMember = \App\Models\Team::where('user_id', $user->id)
+                ->where('organization_id', $organizationId)
+                ->first();
+
+            if (! $teamMember || ! in_array($teamMember->role, ['owner', 'manager'])) {
+                abort(403, 'Unauthorized. Only organization owners and managers can update organization settings.');
+            }
+        }
+
+        $organizationConfig = Organization::where('id', $organizationId)->firstOrFail();
         $metadataArray = $organizationConfig->metadata ? json_decode($organizationConfig->metadata, true) : [];
 
         $metadataArray['notifications']['enable_sound'] = $request->input('enable_sound_notification');
         $metadataArray['notifications']['tone'] = $request->input('tone');
-        $metadataArray['notifications']['volume'] = $request->input('volume');
-        $metadataArray['timezone'] = $request->input('timezone');
+        $timezoneInput = $request->input('timezone');
+        $validTz = \App\Helpers\DateTimeHelper::isValidTimezone($timezoneInput)
+            ? $timezoneInput
+            : ($organizationConfig->timezone ?: \App\Helpers\DateTimeHelper::DEFAULT_TIMEZONE);
+
+        $metadataArray['timezone'] = $validTz;
+        $organizationConfig->timezone = $validTz;
 
         $addressArray['street'] = $request->input('address');
         $addressArray['city'] = $request->input('city');
@@ -75,6 +95,7 @@ class ProfileController extends BaseController
         $organizationConfig->metadata = json_encode($metadataArray);
 
         if($organizationConfig->save()){
+            \App\Helpers\DateTimeHelper::clearCache();
             return Redirect::back()->with(
                 'status', [
                     'type' => 'success', 

@@ -1,33 +1,18 @@
 <template>
     <div class="min-h-screen bg-slate-50 dark:bg-[#09090B] flex flex-col justify-center py-12 sm:px-6 lg:px-8 transition-colors antialiased relative overflow-hidden">
         <!-- Ambient Background Glows -->
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-[#6C5CE7]/20 via-[#8B5CF6]/15 to-transparent blur-3xl pointer-events-none -z-10"></div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-[#22C55E]/15 via-[#10B981]/10 to-transparent blur-3xl pointer-events-none -z-10"></div>
 
         <div class="sm:mx-auto sm:w-full sm:max-w-md px-4">
             <!-- Brand Logo -->
             <div class="flex justify-center mb-6">
-                <Link href="/" class="flex items-center gap-3">
-                    <img 
-                        v-if="props.companyConfig?.logo" 
-                        class="max-h-10 object-contain" 
-                        :src="'/media/' + props.companyConfig.logo" 
-                        :alt="props.companyConfig.company_name"
-                    >
-                    <div v-else class="flex items-center gap-2.5">
-                        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#6C5CE7] to-[#8B5CF6] flex items-center justify-center text-white font-extrabold text-lg shadow-lg shadow-indigo-500/25">
-                            W
-                        </div>
-                        <span class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-                            {{ props.companyConfig?.company_name || 'Wappiyo' }}
-                        </span>
-                    </div>
-                </Link>
+                <BrandLogo :custom-logo="props.companyConfig?.logo" :company-name="props.companyConfig?.company_name || 'Wappiyo'" mode="auto" href="/" />
             </div>
         </div>
 
         <div class="sm:mx-auto sm:w-full sm:max-w-md px-4">
             <div class="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 py-8 px-6 sm:px-10 rounded-2xl shadow-xl shadow-slate-900/5 dark:shadow-black/40 text-center space-y-5">
-                <div class="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-indigo-950/50 text-[#6C5CE7] dark:text-indigo-400 mx-auto flex items-center justify-center shadow-inner">
+                <div class="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 mx-auto flex items-center justify-center shadow-inner">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect width="20" height="16" x="2" y="4" rx="2"></rect>
                         <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
@@ -48,7 +33,7 @@
                         v-if="!isSending"
                         @click="resendEmail" 
                         type="button"
-                        class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-[#6C5CE7] to-[#8B5CF6] hover:from-[#5b4bc4] hover:to-[#7c4deb] shadow-md shadow-indigo-500/20 active:scale-[0.98] transition-all"
+                        class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-[#22C55E] via-[#16A34A] to-[#022828] hover:from-[#15803D] hover:to-[#011d1d] shadow-md shadow-emerald-500/20 active:scale-[0.98] transition-all cursor-pointer"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path><path d="M16 16h5v5"></path></svg>
                         <span>{{ $t('Resend Verification Email') }}</span>
@@ -75,6 +60,7 @@
 
 <script setup>
     import { Link, router, usePage } from "@inertiajs/vue3";
+    import BrandLogo from '@/Components/UI/BrandLogo.vue';
     import { ref } from 'vue';
     import { toast } from 'vue3-toastify';
     import 'vue3-toastify/dist/index.css';

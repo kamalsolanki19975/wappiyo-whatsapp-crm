@@ -109,5 +109,12 @@ class TeamController extends BaseController
     public function destroy($id)
     {
         $this->userService->destroy($id);
+
+        return back()->with(
+            'status', [
+                'type' => 'success', 
+                'message' => __('Team member deleted successfully!')
+            ]
+        );
     }
 }

@@ -1,23 +1,31 @@
 <template>
-    <div class="flex h-screen w-full tracking-[0.3px] bg-gray-300/10">
-        <div class="min-h-screen flex flex-col w-full min-w-0 items-center justify-center space-x-4">
-            <div class="bg-white rounded-xl p-5 border">
-                <h4 class="font-regular text-xl mb-4 text-center">{{ $t('Select organization') }}</h4>
+    <div class="flex min-h-screen w-full items-center justify-center bg-slate-50 dark:bg-[#09090B] p-4 text-slate-900 dark:text-zinc-100 transition-colors">
+        <div class="w-full max-w-md bg-white dark:bg-[#111113] rounded-2xl p-6 sm:p-8 border border-slate-200/80 dark:border-zinc-800 shadow-xl">
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-950/60 text-[#6C5CE7] flex items-center justify-center mx-auto mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <h2 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">{{ $t('Select organization') }}</h2>
+                <p class="text-xs text-slate-500 dark:text-zinc-400 mt-1">{{ $t('Choose an organization workspace to continue') }}</p>
+            </div>
 
-                <div class="min-w-[300px] border-t pt-4 space-y-4">
-                    <div v-for="(item, index) in props.organizations" :key="index" @click="selectOrganization(item.organization.uuid)" class="flex space-x-8 bg-white rounded-md px-4 py-2 justify-between items-center w-full hover:shadow-md cursor-pointer">
-                        <div class="flex items-center space-x-2">
-                            <span class="bg-slate-200 w-12 h-12 rounded-full flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="M24 0v24H0V0h24ZM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01l-.184-.092Z"/><path fill="currentColor" d="M17 3.722v5.497l2.864.716A1.5 1.5 0 0 1 21 11.39V19a1 1 0 1 1 0 2H3a1 1 0 1 1 0-2v-7.69a1.5 1.5 0 0 1 .83-1.343L7 8.382V6.347a1.5 1.5 0 0 1 .973-1.405l7-2.625A1.5 1.5 0 0 1 17 3.722Zm-2 .721l-6 2.25V19h6V4.443Zm2 6.838V19h2v-7.22l-2-.5Zm-10-.663l-2 1V19h2v-8.382Z"/></g></svg>
-                            </span>
-                            <div>
-                                <h2>{{ item.organization.name }}</h2>
-                            </div>
-                        </div>
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="M5 2.643v14.765c.092.32.299.511.619.572c.32.061.633-.024.94-.255l8.107-6.993A.944.944 0 0 0 15 10a.94.94 0 0 0-.334-.73L6.58 2.295c-.232-.197-.639-.383-1.061-.253c-.282.087-.455.287-.519.6"/></svg>
+            <div class="space-y-3">
+                <div
+                    v-for="(item, index) in props.organizations"
+                    :key="index"
+                    @click="item.organization?.uuid ? selectOrganization(item.organization.uuid) : null"
+                    class="flex items-center justify-between p-3.5 rounded-xl border border-slate-200/80 dark:border-zinc-800 bg-slate-50/50 dark:bg-[#18181B] hover:border-[#6C5CE7] hover:bg-purple-50/40 dark:hover:bg-purple-950/20 cursor-pointer transition-all duration-150"
+                >
+                    <div class="flex items-center gap-3 min-w-0">
+                        <span class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-950/80 text-[#6C5CE7] dark:text-purple-300 flex items-center justify-center font-bold text-sm shrink-0">
+                            {{ item.organization?.name ? item.organization.name[0].toUpperCase() : 'O' }}
                         </span>
+                        <div class="min-w-0">
+                            <h3 class="font-semibold text-sm text-slate-900 dark:text-white truncate">{{ item.organization?.name || 'Unnamed Organization' }}</h3>
+                            <p class="text-xs text-slate-400 dark:text-zinc-500 capitalize">{{ item.role || 'Member' }}</p>
+                        </div>
                     </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
                 </div>
             </div>
         </div>

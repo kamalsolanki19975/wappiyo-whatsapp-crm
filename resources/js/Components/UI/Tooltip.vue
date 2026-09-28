@@ -14,6 +14,18 @@ const props = defineProps({
         type: String,
         default: '',
     },
+    disabled: {
+        type: Boolean,
+        default: false,
+    },
+    block: {
+        type: Boolean,
+        default: true,
+    },
+    wrapperClass: {
+        type: String,
+        default: '',
+    },
 });
 
 const isVisible = ref(false);
@@ -28,7 +40,11 @@ const positionClasses = {
 
 <template>
     <div
-        class="relative inline-flex"
+        :class="[
+            'relative',
+            block ? 'w-full block' : 'inline-flex',
+            wrapperClass
+        ]"
         @mouseenter="isVisible = true"
         @mouseleave="isVisible = false"
         @focusin="isVisible = true"
@@ -45,7 +61,7 @@ const positionClasses = {
             leave-to-class="opacity-0 scale-95"
         >
             <div
-                v-if="isVisible && content"
+                v-if="!disabled && isVisible && content"
                 :class="[
                     'absolute z-50 px-2.5 py-1 text-xs font-medium text-white bg-slate-900/95 dark:bg-zinc-800/95 backdrop-blur-md rounded-md shadow-lg whitespace-nowrap pointer-events-none border border-slate-700/50 dark:border-zinc-700/60',
                     positionClasses[position] || positionClasses.top,

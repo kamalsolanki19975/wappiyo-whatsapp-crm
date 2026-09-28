@@ -41,25 +41,13 @@ class SendCampaignJob implements ShouldQueue
 
             $campaigns->each(function ($campaign) {
                 $organization = $campaign->organization;
-                $timezone = 'UTC';
+                $timezone = \App\Helpers\DateTimeHelper::getOrganizationTimezone($organization);
 
-                if ($organization) {
-                    $metadata = $organization->metadata;
-                    $metadata = isset($metadata) ? json_decode($metadata, true) : null;
-
-                    if ($metadata && isset($metadata['timezone'])) {
-                        $timezone = $metadata['timezone'];
-                    }
-                }
-
-                \Log::info($timezone);
                 $scheduledAt = Carbon::parse($campaign->scheduled_at, 'UTC')->timezone($timezone);
 
                 // Compare the scheduled_at time with the current time in the organization's timezone
-                Log::info($scheduledAt);
                 if ($scheduledAt->lte(Carbon::now($timezone))) {
                     $this->processCampaign($campaign);
-                    \Log::info('campaign');
                 }
             });
         } catch (\Exception $e) {
@@ -120,7 +108,9 @@ class SendCampaignJob implements ShouldQueue
             return [
                 'campaign_id' => $campaign->id,
                 'contact_id' => $contactId,
+                'status' => 'pending',
                 'created_at' => now(),
+                'updated_at' => now(),
             ];
         })->toArray();
 
@@ -217,7 +207,7 @@ class SendCampaignJob implements ShouldQueue
         $config = $config ? json_decode($config, true) : [];
 
         $accessToken = $config['whatsapp']['access_token'] ?? null;
-        $apiVersion = 'v18.0';
+        $apiVersion = config('graph.api_version', 'v20.0');
         $appId = $config['whatsapp']['app_id'] ?? null;
         $phoneNumberId = $config['whatsapp']['phone_number_id'] ?? null;
         $wabaId = $config['whatsapp']['waba_id'] ?? null;

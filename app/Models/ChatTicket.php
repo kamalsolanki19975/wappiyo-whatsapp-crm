@@ -15,15 +15,19 @@ class ChatTicket extends Model {
 
     public function getCreatedAtAttribute($value)
     {
-        return DateTimeHelper::convertToOrganizationTimezone($value)->toDateTimeString();
+        return DateTimeHelper::convertToOrganizationTimezone($value)?->toDateTimeString();
     }
 
     public function getUpdatedAtAttribute($value)
     {
-        return DateTimeHelper::convertToOrganizationTimezone($value)->toDateTimeString();
+        return DateTimeHelper::convertToOrganizationTimezone($value)?->toDateTimeString();
     }
 
     public function user(){
         return $this->belongsTo(User::class, 'assigned_to', 'id');
+    }
+
+    public function contact(){
+        return $this->belongsTo(Contact::class, 'contact_id', 'id');
     }
 }

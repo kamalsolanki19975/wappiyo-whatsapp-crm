@@ -305,6 +305,7 @@ import { Head, Link, router, useForm } from '@inertiajs/vue3';
 import AppLayout from '../Layout/App.vue';
 import TicketStatusBadge from '@/Components/Support/TicketStatusBadge.vue';
 import TicketPriorityBadge from '@/Components/Support/TicketPriorityBadge.vue';
+import { formatDateTime as formatLocalDt } from '@/Utils/dateTime';
 
 const props = defineProps({
     ticket: {
@@ -319,18 +320,7 @@ const form = useForm({
 
 function formatDateTime(value) {
     if (!value) return '—';
-    try {
-        const d = new Date(value);
-        return d.toLocaleString('en-US', {
-            month: 'short',
-            day: 'numeric',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-        });
-    } catch (e) {
-        return value;
-    }
+    return formatLocalDt(value);
 }
 
 function getInitials(first, last) {

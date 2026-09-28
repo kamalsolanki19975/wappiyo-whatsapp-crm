@@ -1,49 +1,76 @@
 <template>
     <AppLayout>
-        <div class="bg-white md:bg-inherit pt-0 px-4 md:pt-8 md:p-8 rounded-[5px] text-[#000] h-full md:overflow-y-scroll">
-            <div v-if="props.user === null" class="md:flex justify-between hidden">
+        <div class="pt-4 px-4 md:pt-8 md:p-8 text-slate-900 dark:text-zinc-100 h-full md:overflow-y-auto">
+            <div v-if="props.user === null" class="flex items-center justify-between gap-4 mb-6">
                 <div>
-                    <h1 class="text-xl mb-1">{{ $t('Create user') }}</h1>
-                    <p class="mb-6 flex items-center text-sm leading-6 text-gray-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11v5m0 5a9 9 0 1 1 0-18a9 9 0 0 1 0 18Zm.05-13v.1h-.1V8h.1Z"/></svg>
-                        <span class="ml-1 mt-1">{{ $t('Create user') }}</span>
+                    <h1 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">{{ $t('Create user') }}</h1>
+                    <p class="flex items-center gap-1.5 text-sm text-slate-500 dark:text-zinc-400 mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        <span>{{ $t('Add a new customer account to the platform') }}</span>
                     </p>
                 </div>
                 <div>
-                    <Link href="/admin/users" class="rounded-md bg-indigo-600 px-3 py-2 text-sm text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $t('Back') }}</Link>
+                    <Link href="/admin/users" class="inline-flex items-center gap-2 rounded-xl bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 px-4 py-2 text-sm font-semibold text-slate-700 dark:text-zinc-200 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+                        <span>{{ $t('Back') }}</span>
+                    </Link>
                 </div>
             </div>
-            <div v-if="props.user" class="flex justify-between">
-                <div class="flex items-center space-x-2 mb-8 mt-8 md:mt-0">
-                    <div class="rounded-full p-1">
-                        <img v-if="user.avatar" class="rounded-full w-40 h-40" :src="user.avatar">
-                        <div v-else class="rounded-full w-32 h-32 bg-slate-200 flex justify-center items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24"><g fill="none"><path d="M24 0v24H0V0h24ZM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01l-.184-.092Z"/><path fill="currentColor" d="M12 13c2.396 0 4.575.694 6.178 1.672c.8.488 1.484 1.064 1.978 1.69c.486.615.844 1.351.844 2.138c0 .845-.411 1.511-1.003 1.986c-.56.45-1.299.748-2.084.956c-1.578.417-3.684.558-5.913.558s-4.335-.14-5.913-.558c-.785-.208-1.524-.506-2.084-.956C3.41 20.01 3 19.345 3 18.5c0-.787.358-1.523.844-2.139c.494-.625 1.177-1.2 1.978-1.69C7.425 13.695 9.605 13 12 13Zm0-11a5 5 0 1 1 0 10a5 5 0 0 1 0-10Z"/></g></svg>
-                        </div>
+            <div v-if="props.user" class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div class="flex items-center gap-4">
+                    <img v-if="user.avatar" class="w-16 h-16 rounded-2xl object-cover border border-slate-200 dark:border-zinc-700 shadow-sm" :src="user.avatar">
+                    <div v-else class="w-16 h-16 rounded-2xl bg-purple-100 dark:bg-purple-950/60 text-[#6C5CE7] dark:text-purple-300 flex items-center justify-center font-bold text-2xl shrink-0 shadow-sm border border-purple-200/50 dark:border-purple-800/40">
+                        {{ props.user.first_name ? props.user.first_name[0].toUpperCase() : 'U' }}
                     </div>
                     <div>
-                        <h1 class="text-lg">{{ props.user.full_name }}</h1>
-                        <h2 class="text-normal">{{ props.user.email }}</h2>
+                        <h1 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">{{ props.user.full_name }}</h1>
+                        <p class="text-sm text-slate-500 dark:text-zinc-400 mt-0.5">{{ props.user.email }}</p>
                     </div>
                 </div>
                 <div>
-                    <Link href="/admin/users" class="rounded-md bg-indigo-600 px-3 py-2 text-sm text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $t('Back') }}</Link>
+                    <Link href="/admin/users" class="inline-flex items-center gap-2 rounded-xl bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 px-4 py-2 text-sm font-semibold text-slate-700 dark:text-zinc-200 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+                        <span>{{ $t('Back') }}</span>
+                    </Link>
                 </div>
             </div>
-            <div v-if="props.user" class="flex border-b-2 space-x-4 text-sm text-slate-700">
-                <div @click="changeTab('user')" class="cursor-pointer px-2 py-2 rounded-tl-lg rounded-tr-lg" :class="tab === 'user' ? 'bg-white border' : ''">{{ $t('User details') }}</div>
-                <div @click="changeTab('organization')" class="cursor-pointer px-2 py-2 rounded-tl-lg rounded-tr-lg" :class="tab === 'organization' ? 'bg-white border' : ''">{{ $t('Organization details') }}</div>
+            <div v-if="props.user" class="flex border-b border-slate-200 dark:border-zinc-800 space-x-2 text-sm mb-6">
+                <button
+                    type="button"
+                    @click="changeTab('user')"
+                    :class="[
+                        'cursor-pointer px-4 py-2.5 font-medium rounded-t-lg transition-colors',
+                        tab === 'user'
+                            ? 'border-b-2 border-[#6C5CE7] text-[#6C5CE7] dark:text-purple-400 bg-white dark:bg-[#111113]'
+                            : 'text-slate-500 dark:text-zinc-400 hover:text-slate-800 dark:hover:text-zinc-200'
+                    ]"
+                >
+                    {{ $t('User details') }}
+                </button>
+                <button
+                    type="button"
+                    @click="changeTab('organization')"
+                    :class="[
+                        'cursor-pointer px-4 py-2.5 font-medium rounded-t-lg transition-colors',
+                        tab === 'organization'
+                            ? 'border-b-2 border-[#6C5CE7] text-[#6C5CE7] dark:text-purple-400 bg-white dark:bg-[#111113]'
+                            : 'text-slate-500 dark:text-zinc-400 hover:text-slate-800 dark:hover:text-zinc-200'
+                    ]"
+                >
+                    {{ $t('Organization details') }}
+                </button>
             </div>
-            <div v-if="props.user && tab === 'organization'" class="pt-5">
+            <div v-if="props.user && tab === 'organization'" class="pt-2">
                 <OrganizationTable :rows="props.organizations" :filters="props.filters"/>
             </div>
-            <form v-if="tab === 'user'" @submit.prevent="submitForm()" class="bg-white py-5 px-5 rounded-bl-[0.5rem] rounded-br-[0.5rem]">
-                <div class="sm:flex border-b py-5">
-                    <div class="hidden sm:block sm:w-[40%] mb-1">
-                        <h3 class="text-sm tracking-[0px]">{{ $t('User details') }}</h3>
+            <form v-if="tab === 'user'" @submit.prevent="submitForm()" class="bg-white dark:bg-[#111113] border border-slate-200/80 dark:border-zinc-800 shadow-sm rounded-2xl py-6 px-6 sm:px-8 mb-8">
+                <div class="sm:flex border-b border-slate-100 dark:border-zinc-800/80 py-6">
+                    <div class="sm:w-[35%] mb-4 sm:mb-0 pr-4">
+                        <h3 class="text-sm font-semibold text-slate-900 dark:text-white">{{ $t('User details') }}</h3>
+                        <p class="text-xs text-slate-500 dark:text-zinc-400 mt-1">{{ $t('Basic account and profile information') }}</p>
                     </div>
-                    <div class="sm:w-[60%] sm:flex space-x-6">
-                        <div class="sm:w-[80%] grid gap-x-6 gap-y-4 sm:grid-cols-6">
+                    <div class="sm:w-[65%]">
+                        <div class="sm:w-[90%] grid gap-x-6 gap-y-4 sm:grid-cols-6">
                             <FormImage v-model="form.avatar" :name="$t('Avatar')" :error="form.errors.avatar" :label="$t('Upload image')" :imageUrl="props.user?.avatar ? '/media/' + props.user?.avatar : null" :class="'sm:col-span-6'"/>
                             <FormInput v-model="form.first_name" :name="$t('First name')" :error="form.errors.first_name" :type="'text'" :class="'sm:col-span-3'"/>
                             <FormInput v-model="form.last_name" :name="$t('Last name')" :error="form.errors.last_name" :type="'text'" :class="'sm:col-span-3'"/>
@@ -54,23 +81,25 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="!props.user" class="sm:flex border-b py-5">
-                    <div class="hidden sm:block sm:w-[40%] mb-1">
-                        <h3 class="text-sm tracking-[0px]">{{ $t('Organization') }}</h3>
+                <div v-if="!props.user" class="sm:flex border-b border-slate-100 dark:border-zinc-800/80 py-6">
+                    <div class="sm:w-[35%] mb-4 sm:mb-0 pr-4">
+                        <h3 class="text-sm font-semibold text-slate-900 dark:text-white">{{ $t('Organization') }}</h3>
+                        <p class="text-xs text-slate-500 dark:text-zinc-400 mt-1">{{ $t('Optionally create an initial organization for this user') }}</p>
                     </div>
-                    <div class="sm:w-[60%] sm:flex space-x-6">
-                        <div class="sm:w-[80%] grid gap-x-6 gap-y-4 sm:grid-cols-6">
-                            <FormCheckbox  @input="toggleCreateOrganization" v-model="create_organization" :name="$t('Create organization')" :label="$t('Create organization')" :value="'organization'" :type="'checkbox'" :class="'sm:col-span-3'"/>
+                    <div class="sm:w-[65%]">
+                        <div class="sm:w-[90%] grid gap-x-6 gap-y-4 sm:grid-cols-6">
+                            <FormCheckbox  @input="toggleCreateOrganization" v-model="create_organization" :name="$t('Create organization')" :label="$t('Create organization')" :value="'organization'" :type="'checkbox'" :class="'sm:col-span-6'"/>
                             <FormInput v-if="create_organization" v-model="form.organization_name" :name="$t('Organization name')" :error="form.errors.organization_name" :type="'text'" :class="'sm:col-span-6'"/>
                         </div>
                     </div>
                 </div>
-                <div class="sm:flex py-5">
-                    <div class="hidden sm:block w-[40%] mb-1">
-                        <h3 class="text-sm tracking-[0px]">{{ $t('Address details') }}</h3>
+                <div class="sm:flex py-6">
+                    <div class="sm:w-[35%] mb-4 sm:mb-0 pr-4">
+                        <h3 class="text-sm font-semibold text-slate-900 dark:text-white">{{ $t('Address details') }}</h3>
+                        <p class="text-xs text-slate-500 dark:text-zinc-400 mt-1">{{ $t('User contact location details') }}</p>
                     </div>
-                    <div class="sm:w-[60%] sm:flex space-x-6">
-                        <div class="sm:w-[80%] grid gap-x-6 gap-y-4 sm:grid-cols-6">
+                    <div class="sm:w-[65%]">
+                        <div class="sm:w-[90%] grid gap-x-6 gap-y-4 sm:grid-cols-6">
                             <FormInput v-model="form.street" :name="$t('Street')" :error="form.errors.street" :type="'text'" :class="'sm:col-span-6'"/>
                             <FormInput v-model="form.city" :name="$t('City')" :error="form.errors.city" :type="'text'" :class="'sm:col-span-3'"/>
                             <FormInput v-model="form.state" :name="$t('State')" :error="form.errors.state" :type="'text'" :class="'sm:col-span-3'"/>
@@ -79,9 +108,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="py-6">
-                    <button type="submit" :disabled="form.processing" class="float-right flex items-center space-x-4 rounded-md bg-black px-3 py-2 text-sm text-white shadow-sm hover:bg-slate-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                        {{ $t('Save') }}
+                <div class="pt-6 border-t border-slate-100 dark:border-zinc-800/80 flex justify-end">
+                    <button
+                        type="submit"
+                        :disabled="form.processing"
+                        class="inline-flex items-center gap-2 rounded-xl bg-[#6C5CE7] hover:bg-[#5B46D6] px-6 py-2.5 text-sm font-semibold text-white shadow-sm shadow-purple-600/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                    >
+                        <svg v-if="form.processing" class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span>{{ $t('Save') }}</span>
                     </button>
                 </div>
             </form>

@@ -11,16 +11,31 @@ use Inertia\Inertia;
 
 class OrganizationController extends BaseController
 {
-    public function index(){
+    public function index()
+    {
         $data['organizations'] = Team::with('organization')->where('user_id', auth()->user()->id)->get();
-        
+
         return Inertia::render('User/OrganizationSelect', $data);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
+        $request->validate([
+            'uuid' => 'required|string',
+        ]);
+
         $organization = Organization::where('uuid', $request->uuid)->first();
 
-        if($organization){
+        if ($organization) {
+            $user = auth()->user();
+            $isMember = Team::where('user_id', $user->id)
+                ->where('organization_id', $organization->id)
+                ->exists();
+
+            if (!$isMember && $user->role !== 'admin') {
+                abort(403, 'Unauthorized access to organization.');
+            }
+
             session()->put('current_organization', $organization->id);
         }
 

@@ -91,8 +91,8 @@ class ApiController extends Controller
             ], 403);
         }
 
-        if ($request->isMethod('post')) {
-            if(!SubscriptionService::isSubscriptionFeatureLimitReached($request->organizationId, 'contacts_limit')){
+        if ($request->isMethod('post') && $uuid === null) {
+            if (SubscriptionService::isSubscriptionFeatureLimitReached($request->organization, 'contacts_limit')) {
                 return response()->json([
                     'statusCode' => 403,
                     'message' => __('You have reached your limit of contacts. Please upgrade your account to add more!'),
@@ -333,8 +333,8 @@ class ApiController extends Controller
             ], 403);
         }
 
-        if ($request->isMethod('post')) {
-            if(!SubscriptionService::isSubscriptionFeatureLimitReached($request->organizationId, 'canned_replies_limit')){
+        if ($request->isMethod('post') && $uuid === null) {
+            if (SubscriptionService::isSubscriptionFeatureLimitReached($request->organization, 'canned_replies_limit')) {
                 return response()->json([
                     'statusCode' => 403,
                     'message' => __('You\'ve reached your limit. Upgrade your account'),
@@ -343,7 +343,7 @@ class ApiController extends Controller
         }
 
         try {
-            $model = $uuid == null ? new AutoReply : AutoReply::where('uuid', $uuid)->first();
+            $model = $uuid == null ? new AutoReply : AutoReply::where('uuid', $uuid)->where('organization_id', $request->organization)->firstOrFail();
             $model['name'] = $request->name;
             $model['trigger'] = $request->trigger;
             $model['match_criteria'] = $request->match_criteria;

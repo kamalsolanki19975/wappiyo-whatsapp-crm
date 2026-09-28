@@ -86,7 +86,7 @@ createInertiaApp({
   },
   progress: {
     delay: 250,
-    color: '#6C5CE7',
+    color: '#22C55E',
     includeCSS: true,
     showSpinner: false,
   },

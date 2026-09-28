@@ -17,6 +17,14 @@ class Kernel extends ConsoleKernel
     }
 
     /**
+     * Get the timezone that should be used by default for scheduled events.
+     */
+    protected function scheduleTimezone(): \DateTimeZone|string|null
+    {
+        return config('app.timezone', 'Asia/Kolkata');
+    }
+
+    /**
      * Register the commands for the application.
      */
     protected function commands(): void

@@ -23,7 +23,12 @@ class ChatNoteService
 
     public function store(object $request, $uuid = NULL)
     {
-        $contact = Contact::where('uuid', $request->contact)->first();
+        $orgId = session('current_organization');
+        $contactQuery = Contact::where('uuid', $request->contact);
+        if ($orgId) {
+            $contactQuery->where('organization_id', $orgId);
+        }
+        $contact = $contactQuery->firstOrFail();
 
         $note = $uuid === null ? new ChatNote() : ChatNote::where('uuid', $uuid)->firstOrFail();
         $note->contact_id = $contact->id;
@@ -43,9 +48,17 @@ class ChatNoteService
 
     public function delete($uuid)
     {
-        $note = ChatNote::where('uuid', $uuid)->firstOrFail();
+        $orgId = session('current_organization');
+        $noteQuery = ChatNote::where('uuid', $uuid);
+        if ($orgId) {
+            $noteQuery->whereHas('contact', function ($query) use ($orgId) {
+                $query->where('organization_id', $orgId);
+            });
+        }
+        $note = $noteQuery->firstOrFail();
+
         $note->deleted_at = date('Y-m-d H:i:s');
         $note->deleted_by = auth()->user()->id;
         $note->save();
-    } 
+    }
 }

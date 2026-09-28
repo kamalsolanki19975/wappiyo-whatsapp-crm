@@ -63,9 +63,9 @@ const roundedClasses = computed(() => {
 const variantClasses = computed(() => {
     switch (props.variant) {
         case 'primary':
-            return 'bg-purple-100 dark:bg-purple-950/60 text-[#6C5CE7] dark:text-purple-300 border border-purple-200/80 dark:border-purple-800/50';
+            return 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-800/50';
         case 'secondary':
-            return 'bg-violet-100 dark:bg-violet-950/60 text-[#8B5CF6] dark:text-violet-300 border border-violet-200/80 dark:border-violet-800/50';
+            return 'bg-slate-100 dark:bg-zinc-800 text-slate-800 dark:text-zinc-200 border border-slate-200/80 dark:border-zinc-700';
         case 'success':
             return 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-800/50';
         case 'warning':
@@ -75,7 +75,7 @@ const variantClasses = computed(() => {
         case 'info':
             return 'bg-cyan-50 dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-300 border border-cyan-200/80 dark:border-cyan-800/50';
         case 'ai':
-            return 'bg-gradient-to-r from-violet-600/15 via-indigo-600/15 to-cyan-500/15 text-violet-700 dark:text-violet-300 border border-violet-300/60 dark:border-violet-700/50';
+            return 'bg-gradient-to-r from-emerald-600/15 via-teal-600/15 to-cyan-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-300/60 dark:border-emerald-700/50';
         case 'outline':
             return 'bg-transparent text-slate-700 dark:text-zinc-300 border border-slate-300 dark:border-zinc-700';
         case 'default':
@@ -86,7 +86,7 @@ const variantClasses = computed(() => {
 
 const dotColorClasses = computed(() => {
     switch (props.variant) {
-        case 'primary': return 'bg-[#6C5CE7]';
+        case 'primary': return 'bg-emerald-500';
         case 'secondary': return 'bg-[#8B5CF6]';
         case 'success': return 'bg-emerald-500';
         case 'warning': return 'bg-amber-500';

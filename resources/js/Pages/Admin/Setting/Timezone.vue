@@ -70,7 +70,7 @@
     const isLoading = ref(false);
 
     const form = useForm({
-        timezone: getValueByKey('timezone'),
+        timezone: getValueByKey('timezone') || 'Asia/Kolkata',
         currency: getValueByKey('currency'),
         date_format: getValueByKey('date_format'),
         time_format: getValueByKey('time_format'),

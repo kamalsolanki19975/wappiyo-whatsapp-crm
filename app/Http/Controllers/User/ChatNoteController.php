@@ -9,7 +9,7 @@ use App\Models\Contact;
 use App\Services\ChatNoteService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule; 
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Helper;
 use Redirect;
@@ -29,8 +29,9 @@ class ChatNoteController extends BaseController
         $contact = Contact::with(['lastChat', 'lastInboundChat', 'notes'])->where('uuid', $request->contact)->first();
 
         return Redirect::back()->with(
-            'status', [
-                'type' => 'success', 
+            'status',
+            [
+                'type' => 'success',
                 'message' => __('Note added successfully!'),
                 'contact' => $contact,
             ]
@@ -51,9 +52,10 @@ class ChatNoteController extends BaseController
     {
         $this->chatNoteService->delete($uuid);
 
-        return redirect('/admin/faqs')->with(
-            'status', [
-                'type' => 'success', 
+        return Redirect::back()->with(
+            'status',
+            [
+                'type' => 'success',
                 'message' => __('Note deleted successfully!')
             ]
         );

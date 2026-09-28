@@ -1,7 +1,11 @@
 <template>
     <div class="min-h-screen bg-slate-50/70 dark:bg-[#09090B] text-slate-900 dark:text-zinc-100 antialiased flex flex-col font-sans transition-colors duration-200">
+        <!-- PWA Status Banners (Offline, Reconnected, Update) -->
+        <PwaStatusBanner />
+
         <!-- Mobile Sidebar -->
         <MobileSidebar
+            ref="mobileSidebarRef"
             :user="user"
             :config="config"
             :organization="organization"
@@ -9,6 +13,7 @@
             :title="currentPageTitle"
             :displayCreateBtn="displayCreateBtn"
             :displayTopBar="viewTopBar"
+            :unreadMessages="unreadMessages"
         />
 
         <div class="flex h-screen w-full overflow-hidden">
@@ -37,12 +42,21 @@
                     @switchTeams="isLocationSwitchModalOpen = true"
                 />
 
-                <!-- Page View Slot -->
-                <main class="flex-1 overflow-y-auto min-w-0">
+                <!-- Page View Slot (with mobile bottom padding for bottom nav) -->
+                <main class="flex-1 overflow-y-auto min-w-0 pb-16 md:pb-0">
                     <slot :user="user" :toggleNavBar="toggleTopBar" @testEmit="doSomething" />
                 </main>
             </div>
         </div>
+
+        <!-- Mobile Bottom Navigation Bar (5 tabs: Inbox, Contacts, Campaigns, Reports, More) -->
+        <MobileBottomNav
+            :unreadMessages="unreadMessages"
+            @toggleSidebar="mobileSidebarRef?.openSidebar()"
+        />
+
+        <!-- PWA Installation Banner -->
+        <PwaInstallPrompt />
 
         <!-- Global Command Palette (⌘K) -->
         <CommandPalette />
@@ -53,11 +67,11 @@
                 <div
                     v-for="(item, index) in organizations"
                     :key="index"
-                    class="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-zinc-800 hover:border-[#6C5CE7] hover:bg-purple-50/50 dark:hover:bg-purple-950/30 cursor-pointer transition-all duration-150"
+                    class="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-zinc-800 hover:border-emerald-500 hover:bg-emerald-50/50 dark:hover:bg-emerald-950/30 cursor-pointer transition-all duration-150"
                     @click="selectOrganization(item.organization?.uuid)"
                 >
                     <div class="flex items-center gap-3">
-                        <span class="w-9 h-9 rounded-xl bg-purple-100 dark:bg-purple-950/60 text-[#6C5CE7] flex items-center justify-center font-bold text-sm">
+                        <span class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 flex items-center justify-center font-bold text-sm">
                             {{ item.organization?.name ? item.organization.name[0].toUpperCase() : 'T' }}
                         </span>
                         <div>
@@ -103,13 +117,25 @@ import Header from "@/Components/UI/Header.vue";
 import CommandPalette from "@/Components/UI/CommandPalette.vue";
 import Modal from "@/Components/Modal.vue";
 import ProfileModal from "@/Components/ProfileModal.vue";
-import { getEchoInstance } from '../../../echo';
+import PwaStatusBanner from "@/Components/UI/PwaStatusBanner.vue";
+import PwaInstallPrompt from "@/Components/UI/PwaInstallPrompt.vue";
+import MobileBottomNav from "@/Components/UI/MobileBottomNav.vue";
+import { getEchoInstance, disconnectEcho } from '../../../echo';
 import { useCommandPalette } from "@/Composables/useCommandPalette";
 import { useTheme } from "@/Composables/useTheme";
+import { usePwa } from "@/Composables/usePwa";
 
 const { setupKeyboardListener } = useCommandPalette();
 const { initTheme } = useTheme();
+const {
+    checkDisplayMode,
+    initNetworkListeners,
+    registerServiceWorker,
+    initInstallPrompt,
+    setAppBadge,
+} = usePwa();
 
+const mobileSidebarRef = ref(null);
 const viewTopBar = ref(true);
 const user = computed(() => usePage().props.auth?.user || {});
 const config = computed(() => usePage().props.config || []);
@@ -131,6 +157,7 @@ const form = useForm({
 
 const selectOrganization = (uuid) => {
     if (!uuid) return;
+    disconnectEcho();
     form.uuid = uuid;
     form.post('/organization', {
         preserveScroll: true,
@@ -186,6 +213,18 @@ onMounted(() => {
     cleanupKeyboard = setupKeyboardListener();
     setupSound();
 
+    // Initialize PWA capabilities
+    checkDisplayMode();
+    initNetworkListeners();
+    registerServiceWorker();
+    initInstallPrompt();
+
+    // App Badge integration
+    setAppBadge(unreadMessages.value);
+    watch(unreadMessages, (newCount) => {
+        setAppBadge(newCount);
+    });
+
     if (organization.value?.id) {
         try {
             const echo = getEchoInstance(
@@ -224,5 +263,6 @@ onUnmounted(() => {
             }
         } catch (_) {}
     }
+    disconnectEcho();
 });
 </script>

@@ -64,10 +64,14 @@ class ChatService
         $team = $userTeams ? $userTeams->where('organization_id', $this->organizationId)->first() : null;
         $role = $team ? $team->role : (auth()->user()->role ?? 'owner');
         $contact = new Contact;
-        $unassigned = ChatTicket::where('assigned_to', NULL)->count();
-        $closedCount = ChatTicket::where('status', 'closed')->count();
-        $closedCount = ChatTicket::where('status', 'open')->count();
-        $allCount = ChatTicket::count();
+        $orgId = $this->organizationId;
+        $ticketBase = ChatTicket::whereHas('contact', function ($query) use ($orgId) {
+            $query->where('organization_id', $orgId);
+        });
+        $unassigned = (clone $ticketBase)->whereNull('assigned_to')->count();
+        $openCount = (clone $ticketBase)->where('status', 'open')->count();
+        $closedCount = (clone $ticketBase)->where('status', 'closed')->count();
+        $allCount = (clone $ticketBase)->count();
         $config = Organization::where('id', $this->organizationId)->first();
         $agents = Team::where('organization_id', $this->organizationId)->get();
         $ticketState = $request->status == null ? 'all' : $request->status;
@@ -244,7 +248,7 @@ class ChatService
                             ->withCount('tickets')->orderBy('tickets_count')->first();
 
                         // Assign the ticket to the agent with the least number of assigned tickets
-                        $ticket->assigned_to = $agent->user_id;
+                        $ticket->assigned_to = $agent ? $agent->user_id : null;
                     } else {
                         $ticket->assigned_to = NULL;
                     }
@@ -271,7 +275,7 @@ class ChatService
                                 $agent = Team::where('organization_id', $organizationId)
                                     ->withCount('tickets')->orderBy('tickets_count')->first();
 
-                                $ticket->assigned_to = $agent->user_id;
+                                $ticket->assigned_to = $agent ? $agent->user_id : null;
                             } else {
                                 $ticket->assigned_to = NULL;
                             }

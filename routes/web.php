@@ -45,11 +45,29 @@ Route::get('/translations/{locale}', function ($locale) {
     }
 });
 
-//Frontend Routes
-Route::match(['get', 'post'], '/', [App\Http\Controllers\FrontendController::class, 'index']);
+//Frontend Public Marketing Routes
+Route::get('/', [App\Http\Controllers\FrontendController::class, 'index'])->name('home');
+Route::get('/features', [App\Http\Controllers\FrontendController::class, 'features'])->name('features');
+Route::get('/product/inbox', [App\Http\Controllers\FrontendController::class, 'inbox'])->name('product.inbox');
+Route::get('/product/team-inbox', fn() => redirect('/product/inbox', 301));
+Route::get('/product/crm', [App\Http\Controllers\FrontendController::class, 'crm'])->name('product.crm');
+Route::get('/product/whatsapp-crm', fn() => redirect('/product/crm', 301));
+Route::get('/product/campaigns', [App\Http\Controllers\FrontendController::class, 'campaigns'])->name('product.campaigns');
+Route::get('/product/automation', [App\Http\Controllers\FrontendController::class, 'automation'])->name('product.automation');
+Route::get('/product/ai', [App\Http\Controllers\FrontendController::class, 'ai'])->name('product.ai');
+Route::get('/product/analytics', [App\Http\Controllers\FrontendController::class, 'analytics'])->name('product.analytics');
+Route::get('/integrations', [App\Http\Controllers\FrontendController::class, 'integrations'])->name('integrations');
+Route::get('/pricing', [App\Http\Controllers\FrontendController::class, 'pricing'])->name('pricing');
+Route::get('/about', [App\Http\Controllers\FrontendController::class, 'about'])->name('about');
+Route::get('/contact', [App\Http\Controllers\FrontendController::class, 'contact'])->name('contact');
+Route::post('/contact', [App\Http\Controllers\FrontendController::class, 'submitContact'])->name('contact.submit');
+Route::get('/faq', [App\Http\Controllers\FrontendController::class, 'faq'])->name('faq');
+Route::get('/privacy', [App\Http\Controllers\FrontendController::class, 'privacy'])->name('privacy');
+Route::get('/terms', [App\Http\Controllers\FrontendController::class, 'termsOfService'])->name('terms');
+Route::get('/terms-of-service', [App\Http\Controllers\FrontendController::class, 'termsOfService'])->name('terms.legacy');
+Route::get('/legal', fn() => redirect('/terms', 301))->name('legal');
+Route::get('/refund-policy', [App\Http\Controllers\FrontendController::class, 'refundPolicy'])->name('refund.policy');
 Route::match(['get', 'post'], '/pages/{slug}', [App\Http\Controllers\FrontendController::class, 'pages']);
-Route::match(['get', 'post'], '/privacy', [App\Http\Controllers\FrontendController::class, 'privacy']);
-Route::match(['get', 'post'], '/terms-of-service', [App\Http\Controllers\FrontendController::class, 'termsOfService']);
 Route::match(['get', 'post'], '/process-campaign', [App\Http\Controllers\FrontendController::class, 'buildTemplateChatMessage']);
 Route::get('/language/{locale}', [App\Http\Controllers\FrontendController::class, 'changeLanguage']);
 
@@ -77,8 +95,10 @@ Route::middleware(['guest', 'redirectIfAuthenticated:user,admin'])->group(functi
     Route::get('/social-login/{type?}', [App\Http\Controllers\AuthController::class, 'socialLogin']);
     Route::get('/google/callback', [App\Http\Controllers\AuthController::class, 'googleCallback'])->name('google.callback');
     Route::get('/facebook/callback', [App\Http\Controllers\AuthController::class, 'handleFacebookCallback']);
-    Route::get('/signup', [App\Http\Controllers\AuthController::class, 'showRegistrationForm']);
+    Route::get('/signup', [App\Http\Controllers\AuthController::class, 'showRegistrationForm'])->name('register');
     Route::post('/signup', [App\Http\Controllers\AuthController::class, 'handleRegistration']);
+    Route::get('/register', [App\Http\Controllers\AuthController::class, 'showRegistrationForm']);
+    Route::post('/register', [App\Http\Controllers\AuthController::class, 'handleRegistration']);
     // In routes/we.php (preferred for API routes)
     Route::post('/send-otp', [App\Http\Controllers\AuthController::class, 'sendOtp']);
     Route::post('/verify-otp', [App\Http\Controllers\AuthController::class, 'verifyOtp']);
@@ -90,7 +110,7 @@ Route::middleware(['guest', 'redirectIfAuthenticated:user,admin'])->group(functi
 
 Route::middleware(['auth:user'])->group(function () {
     Route::get('/email/verify', [App\Http\Controllers\AuthController::class, 'verifyEmail'])->middleware('auth')->name('verification.notice');
-    
+
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
         $request->fulfill();
         return redirect('/dashboard');
@@ -106,6 +126,23 @@ Route::middleware(['auth:user'])->group(function () {
             //User Panel Routes
             Route::match(['get', 'post'], '/dashboard', [App\Http\Controllers\User\DashboardController::class, 'index'])->name('dashboard');
 
+            // Company Onboarding Routes
+            Route::get('/onboarding', [App\Http\Controllers\User\OnboardingController::class, 'index'])->name('onboarding');
+            Route::post('/onboarding/welcome', [App\Http\Controllers\User\OnboardingController::class, 'saveWelcome'])->name('onboarding.welcome');
+            Route::post('/onboarding/company', [App\Http\Controllers\User\OnboardingController::class, 'saveCompany'])->name('onboarding.company');
+            Route::post('/onboarding/use-cases', [App\Http\Controllers\User\OnboardingController::class, 'saveUseCases'])->name('onboarding.use_cases');
+            Route::post('/onboarding/whatsapp', [App\Http\Controllers\User\OnboardingController::class, 'saveWhatsapp'])->name('onboarding.whatsapp');
+            Route::post('/onboarding/addons', [App\Http\Controllers\User\OnboardingController::class, 'saveAddons'])->name('onboarding.addons');
+            Route::post('/onboarding/team', [App\Http\Controllers\User\OnboardingController::class, 'saveTeam'])->name('onboarding.team');
+            Route::post('/onboarding/contacts', [App\Http\Controllers\User\OnboardingController::class, 'saveContacts'])->name('onboarding.contacts');
+            Route::post('/onboarding/templates', [App\Http\Controllers\User\OnboardingController::class, 'saveTemplates'])->name('onboarding.templates');
+            Route::post('/onboarding/automation', [App\Http\Controllers\User\OnboardingController::class, 'saveAutomation'])->name('onboarding.automation');
+            Route::post('/onboarding/notifications', [App\Http\Controllers\User\OnboardingController::class, 'saveNotifications'])->name('onboarding.notifications');
+            Route::post('/onboarding/subscription', [App\Http\Controllers\User\OnboardingController::class, 'saveSubscription'])->name('onboarding.subscription');
+            Route::post('/onboarding/complete', [App\Http\Controllers\User\OnboardingController::class, 'complete'])->name('onboarding.complete');
+            Route::post('/onboarding/step/{stepNumber}', [App\Http\Controllers\User\OnboardingController::class, 'jumpToStep'])->name('onboarding.step');
+            Route::delete('/onboarding/dismiss', [App\Http\Controllers\User\OnboardingController::class, 'dismissChecklist'])->name('onboarding.dismiss');
+
             Route::put('/profile', [App\Http\Controllers\ProfileController::class, 'update']);
             Route::put('/profile/password', [App\Http\Controllers\ProfileController::class, 'updatePassword']);
             Route::put('/profile/organization', [App\Http\Controllers\ProfileController::class, 'updateOrganization']);
@@ -120,6 +157,8 @@ Route::middleware(['auth:user'])->group(function () {
             Route::group(['middleware' => 'check.subscription'], function () {
                 Route::get('/analytics', [App\Http\Controllers\User\AnalyticsController::class, 'index'])->name('analytics');
                 Route::get('/analytics/export', [App\Http\Controllers\User\AnalyticsController::class, 'export'])->name('analytics.export');
+                Route::get('/reports', [App\Http\Controllers\User\ReportController::class, 'index'])->name('reports');
+                Route::get('/reports/export', [App\Http\Controllers\User\ReportController::class, 'export'])->name('reports.export');
                 Route::get('/chats/{uuid?}', [App\Http\Controllers\User\ChatController::class, 'index']);
                 Route::get('/chats/{id}/media', [App\Http\Controllers\User\ChatController::class, 'getMedia']);
                 Route::post('/chats', [App\Http\Controllers\User\ChatController::class, 'sendMessage']);
@@ -148,7 +187,10 @@ Route::middleware(['auth:user'])->group(function () {
 
                 Route::get('/campaigns/{uuid?}', [App\Http\Controllers\User\CampaignController::class, 'index'])->name('campaigns');
                 Route::post('/campaigns', [App\Http\Controllers\User\CampaignController::class, 'store']);
+                Route::post('/campaigns/{uuid}/retry', [App\Http\Controllers\User\CampaignController::class, 'retry'])->name('campaigns.retry');
+                Route::post('/campaigns/{uuid}/exclude', [App\Http\Controllers\User\CampaignController::class, 'exclude'])->name('campaigns.exclude');
                 Route::get('/campaigns/export/{uuid?}', [App\Http\Controllers\User\CampaignController::class, 'export']);
+                Route::get('/campaigns/export-failed/{uuid}', [App\Http\Controllers\User\CampaignController::class, 'exportFailed'])->name('campaigns.export.failed');
                 Route::delete('/campaigns/{uuid?}', [App\Http\Controllers\User\CampaignController::class, 'delete']);
 
                 Route::match(['get', 'post'], '/templates/create', [App\Http\Controllers\User\TemplateController::class, 'create']);
@@ -191,10 +233,11 @@ Route::middleware(['auth:user'])->group(function () {
                     Route::post('/settings/whatsapp', [App\Http\Controllers\User\SettingController::class, 'storeWhatsappSettings']);
                     Route::post('/settings/whatsapp/business-profile', [App\Http\Controllers\User\SettingController::class, 'whatsappBusinessProfileUpdate']);
                     Route::delete('/settings/whatsapp/business-profile', [App\Http\Controllers\User\SettingController::class, 'deleteWhatsappIntegration']);
+                    Route::post('/whatsapp/exchange-code', [App\Http\Controllers\User\SettingController::class, 'exchangeCode'])->name('whatsapp.exchange_code');
                     Route::match(['get', 'post'], '/settings/contacts', [App\Http\Controllers\User\SettingController::class, 'contacts']);
                     Route::match(['get', 'post'], '/settings/tickets', [App\Http\Controllers\User\SettingController::class, 'tickets']);
                     Route::match(['get', 'post'], '/settings/automation', [App\Http\Controllers\User\SettingController::class, 'automation']);
-                    Route::resource('contact-fields', App\Http\Controllers\User\ContactFieldController::class);
+                    Route::resource('contact-fields', App\Http\Controllers\User\ContactFieldController::class)->only(['store', 'show', 'update', 'destroy']);
 
                     Route::post('/team/invite', [App\Http\Controllers\User\TeamController::class, 'invite'])->name('team.store');
                     Route::put('/team/{uuid}', [App\Http\Controllers\User\TeamController::class, 'update'])->name('team.update');
@@ -206,7 +249,7 @@ Route::middleware(['auth:user'])->group(function () {
                 });
 
                 //Route::get('/whatsapp/message', [App\Http\Controllers\User\WhatsappController::class, 'sendMessage']);
-                Route::resource('notes', App\Http\Controllers\User\ChatNoteController::class);
+                Route::resource('notes', App\Http\Controllers\User\ChatNoteController::class)->only(['store', 'destroy']);
             });
         });
     });
@@ -215,6 +258,17 @@ Route::middleware(['auth:user'])->group(function () {
 //Admin Panel Routes
 Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
+    
+    // Website Leads Management
+    Route::get('/leads', [App\Http\Controllers\Admin\LeadController::class, 'index'])->name('admin.leads.index');
+    Route::get('/leads/{uuid}', [App\Http\Controllers\Admin\LeadController::class, 'show'])->name('admin.leads.show');
+    Route::match(['post', 'put'], '/leads/{uuid}/status', [App\Http\Controllers\Admin\LeadController::class, 'updateStatus'])->name('admin.leads.status');
+    Route::match(['post', 'put'], '/leads/{uuid}/assign', [App\Http\Controllers\Admin\LeadController::class, 'assign'])->name('admin.leads.assign');
+    Route::match(['post', 'put'], '/leads/{uuid}/notes', [App\Http\Controllers\Admin\LeadController::class, 'addNote'])->name('admin.leads.note');
+    Route::match(['post', 'put'], '/leads/{uuid}/note', [App\Http\Controllers\Admin\LeadController::class, 'addNote']);
+    Route::post('/leads/{uuid}/convert', [App\Http\Controllers\Admin\LeadController::class, 'convert'])->name('admin.leads.convert');
+    Route::delete('/leads/{uuid}', [App\Http\Controllers\Admin\LeadController::class, 'destroy'])->name('admin.leads.destroy');
+
     Route::resource('users', App\Http\Controllers\Admin\UserController::class);
     Route::resource('organizations', App\Http\Controllers\Admin\OrganizationController::class);
     /*Route::resource('blog/posts', App\Http\Controllers\Admin\BlogController::class);
@@ -228,7 +282,7 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::resource('plans', App\Http\Controllers\Admin\SubscriptionPlanController::class);
     Route::resource('team/users', App\Http\Controllers\Admin\TeamController::class);
     Route::resource('team/roles', App\Http\Controllers\Admin\RoleController::class);
-    Route::resource('billing', App\Http\Controllers\Admin\BillingController::class);
+    Route::resource('billing', App\Http\Controllers\Admin\BillingController::class)->only(['index', 'store']);
     Route::resource('addons', App\Http\Controllers\Admin\AddonController::class);
     Route::post('addons/install', [App\Http\Controllers\Admin\AddonController::class, 'install']);
     Route::post('/addons/setup/{slug?}', [App\Http\Controllers\Admin\AddonController::class, 'store']);
@@ -244,6 +298,8 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::get('/users/{uuid}/organizations', [App\Http\Controllers\Admin\CustomerController::class, 'userOrganizations']);
     Route::get('/subscriptions', [App\Http\Controllers\Admin\SubscriptionController::class, 'index']);*/
     Route::get('/payment-logs', [App\Http\Controllers\Admin\PaymentController::class, 'index']);
+    Route::get('/reports', [App\Http\Controllers\Admin\ReportController::class, 'index'])->name('admin.reports');
+    Route::get('/reports/export', [App\Http\Controllers\Admin\ReportController::class, 'export'])->name('admin.reports.export');
 
     Route::get('/support/{uuid?}', [App\Http\Controllers\Admin\TicketController::class, 'index'])->name('tickets');
     Route::post('/support', [App\Http\Controllers\Admin\TicketController::class, 'store']);

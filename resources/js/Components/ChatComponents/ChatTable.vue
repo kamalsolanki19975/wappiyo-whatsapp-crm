@@ -7,6 +7,7 @@ import TicketStatusToggle from '@/Components/TicketStatusToggle.vue';
 import SortDirectionToggle from '@/Components/SortDirectionToggle.vue';
 import Avatar from '@/Components/UI/Avatar.vue';
 import EmptyState from '@/Components/UI/EmptyState.vue';
+import { formatDate as formatDateUtil, formatTime as formatTimeUtil } from '@/Utils/dateTime';
 
 const props = defineProps({
     rows: {
@@ -99,7 +100,7 @@ const formatTime = (time) => {
         targetTime.getMonth() === currentTime.getMonth() &&
         targetTime.getFullYear() === currentTime.getFullYear()
     ) {
-        return targetTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        return formatTimeUtil(targetTime);
     }
 
     // Yesterday
@@ -114,7 +115,7 @@ const formatTime = (time) => {
     }
 
     // Older
-    return targetTime.toLocaleDateString([], { month: 'short', day: 'numeric' });
+    return formatDateUtil(targetTime, { month: 'short', day: 'numeric' });
 };
 
 const params = ref({

@@ -29,10 +29,8 @@ class CampaignService
     public function store(object $request){
         $organizationId = session()->get('current_organization');
 
-        $timezone = Setting::where('key', 'timezone')->value('value');
         $organization = Organization::find($organizationId);
-        $organizationMetadata = json_decode($organization->metadata ?? '{}', true);
-        $timezone = $organizationMetadata['timezone'] ?? $timezone;
+        $timezone = \App\Helpers\DateTimeHelper::getOrganizationTimezone($organization);
 
         $template = Template::where('uuid', $request->template)->first();
         $contactGroup = ContactGroup::where('uuid', $request->contacts)->first();
@@ -104,7 +102,7 @@ class CampaignService
                 $metadata['media'] = $mediaId;
 
                 // Convert $request->time from organization's timezone to UTC
-                $scheduledAt = $request->skip_schedule ? Carbon::now('UTC') : Carbon::parse($request->time, $timezone)->setTimezone('UTC');
+                $scheduledAt = $request->skip_schedule ? Carbon::now('UTC') : \App\Helpers\DateTimeHelper::parseLocalToUtc($request->time, $timezone);
 
                 //Create campaign
                 $campaign = new Campaign;

@@ -104,12 +104,12 @@ const variantClasses = computed(() => {
         case 'ai':
             return 'bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white shadow-md shadow-violet-500/25 hover:shadow-lg hover:shadow-violet-500/35 hover:brightness-110 focus-visible:ring-violet-500 border border-violet-400/30';
         case 'gradient':
-            return 'bg-gradient-to-r from-[#6C5CE7] to-[#8B5CF6] text-white shadow-md shadow-purple-500/25 hover:shadow-lg hover:shadow-purple-500/35 hover:brightness-105 focus-visible:ring-purple-500';
+            return 'bg-gradient-to-r from-[#22C55E] via-[#16A34A] to-[#022828] text-white shadow-md shadow-emerald-500/20 hover:shadow-lg hover:shadow-emerald-500/30 hover:brightness-105 focus-visible:ring-emerald-500';
         case 'subtle':
-            return 'bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-900/50 border border-purple-200/60 dark:border-purple-800/40 focus-visible:ring-purple-400';
+            return 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 border border-emerald-200/60 dark:border-emerald-800/40 focus-visible:ring-emerald-400';
         case 'primary':
         default:
-            return 'bg-[#6C5CE7] hover:bg-[#5B46D6] text-white shadow-sm shadow-purple-600/30 hover:shadow-md hover:shadow-purple-600/40 focus-visible:ring-[#6C5CE7]';
+            return 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm shadow-emerald-600/25 hover:shadow-md hover:shadow-emerald-600/35 focus-visible:ring-emerald-500';
     }
 });
 

@@ -6,6 +6,7 @@ import ProfileModal from '@/Components/ProfileModal.vue';
 import LangToggle from '@/Components/LangToggle.vue';
 import Avatar from '@/Components/UI/Avatar.vue';
 import Tooltip from '@/Components/UI/Tooltip.vue';
+import BrandLogo from '@/Components/UI/BrandLogo.vue';
 
 const props = defineProps(['config', 'user', 'organization', 'organizations', 'isSidebarOpen', 'menuIconsOnly', 'unreadMessages']);
 
@@ -62,26 +63,25 @@ const userFullName = computed(() => {
 });
 
 const isOwner = computed(() => {
-    return props.user?.teams?.[0]?.role === 'owner';
+    if (!props.user) return false;
+    if (props.user.role === 'admin') return true;
+    if (!props.user.teams) return false;
+    const teamsList = Array.isArray(props.user.teams) ? props.user.teams : Object.values(props.user.teams);
+    return teamsList.some(t => t.role === 'owner' || t.role === 'admin');
 });
 </script>
 
 <template>
     <div class="flex flex-col h-full bg-white dark:bg-[#111113] border-r border-slate-200/80 dark:border-zinc-800 text-slate-800 dark:text-zinc-200 transition-colors">
         <!-- Logo / Brand Header -->
-        <div class="flex items-center justify-between px-4 h-16 border-b border-slate-100 dark:border-zinc-800/80 shrink-0">
-            <Link href="/dashboard" class="flex items-center gap-2.5 min-w-0" @click="closeSidebar">
-                <div v-if="getValueByKey('logo')" class="h-8 flex items-center">
-                    <img :src="'/media/' + getValueByKey('logo')" :alt="getValueByKey('company_name') || 'Wappiyo'" class="max-h-8 object-contain">
-                </div>
-                <div v-else class="flex items-center gap-2.5">
-                    <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#6C5CE7] to-[#8B5CF6] flex items-center justify-center text-white font-bold text-sm shadow-md shadow-purple-600/30 shrink-0">
-                        W
-                    </div>
-                    <span v-if="!menuIconsOnly" class="font-extrabold text-lg tracking-tight text-slate-900 dark:text-white truncate">
-                        {{ getValueByKey('company_name') || 'Wappiyo' }}
-                    </span>
-                </div>
+        <div class="flex items-center h-16 border-b border-slate-100 dark:border-zinc-800/80 shrink-0 transition-all" :class="menuIconsOnly ? 'justify-center px-0' : 'justify-between px-3.5'">
+            <Link href="/dashboard" class="flex items-center gap-2.5 min-w-0 focus:outline-none" :class="menuIconsOnly ? 'justify-center w-full' : ''" @click="closeSidebar">
+                <BrandLogo 
+                    :variant="menuIconsOnly ? 'mark' : 'full'"
+                    :custom-logo="getValueByKey('logo')"
+                    :company-name="getValueByKey('company_name') || 'Wappiyo'"
+                    mode="auto"
+                />
             </Link>
 
             <!-- Close button on mobile -->
@@ -110,7 +110,7 @@ const isOwner = computed(() => {
                         :class="[
                             'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                             $page.url.startsWith('/dashboard')
-                                ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                                ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                                 : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white',
                             menuIconsOnly ? 'justify-center px-2' : ''
                         ]"
@@ -128,7 +128,7 @@ const isOwner = computed(() => {
                         :class="[
                             'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                             $page.url.startsWith('/analytics')
-                                ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                                ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                                 : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white',
                             menuIconsOnly ? 'justify-center px-2' : ''
                         ]"
@@ -143,6 +143,24 @@ const isOwner = computed(() => {
                     </Link>
                 </Tooltip>
 
+                <!-- Reports Center -->
+                <Tooltip :content="$t('Reports')" :position="'right'" :className="!menuIconsOnly ? 'hidden' : ''">
+                    <Link
+                        href="/reports"
+                        :class="[
+                            'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
+                            $page.url.startsWith('/reports')
+                                ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
+                                : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white',
+                            menuIconsOnly ? 'justify-center px-2' : ''
+                        ]"
+                        @click="closeSidebar"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                        <span v-if="!menuIconsOnly" class="truncate">{{ $t('Reports') }}</span>
+                    </Link>
+                </Tooltip>
+
                 <!-- Chats -->
                 <Tooltip :content="$t('Chats')" :position="'right'" :className="!menuIconsOnly ? 'hidden' : ''">
                     <Link
@@ -150,7 +168,7 @@ const isOwner = computed(() => {
                         :class="[
                             'flex items-center justify-between px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                             $page.url.startsWith('/chats')
-                                ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                                ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                                 : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white',
                             menuIconsOnly ? 'justify-center px-2' : ''
                         ]"
@@ -180,7 +198,7 @@ const isOwner = computed(() => {
                         :class="[
                             'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                             $page.url.startsWith('/contact')
-                                ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                                ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                                 : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white',
                             menuIconsOnly ? 'justify-center px-2' : ''
                         ]"
@@ -198,7 +216,7 @@ const isOwner = computed(() => {
                         :class="[
                             'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                             $page.url.startsWith('/campaign')
-                                ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                                ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                                 : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white',
                             menuIconsOnly ? 'justify-center px-2' : ''
                         ]"
@@ -216,7 +234,7 @@ const isOwner = computed(() => {
                         :class="[
                             'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                             $page.url.startsWith('/template')
-                                ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                                ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                                 : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white',
                             menuIconsOnly ? 'justify-center px-2' : ''
                         ]"
@@ -234,7 +252,7 @@ const isOwner = computed(() => {
                         :class="[
                             'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                             $page.url.startsWith('/automation')
-                                ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                                ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                                 : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white',
                             menuIconsOnly ? 'justify-center px-2' : ''
                         ]"
@@ -259,7 +277,7 @@ const isOwner = computed(() => {
                         :class="[
                             'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                             $page.url.startsWith('/team')
-                                ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                                ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                                 : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white',
                             menuIconsOnly ? 'justify-center px-2' : ''
                         ]"
@@ -270,6 +288,24 @@ const isOwner = computed(() => {
                     </Link>
                 </Tooltip>
 
+                <!-- Setup Guide / Onboarding (Owner Only) -->
+                <Tooltip v-if="isOwner" :content="$t('Setup Guide')" :position="'right'" :className="!menuIconsOnly ? 'hidden' : ''">
+                    <Link
+                        href="/onboarding"
+                        :class="[
+                            'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
+                            $page.url.startsWith('/onboarding')
+                                ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
+                                : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white',
+                            menuIconsOnly ? 'justify-center px-2' : ''
+                        ]"
+                        @click="closeSidebar"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                        <span v-if="!menuIconsOnly" class="truncate">{{ $t('Setup Guide') }}</span>
+                    </Link>
+                </Tooltip>
+
                 <!-- Settings -->
                 <Tooltip :content="$t('Settings')" :position="'right'" :className="!menuIconsOnly ? 'hidden' : ''">
                     <Link
@@ -277,7 +313,7 @@ const isOwner = computed(() => {
                         :class="[
                             'md:flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150 hidden',
                             $page.url.startsWith('/settings')
-                                ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                                ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                                 : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white',
                             menuIconsOnly ? 'justify-center px-2' : ''
                         ]"
@@ -291,7 +327,7 @@ const isOwner = computed(() => {
                         :class="[
                             'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150 md:hidden',
                             $page.url.startsWith('/settings')
-                                ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                                ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                                 : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white',
                         ]"
                         @click="closeSidebar"
@@ -308,7 +344,7 @@ const isOwner = computed(() => {
                         :class="[
                             'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                             $page.url.startsWith('/billing') || $page.url.startsWith('/subscription')
-                                ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                                ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                                 : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white',
                             menuIconsOnly ? 'justify-center px-2' : ''
                         ]"
@@ -326,7 +362,7 @@ const isOwner = computed(() => {
                         :class="[
                             'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                             $page.url.startsWith('/support')
-                                ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                                ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                                 : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white',
                             menuIconsOnly ? 'justify-center px-2' : ''
                         ]"
@@ -344,7 +380,7 @@ const isOwner = computed(() => {
                         :class="[
                             'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                             $page.url.startsWith('/developer-tools')
-                                ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                                ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                                 : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white',
                             menuIconsOnly ? 'justify-center px-2' : ''
                         ]"
@@ -361,13 +397,13 @@ const isOwner = computed(() => {
         <div class="p-3 border-t border-slate-100 dark:border-zinc-800/80 bg-slate-50/50 dark:bg-zinc-900/40 space-y-2 shrink-0">
             <!-- Organization / Team Switcher -->
             <button
-                v-if="!menuIconsOnly && props.organization"
+                v-if="!menuIconsOnly && props.organization && props.organization.name"
                 type="button"
-                class="w-full flex items-center justify-between p-2 rounded-xl border border-slate-200/80 dark:border-zinc-800 bg-white dark:bg-[#18181B] hover:border-[#6C5CE7]/60 text-left transition-colors cursor-pointer"
+                class="w-full flex items-center justify-between p-2 rounded-xl border border-slate-200/80 dark:border-zinc-800 bg-white dark:bg-[#18181B] hover:border-emerald-500/60 text-left transition-colors cursor-pointer"
                 @click="switchTeams"
             >
                 <div class="flex items-center gap-2 min-w-0">
-                    <div class="w-7 h-7 rounded-lg bg-purple-50 dark:bg-purple-950/50 text-[#6C5CE7] flex items-center justify-center text-xs font-bold shrink-0">
+                    <div class="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xs font-bold shrink-0">
                         {{ props.organization.name ? props.organization.name[0].toUpperCase() : 'T' }}
                     </div>
                     <div class="min-w-0">
@@ -379,6 +415,20 @@ const isOwner = computed(() => {
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
             </button>
+            <div
+                v-else-if="menuIconsOnly && props.organization && props.organization.name"
+                class="flex justify-center"
+            >
+                <Tooltip :content="props.organization.name" :position="'right'">
+                    <button
+                        type="button"
+                        class="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xs font-bold hover:ring-2 hover:ring-emerald-500/50 transition-all cursor-pointer"
+                        @click="switchTeams"
+                    >
+                        {{ props.organization.name ? props.organization.name[0].toUpperCase() : 'T' }}
+                    </button>
+                </Tooltip>
+            </div>
 
             <!-- User profile footer bar -->
             <div
@@ -400,7 +450,7 @@ const isOwner = computed(() => {
                         <h4 class="text-xs font-semibold text-slate-900 dark:text-white truncate">
                             {{ userFullName }}
                         </h4>
-                        <span class="text-[11px] text-[#6C5CE7] dark:text-purple-400 hover:underline block leading-tight">
+                        <span class="text-[11px] text-emerald-600 dark:text-emerald-400 hover:underline block leading-tight">
                             {{ $t('View profile') }}
                         </span>
                     </div>
@@ -424,15 +474,15 @@ const isOwner = computed(() => {
                 <div
                     v-for="(item, index) in props.organizations"
                     :key="index"
-                    class="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-zinc-800 hover:border-[#6C5CE7] hover:bg-purple-50/50 dark:hover:bg-purple-950/30 cursor-pointer transition-all duration-150"
-                    @click="selectOrganization(item.organization.uuid)"
+                    class="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-zinc-800 hover:border-emerald-500 hover:bg-emerald-50/50 dark:hover:bg-emerald-950/30 cursor-pointer transition-all duration-150"
+                    @click="item.organization?.uuid ? selectOrganization(item.organization.uuid) : null"
                 >
                     <div class="flex items-center gap-3">
-                        <span class="w-9 h-9 rounded-xl bg-purple-100 dark:bg-purple-950/60 text-[#6C5CE7] flex items-center justify-center font-bold text-sm">
-                            {{ item.organization.name[0].toUpperCase() }}
+                        <span class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 flex items-center justify-center font-bold text-sm">
+                            {{ item.organization?.name ? item.organization.name[0].toUpperCase() : 'T' }}
                         </span>
                         <div>
-                            <h4 class="font-semibold text-sm text-slate-900 dark:text-white">{{ item.organization.name }}</h4>
+                            <h4 class="font-semibold text-sm text-slate-900 dark:text-white">{{ item.organization?.name || 'Unnamed Team' }}</h4>
                             <p class="text-xs text-slate-400 dark:text-zinc-500 capitalize">{{ item.role }}</p>
                         </div>
                     </div>

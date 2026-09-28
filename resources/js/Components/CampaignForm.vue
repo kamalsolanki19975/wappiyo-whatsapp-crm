@@ -6,7 +6,7 @@ import WhatsappTemplate from '@/Components/WhatsappTemplate.vue';
 import Button from '@/Components/UI/Button.vue';
 import Badge from '@/Components/UI/Badge.vue';
 import { ref, computed, onMounted } from 'vue';
-import { Link, useForm } from "@inertiajs/vue3";
+import { Link, useForm, usePage } from "@inertiajs/vue3";
 import { trans } from 'laravel-vue-i18n';
 
 const props = defineProps({
@@ -48,6 +48,11 @@ const emit = defineEmits(['viewTemplate']);
 
 const isLoading = ref(false);
 const activeWizardStep = ref(1); // 1: Campaign & Audience, 2: Message & Variables, 3: Schedule & Review
+const page = usePage();
+const activeTimezoneLabel = computed(() => {
+    return page.props.timezone_display || 'India Standard Time (UTC+05:30)';
+});
+
 const contactGroupOptions = ref([
     { value: 'all', label: trans('All Contacts (Full Broadcast)') },
 ]);
@@ -595,7 +600,7 @@ onMounted(() => {
                                     </label>
                                 </div>
 
-                                <div v-if="!form.skip_schedule">
+                                <div v-if="!form.skip_schedule" class="space-y-1.5">
                                     <FormInput
                                         v-model="form.time"
                                         :name="$t('Scheduled Broadcast Time')"
@@ -603,6 +608,12 @@ onMounted(() => {
                                         :error="form.errors.time"
                                         :required="true"
                                     />
+                                    <p class="text-[11px] text-slate-500 dark:text-zinc-400 flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>{{ $t('Active Timezone:') }} <strong class="text-slate-700 dark:text-zinc-200">{{ activeTimezoneLabel }}</strong></span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -628,8 +639,11 @@ onMounted(() => {
                                 </div>
                                 <div class="py-2 flex justify-between">
                                     <dt class="text-slate-500 dark:text-zinc-400">{{ $t('Delivery Timing') }}</dt>
-                                    <dd class="font-semibold text-emerald-600 dark:text-emerald-400">
-                                        {{ form.skip_schedule ? $t('Immediate Broadcast') : (form.time || $t('Scheduled for selected time')) }}
+                                    <dd class="font-semibold text-emerald-600 dark:text-emerald-400 text-right">
+                                        <div>{{ form.skip_schedule ? $t('Immediate Broadcast') : (form.time || $t('Scheduled for selected time')) }}</div>
+                                        <div v-if="!form.skip_schedule && form.time" class="text-[10px] text-slate-400 font-normal">
+                                            {{ activeTimezoneLabel }}
+                                        </div>
                                     </dd>
                                 </div>
                             </dl>

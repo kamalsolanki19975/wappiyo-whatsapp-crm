@@ -6,6 +6,7 @@ import { useTheme } from "@/Composables/useTheme";
 import Button from "@/Components/UI/Button.vue";
 import Badge from "@/Components/UI/Badge.vue";
 import EmptyState from "@/Components/UI/EmptyState.vue";
+import { formatDate } from "@/Utils/dateTime";
 
 const user = computed(() => usePage().props.auth?.user || {});
 const { isDark } = useTheme();
@@ -17,18 +18,16 @@ const props = defineProps({
     userCount: { type: Number, default: 0 },
     openTickets: { type: Number, default: 0 },
     totalMessages: { type: Number, default: 0 },
+    totalLeads: { type: Number, default: 0 },
+    newLeads: { type: Number, default: 0 },
+    recentLeads: { type: Array, default: () => [] },
     period: { type: [Object, Array], default: () => [] },
     newUsers: { type: [Object, Array], default: () => [] },
     revenue: { type: [Object, Array], default: () => [] },
 });
 
 const todayDate = computed(() => {
-    try {
-        const options = { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' };
-        return new Intl.DateTimeFormat('en-US', options).format(new Date());
-    } catch (_) {
-        return new Date().toDateString();
-    }
+    return formatDate(new Date(), { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' });
 });
 
 const periodList = computed(() => {
@@ -174,13 +173,13 @@ const chartOptions = computed(() => {
         <div class="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto w-full transition-colors duration-200">
             <!-- Hero Banner -->
             <div class="relative overflow-hidden rounded-2xl border border-slate-200/80 dark:border-zinc-800 bg-white dark:bg-[#111113] p-5 sm:p-7 shadow-card transition-all">
-                <div class="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-gradient-to-br from-[#6C5CE7]/15 to-transparent blur-3xl dark:from-[#6C5CE7]/25" />
+                <div class="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-gradient-to-br from-emerald-500/15 to-transparent blur-3xl dark:from-emerald-500/25" />
 
                 <div class="relative z-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
                         <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-zinc-400 mb-1.5">
                             <span class="inline-flex items-center gap-1.5 font-medium">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-[#6C5CE7]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
                                 {{ todayDate }}
                             </span>
                             <span class="text-slate-300 dark:text-zinc-700">•</span>
@@ -216,7 +215,7 @@ const chartOptions = computed(() => {
             </div>
 
             <!-- KPI Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
                 <!-- 1. Total Revenue -->
                 <div class="group relative overflow-hidden rounded-2xl border border-slate-200/80 dark:border-zinc-800 bg-white dark:bg-[#111113] p-5 shadow-card hover:shadow-elevated transition-all duration-200 hover:-translate-y-0.5">
                     <div class="flex items-start justify-between">
@@ -265,7 +264,36 @@ const chartOptions = computed(() => {
                     </div>
                 </div>
 
-                <!-- 3. Open Tickets -->
+                <!-- 3. Website Leads -->
+                <div class="group relative overflow-hidden rounded-2xl border border-slate-200/80 dark:border-zinc-800 bg-white dark:bg-[#111113] p-5 shadow-card hover:shadow-elevated transition-all duration-200 hover:-translate-y-0.5">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
+                                {{ $t('Website Leads') }}
+                            </span>
+                            <div class="flex items-baseline gap-2 mt-2">
+                                <h3 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white">
+                                    {{ props.totalLeads }}
+                                </h3>
+                                <span v-if="props.newLeads > 0" class="px-1.5 py-0.5 rounded-md bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 text-[10px] font-bold">
+                                    {{ props.newLeads }} new
+                                </span>
+                            </div>
+                        </div>
+                        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-teal-50 dark:bg-teal-950/40 text-teal-600 ring-1 ring-teal-500/20 group-hover:scale-105 transition-transform">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/><path d="m14 2 4 4-7 7H7v-4l7-7z"/></svg>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-center justify-between border-t border-slate-100 dark:border-zinc-800/80 pt-3 text-xs">
+                        <span class="text-slate-400 dark:text-zinc-500">{{ $t('Inquiries & Demos') }}</span>
+                        <Link href="/admin/leads" class="font-semibold text-teal-600 hover:underline inline-flex items-center gap-1">
+                            <span>{{ $t('Manage leads') }}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                        </Link>
+                    </div>
+                </div>
+
+                <!-- 4. Open Tickets -->
                 <div class="group relative overflow-hidden rounded-2xl border border-slate-200/80 dark:border-zinc-800 bg-white dark:bg-[#111113] p-5 shadow-card hover:shadow-elevated transition-all duration-200 hover:-translate-y-0.5">
                     <div class="flex items-start justify-between">
                         <div>
@@ -281,7 +309,7 @@ const chartOptions = computed(() => {
                         </div>
                     </div>
                     <div class="mt-4 flex items-center justify-between border-t border-slate-100 dark:border-zinc-800/80 pt-3 text-xs">
-                        <span class="text-slate-400 dark:text-zinc-500">{{ $t('Customer support queue') }}</span>
+                        <span class="text-slate-400 dark:text-zinc-500">{{ $t('Support desk') }}</span>
                         <Link href="/admin/support" class="font-semibold text-[#F97316] hover:underline inline-flex items-center gap-1">
                             <span>{{ $t('View desk') }}</span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
@@ -289,7 +317,7 @@ const chartOptions = computed(() => {
                     </div>
                 </div>
 
-                <!-- 4. Total Messages -->
+                <!-- 5. Total Messages -->
                 <div class="group relative overflow-hidden rounded-2xl border border-slate-200/80 dark:border-zinc-800 bg-white dark:bg-[#111113] p-5 shadow-card hover:shadow-elevated transition-all duration-200 hover:-translate-y-0.5">
                     <div class="flex items-start justify-between">
                         <div>
@@ -300,13 +328,13 @@ const chartOptions = computed(() => {
                                 {{ props.totalMessages }}
                             </h3>
                         </div>
-                        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-50 dark:bg-purple-950/40 text-[#6C5CE7] ring-1 ring-purple-500/20 group-hover:scale-105 transition-transform">
+                        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 ring-1 ring-emerald-500/20 group-hover:scale-105 transition-transform">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                         </div>
                     </div>
                     <div class="mt-4 flex items-center justify-between border-t border-slate-100 dark:border-zinc-800/80 pt-3 text-xs">
                         <span class="text-slate-400 dark:text-zinc-500">{{ $t('System wide volume') }}</span>
-                        <span class="font-semibold text-[#6C5CE7] dark:text-purple-400">Platform Traffic</span>
+                        <span class="font-semibold text-emerald-600 dark:text-emerald-400">Platform Traffic</span>
                     </div>
                 </div>
             </div>
@@ -366,7 +394,7 @@ const chartOptions = computed(() => {
                                         {{ item.organization?.name || 'Workspace' }}
                                     </h4>
                                     <p class="text-[11px] text-slate-400 dark:text-zinc-500">
-                                        {{ item.created_at ? new Date(item.created_at).toLocaleDateString() : 'Confirmed' }}
+                                        {{ item.created_at ? formatDate(item.created_at) : 'Confirmed' }}
                                     </p>
                                 </div>
                                 <div class="shrink-0">

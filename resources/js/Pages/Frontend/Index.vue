@@ -1,470 +1,668 @@
 <template>
-    <div>
-        <section id="section1" class="pt-2 md:pt-3 px-5 md:px-10 lg:px-20 2xl:px-60 relative" style="color:white;background: rgb(16 65 23 / 66%);padding-bottom:52px;">
-            <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover z-[-1]">
-                <source :src="'/WhatsAppVideo.mp4'" type="video/mp4">
-            </video>
-            <div class="flex justify-between items-center">
-                <Link href="/" class="inline-block">
-                    <img class="max-w-[150px]" v-if="props.companyConfig.logo" :src="'/media/' + props.companyConfig.logo" :alt="props.companyConfig.company_name">
-                    <h1 v-else class="text-2xl">{{ props.companyConfig.company_name }}</h1>
-                </Link>
-                <div class="hidden lg:flex justify-center items-center text-md space-x-8">
-                    <a href="#section2" class="cursor-pointer hover:border-b-2 border-black">{{ $t('Features') }}</a>
-                    <a href="#section4" class="cursor-pointer hover:border-b-2 border-black">{{ $t('Pricing') }}</a>
-                    <a href="#section5" class="cursor-pointer hover:border-b-2 border-black">{{ $t('Reviews') }}</a>
-                    <a href="#section6" class="cursor-pointer hover:border-b-2 border-black">{{ $t('FAQs') }}</a>
-                    <a href="#section7" class="cursor-pointer hover:border-b-2 border-black">{{ $t('Contact us') }}</a>
-                </div>
-                
-                <div class="flex justify-end items-center text-md">
-                    <Link href="/login" class="hidden md:inline-block mr-10 cursor-pointer hover:text-gray-400 border-black">{{ $t('Login') }}</Link>
-                    <Link href="/signup" class="hidden md:inline-block bg-primary hover:bg-secondary text-white p-2 rounded-lg text-sm w-fit px-8">{{ $t('Sign Up') }}</Link>
-                    <Link href="/login" class="md:hidden bg-primary hover:bg-secondary text-white p-2 rounded-lg text-sm flex w-fit px-8">{{ $t('Login') }}</Link>
-                </div>
-            </div>
-            <div class="flex justify-center mt-[7%] h-full">
-                <div class="relative z-10">
-                    <div class="flex justify-center mb-6">
-                        <div class="bg-secondary/10 text-primary text-sm py-2 px-4 inline-block rounded-full mb-6 aos-init aos-animate" data-aos="fade-right" data-aos-duration="1000">
-                            <a href="#">
-                                <div class="flex items-center gap-2">
-                                    <div class="inline-block px-2 text-sm text-white rounded-full">🚀</div>
-                                    <div class="text-white">{{ $t('Upgrade your messaging experience') }}</div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="flex justify-center">
-                        <h1 class="text-center text-3xl md:text-3xl">{{ $t('Revolutionise Your Whatsapp Messaging Today') }}</h1>
-                    </div>
-                    <div class="flex justify-center">
-                        <h2 class="text-center text-white font-light text-gray-700 text-md md:text-xl mt-8 w-3/4">
-                            {{ $t("Transform the way you communicate on WhatsApp with our all-in-one solution designed for businesses and teams. Whether you're engaging with customers or collaborating with colleagues, we’ve got you covered!") }}.
-                        </h2>                    
-                    </div>
-                    <div class="md:flex md:flex-row md:justify-center md:space-x-2 space-y-4 md:space-y-0 mt-10">
-                       
-                    </div>
-                    <div class="flex flex-wrap justify-center items-center gap-5 mt-5 z-10">
-                        
-                    </div>
-                </div>
-            </div>  
-        </section>
-        <section id="section2" class="px-5 md:px-10 lg:px-20 py-20 2xl:px-60">
-            <div class="flex justify-center mb-2">
-                <div class="bg-secondary/10 text-secondary py-1 px-4 inline-block rounded-full mb-6 aos-init aos-animate" data-aos="fade-right" data-aos-duration="1000">
-                    <a href="#">
-                        <div class="flex items-center gap-2">
-                            <div>{{ $t('Features') }}</div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="flex justify-center">
-                <h2 class="text-center text-3xl md:text-3xl font-bold capitalize">{{ $t('Whatsapp messaging done differently') }}</h2>
-            </div>
-            <div class="flex justify-center">
-                <h3 class="text-center text-[18px] mt-5 w-[33em]">{{ $t('Elevate your communication game and unlock a host of powerful features tailored to enhance your business\'s WhatsApp experience:') }}</h3>
-            </div>
-            <div class="bg-gray-300/10 rounded-[20px] px-5 md:px-10 py-10 grid lg:grid-cols-2 grid-cols-1 gap-6 items-center mt-14">
-                <div class="">
-                    <img :src="'images/hero/dashboard3.png'" alt="dashboard" data-aos="fade-right" data-aos-duration="400" class="aos-init aos-animate">
-                </div>
-                <div class="lg:ms-24">
-                    <div @click="selectedFeature = 1" class="bg-white rounded-lg px-2 py-2 mb-5">
-                        <div class="flex justify-between items-center cursor-pointer">
-                            <div class="flex items-center space-x-3">
-                                <div class="bg-secondary/10 rounded-lg flex items-center justify-center h-10 w-10">
-                                    <svg class="h-6 w-6 text-secondary" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 26 26"><g fill="currentColor"><path d="M8.05 17.95a1 1 0 1 1 1.414-1.415A5 5 0 0 0 18 13a1 1 0 1 1 2 0a7 7 0 0 1-11.95 4.95"/><path d="M16.559 15.832a1 1 0 1 1-1.11-1.664l3-2a1 1 0 1 1 1.11 1.664z"/><path d="M21.832 15.445a1 1 0 0 1-1.664 1.11l-2-3a1 1 0 1 1 1.664-1.11zm-3.975-7.594a1 1 0 1 1-1.414 1.414a5 5 0 0 0-8.536 3.536a1 1 0 1 1-2 0a7 7 0 0 1 11.95-4.95"/><path d="M9.349 9.969a1 1 0 0 1 1.11 1.664l-3.001 2a1 1 0 1 1-1.11-1.664z"/><path d="M4.075 10.356a1 1 0 1 1 1.664-1.11l2 3a1 1 0 1 1-1.664 1.11z"/><path fill-rule="evenodd" d="M13 24c6.075 0 11-4.925 11-11S19.075 2 13 2S2 6.925 2 13s4.925 11 11 11m0 2c7.18 0 13-5.82 13-13S20.18 0 13 0S0 5.82 0 13s5.82 13 13 13" clip-rule="evenodd"/></g></svg>
-                                </div>
-                                <h4 class="font-regular text-gray-800">{{ $t('Instant connectivity') }}</h4>
-                            </div>
-                            <div>
-                                <svg v-if="selectedFeature != 1" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M16.75 11.989a1.82 1.82 0 0 1-.57 1.36l-6.82 6.1a1.27 1.27 0 0 1-.65.31h-.19a1.3 1.3 0 0 1-.52-.1a1.23 1.23 0 0 1-.54-.47a1.19 1.19 0 0 1-.21-.68v-13a1.2 1.2 0 0 1 .21-.69a1.23 1.23 0 0 1 1.25-.56c.24.039.464.143.65.3l6.76 6.09c.19.162.344.363.45.59c.114.234.175.49.18.75"/></svg>
-                                <svg v-else xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M19.696 8.72a1.22 1.22 0 0 1-.3.64l-6.09 6.76a1.85 1.85 0 0 1-.58.46a1.7 1.7 0 0 1-1.42.03a1.75 1.75 0 0 1-.62-.42l-6.1-6.83a1.28 1.28 0 0 1-.31-.64a1.31 1.31 0 0 1 .56-1.26a1.36 1.36 0 0 1 .68-.21h13a1.293 1.293 0 0 1 1.15.76c.081.228.092.476.03.71"/></svg>
-                            </div>
-                        </div>
-                        <div v-if="selectedFeature === 1" class="mt-2">
-                            <p class="text-gray-700 dark:text-gray-300 font-light">
-                                {{ $t('Engage with your audience in real-time through the WhatsApp Cloud API, ensuring swift and effective communication') }}.
-                            </p>
-                        </div>
-                    </div>
+    <WebsiteLayout
+        :companyConfig="companyConfig"
+        :languages="languages"
+        :currentLanguage="currentLanguage"
+        title="WhatsApp CRM, Team Inbox & Broadcast Automation"
+        description="One unified workspace for every WhatsApp customer conversation. Multi-agent shared inbox, automated workflows, verified broadcasts, and CRM integration."
+    >
+        <!-- HERO SECTION -->
+        <section class="relative pt-12 pb-20 sm:pt-20 sm:pb-32 overflow-hidden">
+            <!-- Background Glow & Grid -->
+            <div class="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[360px] bg-gradient-to-tr from-emerald-500/20 via-teal-500/15 to-cyan-500/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
-                    <div  @click="selectedFeature = 2" class="bg-white rounded-lg px-2 py-2 mb-5">
-                        <div class="flex justify-between items-center cursor-pointer">
-                            <div class="flex items-center space-x-3">
-                                <div class="bg-secondary/10 rounded-lg flex items-center justify-center h-10 w-10">
-                                    <svg class="h-6 w-6 text-secondary" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m8.85 12l1.45-1.45q.3-.3.288-.7t-.288-.7q-.3-.3-.712-.312t-.713.287L6.7 11.3q-.3.3-.3.7t.3.7l2.175 2.175q.3.3.713.288t.712-.313q.275-.3.288-.7t-.288-.7zm6.3 0l-1.45 1.45q-.3.3-.288.7t.288.7q.3.3.713.312t.712-.287L17.3 12.7q.3-.3.3-.7t-.3-.7l-2.175-2.175q-.3-.3-.712-.288t-.713.313q-.275.3-.287.7t.287.7zM5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h4.2q.325-.9 1.088-1.45T12 1q.95 0 1.713.55T14.8 3H19q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm0-2h14V5H5zm7-14.75q.325 0 .538-.213t.212-.537q0-.325-.213-.537T12 2.75q-.325 0-.537.213t-.213.537q0 .325.213.538T12 4.25M5 19V5z"/></svg>
-                                </div>
-                                <h4 class="font-regular text-gray-800">{{ $t('Effortless integration') }}</h4>
-                            </div>
-                            <div>
-                                <svg v-if="selectedFeature != 2" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M16.75 11.989a1.82 1.82 0 0 1-.57 1.36l-6.82 6.1a1.27 1.27 0 0 1-.65.31h-.19a1.3 1.3 0 0 1-.52-.1a1.23 1.23 0 0 1-.54-.47a1.19 1.19 0 0 1-.21-.68v-13a1.2 1.2 0 0 1 .21-.69a1.23 1.23 0 0 1 1.25-.56c.24.039.464.143.65.3l6.76 6.09c.19.162.344.363.45.59c.114.234.175.49.18.75"/></svg>
-                                <svg v-else xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M19.696 8.72a1.22 1.22 0 0 1-.3.64l-6.09 6.76a1.85 1.85 0 0 1-.58.46a1.7 1.7 0 0 1-1.42.03a1.75 1.75 0 0 1-.62-.42l-6.1-6.83a1.28 1.28 0 0 1-.31-.64a1.31 1.31 0 0 1 .56-1.26a1.36 1.36 0 0 1 .68-.21h13a1.293 1.293 0 0 1 1.15.76c.081.228.092.476.03.71"/></svg>
-                            </div>
-                        </div>
-                        <div v-if="selectedFeature === 2" class="mt-2">
-                            <p class="text-gray-700 dark:text-gray-300 font-light">
-                                {{ $t('Seamlessly integrate our platform into your systems with user-friendly API documentation and expert support') }}
-                            </p>
-                        </div>
-                    </div>
-
-                    <div  @click="selectedFeature = 3" class="bg-white rounded-lg px-2 py-2 mb-5">
-                        <div class="flex justify-between items-center cursor-pointer">
-                            <div class="flex items-center space-x-3">
-                                <div class="bg-secondary/10 rounded-lg flex items-center justify-center h-10 w-10">
-                                    <svg class="h-6 w-6 text-secondary" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M9 13V5c0-1.1.9-2 2-2h9c1.1 0 2 .9 2 2v6h-3.43l-1.28-1.74a.14.14 0 0 0-.24 0L15.06 12c-.06.06-.18.07-.24 0l-1.43-1.75a.152.152 0 0 0-.23 0l-2.11 2.66c-.08.09-.01.24.11.24h6.34V15H11c-1.11 0-2-.89-2-2m-3 9v-1H4v1H2V2h2v1h2V2h2.39C7.54 2.74 7 3.8 7 5v8c0 2.21 1.79 4 4 4h4.7c-1.03.83-1.7 2.08-1.7 3.5c0 .53.11 1.03.28 1.5zM4 7h2V5H4zm0 4h2V9H4zm0 4h2v-2H4zm2 4v-2H4v2zm17-6v2h-2v5.5a2.5 2.5 0 0 1-5 0a2.5 2.5 0 0 1 3.5-2.29V13z"/></svg>
-                                </div>
-                                <h4 class="font-regular text-gray-800">{{ $t('Multi-media support') }}</h4>
-                            </div>
-                            <div>
-                                <svg v-if="selectedFeature != 3" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M16.75 11.989a1.82 1.82 0 0 1-.57 1.36l-6.82 6.1a1.27 1.27 0 0 1-.65.31h-.19a1.3 1.3 0 0 1-.52-.1a1.23 1.23 0 0 1-.54-.47a1.19 1.19 0 0 1-.21-.68v-13a1.2 1.2 0 0 1 .21-.69a1.23 1.23 0 0 1 1.25-.56c.24.039.464.143.65.3l6.76 6.09c.19.162.344.363.45.59c.114.234.175.49.18.75"/></svg>
-                                <svg v-else xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M19.696 8.72a1.22 1.22 0 0 1-.3.64l-6.09 6.76a1.85 1.85 0 0 1-.58.46a1.7 1.7 0 0 1-1.42.03a1.75 1.75 0 0 1-.62-.42l-6.1-6.83a1.28 1.28 0 0 1-.31-.64a1.31 1.31 0 0 1 .56-1.26a1.36 1.36 0 0 1 .68-.21h13a1.293 1.293 0 0 1 1.15.76c.081.228.092.476.03.71"/></svg>
-                            </div>
-                        </div>
-                        <div v-if="selectedFeature === 3" class="mt-2">
-                            <p class="text-gray-700 dark:text-gray-300 font-light">
-                                {{ $t('Enrich conversations effortlessly by sharing images, documents, and multimedia content, enhancing your overall communication strategy') }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="grid lg:grid-cols-2 grid-cols-1 gap-6 items-center mt-10">
-                <div class="bg-gray-300/10 rounded-[20px] px-5 md:px-10 py-10 order-2 lg:order-1" data-aos="fade-up" data-aos-duration="500">
-
-                    <div class="bg-secondary/10  h-12 w-12 bg-primary/10 flex items-center justify-center rounded-lg">
-                        <svg class="h-6 w-6 text-secondary" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 1024 1024"><path fill="currentColor" d="M288 384h448v64H288zm96-128h256v64H384zM131.456 512H384v128h256V512h252.544L721.856 192H302.144zM896 576H704v128H320V576H128v256h768zM275.776 128h472.448a32 32 0 0 1 28.608 17.664l179.84 359.552A32 32 0 0 1 960 519.552V864a32 32 0 0 1-32 32H96a32 32 0 0 1-32-32V519.552a32 32 0 0 1 3.392-14.336l179.776-359.552A32 32 0 0 1 275.776 128"/></svg>
-                    </div>
-
-                    <h1 class="text-xl/tight font-medium mt-6 mb-4">{{ $t('Seamless Bulk and Direct Messaging') }}</h1>
-                    <p class="text-gray-500">{{ $t('Streamline your communication strategy with our platform\'s dual capabilities. Engage in effortless one-on-one conversations with your contacts while also harnessing the power to execute targeted bulk messaging campaigns') }}</p>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Announcement Tag -->
+                <div class="flex justify-center mb-6">
+                    <Link
+                        href="/product/automation"
+                        class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/80 dark:border-emerald-800/50 text-xs font-semibold text-emerald-700 dark:text-emerald-300 hover:border-emerald-300 transition-colors shadow-sm"
+                    >
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                        <span>{{ $t('Next-Gen WhatsApp Business Platform 2026') }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                    </Link>
                 </div>
 
-                <div class="bg-gray-300/10 rounded-[20px] px-5 md:px-10 py-10 order-2 lg:order-1" data-aos="fade-up" data-aos-duration="500">
+                <!-- Main Hero Headline -->
+                <div class="text-center max-w-4xl mx-auto">
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1] mb-6">
+                        <span>{{ $t('One powerful workspace for every') }}</span>
+                        <span class="block bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent">
+                            {{ $t('WhatsApp conversation.') }}
+                        </span>
+                    </h1>
+                    <p class="text-base sm:text-lg lg:text-xl text-slate-600 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed mb-10">
+                        {{ $t('Empower your team with a shared multi-agent inbox, drag-and-drop flow automation, targeted bulk broadcasts, deep CRM timeline context, and AI assistance.') }}
+                    </p>
 
-                    <div class="bg-secondary/10  h-12 w-12 bg-primary/10 flex items-center justify-center rounded-lg">
-                        <svg class="h-6 w-6 text-secondary" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M18.5 10.255c0 .044 0 .089-.003.133A1.537 1.537 0 0 0 17.473 10c-.162 0-.32.025-.473.074V5.75a.75.75 0 0 0-.75-.75h-8.5a.75.75 0 0 0-.75.75v4.505c0 .414.336.75.75.75h8.276l-.01.025l-.003.012l-.45 1.384l-.01.026a1.625 1.625 0 0 1-.019.053H7.75a2.25 2.25 0 0 1-2.25-2.25V5.75A2.25 2.25 0 0 1 7.75 3.5h3.5v-.75a.75.75 0 0 1 .649-.743L12 2a.75.75 0 0 1 .743.649l.007.101l-.001.75h3.5a2.25 2.25 0 0 1 2.25 2.25zm-5.457 3.781l.112-.036H6.254a2.25 2.25 0 0 0-2.25 2.25v.907a3.75 3.75 0 0 0 1.305 2.844c1.563 1.343 3.802 2 6.691 2c2.076 0 3.817-.339 5.213-1.028a1.545 1.545 0 0 1-1.169-1.003l-.004-.012l-.03-.093c-1.086.422-2.42.636-4.01.636c-2.559 0-4.455-.556-5.713-1.638a2.25 2.25 0 0 1-.783-1.706v-.907a.75.75 0 0 1 .75-.75H12v-.003a1.543 1.543 0 0 1 1.031-1.456zM10.999 7.75a1.25 1.25 0 1 0-2.499 0a1.25 1.25 0 0 0 2.499 0m3.243-1.25a1.25 1.25 0 1 1 0 2.499a1.25 1.25 0 0 1 0-2.499m1.847 10.912a2.831 2.831 0 0 0-1.348-.955l-1.377-.448a.544.544 0 0 1 0-1.025l1.377-.448a2.84 2.84 0 0 0 1.76-1.762l.01-.034l.449-1.377a.544.544 0 0 1 1.026 0l.448 1.377a2.837 2.837 0 0 0 1.798 1.796l1.378.448l.027.007a.544.544 0 0 1 0 1.025l-1.378.448a2.839 2.839 0 0 0-1.798 1.796l-.447 1.377a.55.55 0 0 1-.2.263a.544.544 0 0 1-.827-.263l-.448-1.377a2.834 2.834 0 0 0-.45-.848m7.694 3.801l-.765-.248a1.577 1.577 0 0 1-.999-.998l-.249-.765a.302.302 0 0 0-.57 0l-.249.764a1.577 1.577 0 0 1-.983.999l-.766.248a.302.302 0 0 0 0 .57l.766.249a1.576 1.576 0 0 1 .999 1.002l.248.764a.303.303 0 0 0 .57 0l.25-.764a1.575 1.575 0 0 1 .998-.999l.766-.248a.302.302 0 0 0 0-.57z"/></svg>
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <Link
+                            href="/signup"
+                            class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-sm shadow-xl shadow-emerald-600/25 transition-all hover:scale-[1.02] cursor-pointer"
+                        >
+                            <span>{{ $t('Get Started Free') }}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                        </Link>
+                        <Link
+                            href="/features"
+                            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-slate-100 dark:bg-zinc-900 hover:bg-slate-200 dark:hover:bg-zinc-800 text-slate-800 dark:text-zinc-200 font-semibold text-sm border border-slate-200 dark:border-zinc-800 transition-all cursor-pointer"
+                        >
+                            <span>{{ $t('Explore Platform') }}</span>
+                        </Link>
                     </div>
 
-                    <h1 class="text-xl/tight font-medium mt-6 mb-4">{{ $t('Craft automated responses') }}</h1>
-                    <p class="text-gray-500">{{ $t('Take control of your operational efficiency and streamline your workflow effortlessly with our customizable automated response system. Craft responses tailored to your unique needs, guaranteeing swift message delivery to your audience') }}</p>
+                    <!-- Trust indicators -->
+                    <div class="mt-8 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500 dark:text-zinc-400">
+                        <span class="inline-flex items-center gap-1.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>{{ $t('Official Meta Cloud API') }}</span>
+                        </span>
+                        <span class="inline-flex items-center gap-1.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>{{ $t('No Credit Card Required') }}</span>
+                        </span>
+                        <span class="inline-flex items-center gap-1.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>{{ $t('Unlimited Agent Collaboration') }}</span>
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </section>
 
-        <section id="section3" class="px-5 md:px-10 lg:px-20 2xl:px-60">
-            <div>
-                <div class="flex justify-center mb-2">
-                    <div class="bg-secondary/10 text-secondary py-1 px-4 inline-block rounded-full mb-6 aos-init aos-animate" data-aos="fade-right" data-aos-duration="1000">
-                        <a href="#">
+                <!-- HERO INTERACTIVE UI PREVIEW -->
+                <div class="mt-14 sm:mt-20 relative max-w-6xl mx-auto">
+                    <!-- Ambient Glow -->
+                    <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-emerald-500/20 via-teal-500/20 to-cyan-500/20 blur-xl opacity-70 -z-10"></div>
+
+                    <!-- App Mockup Window -->
+                    <div class="rounded-2xl border border-slate-200/80 dark:border-zinc-800 bg-white dark:bg-[#111113] shadow-2xl overflow-hidden">
+                        <!-- Window Titlebar -->
+                        <div class="h-11 px-4 border-b border-slate-200 dark:border-zinc-800 bg-slate-50/80 dark:bg-zinc-900/60 flex items-center justify-between">
                             <div class="flex items-center gap-2">
-                                <div>{{ $t('How it works') }}</div>
+                                <span class="w-3 h-3 rounded-full bg-rose-400"></span>
+                                <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+                                <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+                                <span class="ml-3 text-xs font-mono text-slate-400 dark:text-zinc-500 hidden sm:inline">wappiyo.io/chats/live</span>
                             </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="flex justify-center">
-                    <h2 class="text-center text-3xl md:text-3xl font-bold">{{ $t('A step-by-step guide to our platform') }}</h2>
-                </div>
-                <div class="flex justify-center">
-                    <h3 class="text-center text-[18px] mt-5 w-[33em]">{{ $t('Explore our platform with ease! Sign up, connect your whatsapp account, and start communicating with your customers') }}</h3>
-                </div>
-                <div class="flex justify-between items-center gap-6 md:gap-4 lg:gap-6 stp-15 relative max-md:flex-col mt-10">
-                    <img :src="'/images/shapes/stepArrow1.png'" alt="" class="absolute top-14 right-[22%] max-xxl:right-[23%] max-xxl:top-24 max-xxl:w-[200px] max-lg:right-[25%] max-lg:w-[100px] max-md:hidden">
-                    <img :src="'/images/shapes/stepArrow2.png'" alt="" class="absolute top-8 left-[21%] max-xxl:top-20 max-xxl:left-[23%] max-xxl:w-[200px] max-lg:left-[25%] max-lg:w-[100px] max-md:hidden">
-                    <div class="flex justify-center items-center text-center flex-col max-w-[350px]">
-                        <div class="text-s1 text-secondary bg-softBg border border-strokeColor rounded-full p-6 lg:p-7 text-3xl lg:text-5xl">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><defs><mask id="letsIconsUserScanDuotoneLine0"><g fill="none" stroke-linecap="round"><path stroke="silver" stroke-opacity="0.25" d="M17.5 3.5h.2c1.791 0 2.687 0 3.244.556c.556.557.556 1.453.556 3.244v.2m-4 13h.2c1.791 0 2.687 0 3.244-.556c.556-.557.556-1.453.556-3.244v-.2m-15-13h-.2c-1.791 0-2.687 0-3.243.556C2.5 4.614 2.5 5.51 2.5 7.3v.2m4 13h-.2c-1.791 0-2.687 0-3.243-.556C2.5 19.387 2.5 18.49 2.5 16.7v-.2"/><path stroke="#fff" d="M7.215 15.785c.473-.683 1.16-1.26 2.002-1.665A6.448 6.448 0 0 1 12 13.5c.981 0 1.941.216 2.783.62c.842.405 1.53.982 2.002 1.665"/><circle cx="12" cy="9" r="2.5" stroke="#fff"/></g></mask></defs><path fill="currentColor" d="M0 0h24v24H0z" mask="url(#letsIconsUserScanDuotoneLine0)"/></svg>
-                        </div>
-                        <h4 class="text-xl font-medium pt-8 pb-6">{{ $t('Create an account') }}</h4>
-                        <p class="font-light">{{ $t('Get started in a few clicks. Seamless registration, hassle-free access to a world of possibilities awaits you') }}</p>
-                    </div>
-                    <div class="flex justify-center items-center text-center flex-col max-w-[350px]">
-                        <div class="text-s1 text-secondary bg-softBg border border-strokeColor rounded-full p-6 lg:p-7 text-3xl lg:text-5xl">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M40.47 14.14v-3.21H10.75a3.23 3.23 0 0 0-3.22 3.21h0v18H4v4.94h23.51v-4.95H10.75v-18Z"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M32.14 17.36A1.61 1.61 0 0 0 30.53 19v16.5a1.61 1.61 0 0 0 1.61 1.6h10.25A1.61 1.61 0 0 0 44 35.49V19a1.61 1.61 0 0 0-1.61-1.61h0Zm8.64 14.77h-7V20.58h7Z"/></svg>
-                        </div>
-                        <h4 class="text-xl font-medium pt-8 pb-6">{{ $t('Setup your whatsapp instance') }}</h4>
-                        <p class="font-light">{{ $t('Quick and easy setup for your personalized WhatsApp instance. Begin engaging with your contacts in no time') }}.</p>
-                    </div>
-                    <div class="flex justify-center items-center text-center flex-col max-w-[350px]">
-                        <div class="text-s1 text-secondary bg-softBg border border-strokeColor rounded-full p-6 lg:p-7 text-3xl lg:text-5xl">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M16.8 29.286c-6.247 0-11.3-5.33-11.3-11.893S10.553 5.5 16.8 5.5h11.757c6.247 0 11.3 5.33 11.3 11.893s-5.053 11.893-11.3 11.893z"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M24.42 34.092v7.252c0 .63-.508 1.156-1.117 1.156a1.096 1.096 0 0 1-.788-.342l-11.02-11.35c-2.159-2.208-3.352-5.23-3.352-8.356c0-6.438 5.053-11.667 11.3-11.667H31.2c6.247 0 11.3 5.23 11.3 11.667s-5.053 11.666-11.3 11.666h-6.78z"/></svg>
-                        </div>
-                        <h4 class="text-xl font-medium pt-8 pb-6">{{ $t('Start your first campaign') }}</h4>
-                        <p class="font-light">{{ $t('Embark on your journey to success. Initiate your inaugural campaign effortlessly and witness the power of impactful outreach') }}</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="section4" class="relative px-5 md:px-10 lg:px-20 py-20 2xl:px-60">
-            <div>
-                <div class="relative">
-
-                    <div class="text-center">
-                        <div class="flex justify-center mb-2">
-                            <div class="bg-secondary/10 text-secondary py-1 px-4 inline-block rounded-full mb-4 aos-init aos-animate" data-aos="fade-right" data-aos-duration="1000">
-                                <a href="#">
-                                    <div class="flex items-center gap-2">
-                                        <div>{{ $t('Plans') }}</div>
-                                    </div>
-                                </a>
+                            <div class="flex items-center gap-3">
+                                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    <span>Cloud API Connected</span>
+                                </span>
                             </div>
                         </div>
-                        <h1 class="text-3xl md:text-5xl font-bold mb-4">{{ $t('Flexible pricing') }}</h1>
-                        <div class="flex justify-center">
-                            <h3 class="text-center text-[18px] mt-5 w-[33em]">{{ $t('Whether you\'re an individual, a small team, or a growing enterprise, we have a plan that aligns perfectly with your goals') }}</h3>
-                        </div>
-                    </div>
 
-                    <div class="grid xl:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-5 mt-14">
+                        <!-- Mockup Body (3-column layout) -->
+                        <div class="grid grid-cols-1 md:grid-cols-12 min-h-[480px]">
+                            <!-- Column 1: Conversations List -->
+                            <div class="hidden md:block md:col-span-4 border-r border-slate-200 dark:border-zinc-800 bg-slate-50/50 dark:bg-[#0E0E10] p-3 space-y-2">
+                                <div class="px-2 py-1.5 flex items-center justify-between">
+                                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-zinc-400">Shared Inbox</span>
+                                    <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">3 Active</span>
+                                </div>
 
-                        <!-- 2 -->
-                        <div v-for="(item, index) in props.plans" :key="index" data-aos="fade-up" data-aos-duration="700" class="aos-init aos-animate">
-                            <div class="transition-all duration-300 pointer-events-auto">
-                                <div class="bg-gray-300/10 w-full h-full p-10 rounded-[12px]">
-                                    <h2 class="text-xl text-[#034737]">{{ item.name }}</h2>
-                                    <h1 class="text-3xl/tight font-semibold mt-3">
-                                        <sup class="text-gray-500 text-sm font-normal">{{ props.currency ?? '$' }}</sup> 
-                                        {{ item.price }} 
-                                        <sub v-if="item.period === 'monthly'" class="text-gray-500 text-sm font-normal">{{ $t('Per month') }}</sub>
-                                        <sub v-if="item.period === 'yearly'" class="text-gray-500 text-sm font-normal">{{ $t('Per year') }}</sub>
-                                    </h1>
-                                    <div class="flex mt-8">
-                                        <Link href="/signup" class="bg-primary hover:bg-secondary text-center text-white w-full py-3 rounded-lg border border-transparent focus:outline focus:outline-primary/50 transition-all duration-300">{{ $t('Select Plan') }}</Link>
+                                <!-- Item 1 (Selected) -->
+                                <div class="p-3 rounded-xl bg-white dark:bg-[#18181B] border border-emerald-500/40 dark:border-emerald-500/30 shadow-sm cursor-pointer">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-xs font-bold text-slate-900 dark:text-white">Sarah Jenkins</span>
+                                        <span class="text-[10px] text-slate-400">14:28</span>
                                     </div>
-                                    <div class="mt-5">
-                                        <div class="flex flex-col space-y-2">
-                                            <div class="flex items-center text-gray-600 gap-3">
-                                                <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M14.25 8.75c-.5 2.5-2.385 4.854-5.03 5.38A6.25 6.25 0 0 1 3.373 3.798C5.187 1.8 8.25 1.25 10.75 2.25"/><path d="m5.75 7.75l2.5 2.5l6-6.5"/></g></svg>
-                                                </span>
-                                                <h3>{{ getDetail(item?.metadata, 'campaign_limit') == '-1' ? $t('Unlimited') : getDetail(item?.metadata, 'campaign_limit') }} {{ $t('Campaigns') }}</h3>
+                                    <p class="text-xs text-slate-600 dark:text-zinc-400 line-clamp-1">Could you confirm the enterprise onboarding schedule?</p>
+                                    <div class="flex items-center gap-1.5 mt-2">
+                                        <span class="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">VIP Lead</span>
+                                        <span class="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950 text-emerald-600">Assigned: Alex</span>
+                                    </div>
+                                </div>
+
+                                <!-- Item 2 -->
+                                <div class="p-3 rounded-xl bg-transparent hover:bg-white/50 dark:hover:bg-zinc-800/40 border border-transparent transition-all cursor-pointer">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-xs font-medium text-slate-900 dark:text-white">Marcus Vance</span>
+                                        <span class="text-[10px] text-slate-400">12:10</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 dark:text-zinc-400 line-clamp-1">Payment receipt received, thank you!</p>
+                                    <div class="flex items-center gap-1.5 mt-2">
+                                        <span class="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">Resolved</span>
+                                    </div>
+                                </div>
+
+                                <!-- Item 3 -->
+                                <div class="p-3 rounded-xl bg-transparent hover:bg-white/50 dark:hover:bg-zinc-800/40 border border-transparent transition-all cursor-pointer">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-xs font-medium text-slate-900 dark:text-white">Elena Rostova</span>
+                                        <span class="text-[10px] text-slate-400">Yesterday</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 dark:text-zinc-400 line-clamp-1">We would like to import 25,000 contacts.</p>
+                                    <div class="flex items-center gap-1.5 mt-2">
+                                        <span class="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-cyan-50 dark:bg-cyan-950 text-[#06B6D4]">Campaign Reply</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Column 2: Active Chat Thread -->
+                            <div class="col-span-1 md:col-span-5 p-4 flex flex-col justify-between bg-white dark:bg-[#111113]">
+                                <div>
+                                    <!-- Chat Header -->
+                                    <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-zinc-800">
+                                        <div class="flex items-center gap-2.5">
+                                            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-600 text-white flex items-center justify-center font-bold text-xs">
+                                                SJ
                                             </div>
-                                            <div class="flex items-center text-gray-600 gap-3">
-                                                <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M14.25 8.75c-.5 2.5-2.385 4.854-5.03 5.38A6.25 6.25 0 0 1 3.373 3.798C5.187 1.8 8.25 1.25 10.75 2.25"/><path d="m5.75 7.75l2.5 2.5l6-6.5"/></g></svg>
-                                                </span>
-                                                <h3>{{ getDetail(item?.metadata, 'message_limit') == '-1' ? $t('Unlimited') : getDetail(item?.metadata, 'message_limit') }} {{ $t('Messages') }}</h3>
+                                            <div>
+                                                <h4 class="text-xs font-bold text-slate-900 dark:text-white">Sarah Jenkins</h4>
+                                                <p class="text-[10px] text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                                    <span>WhatsApp Verified Customer</span>
+                                                </p>
                                             </div>
-                                            <div class="flex items-center text-gray-600 gap-3">
-                                                <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M14.25 8.75c-.5 2.5-2.385 4.854-5.03 5.38A6.25 6.25 0 0 1 3.373 3.798C5.187 1.8 8.25 1.25 10.75 2.25"/><path d="m5.75 7.75l2.5 2.5l6-6.5"/></g></svg>
-                                                </span>
-                                                <h3>{{ getDetail(item?.metadata, 'contacts_limit') == '-1' ? $t('Unlimited') : getDetail(item?.metadata, 'contacts_limit') }} {{ $t('Contacts') }}</h3>
+                                        </div>
+                                        <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300">
+                                            Assigned to you
+                                        </span>
+                                    </div>
+
+                                    <!-- Chat Messages -->
+                                    <div class="py-4 space-y-3">
+                                        <!-- Customer incoming -->
+                                        <div class="flex flex-col items-start max-w-[85%]">
+                                            <div class="p-3 rounded-2xl rounded-tl-sm bg-slate-100 dark:bg-zinc-800 text-xs text-slate-800 dark:text-zinc-200">
+                                                Hi team! We love the demo. Could you confirm if we can start onboarding our 15 support agents this Thursday?
                                             </div>
-                                            <div class="flex items-center text-gray-600 gap-3">
-                                                <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M14.25 8.75c-.5 2.5-2.385 4.854-5.03 5.38A6.25 6.25 0 0 1 3.373 3.798C5.187 1.8 8.25 1.25 10.75 2.25"/><path d="m5.75 7.75l2.5 2.5l6-6.5"/></g></svg>
-                                                </span>
-                                                <h3>{{ getDetail(item?.metadata, 'canned_replies_limit') == '-1' ? $t('Unlimited') : getDetail(item?.metadata, 'canned_replies_limit') }} {{ $t('Canned replies') }}</h3>
+                                            <span class="text-[9px] text-slate-400 mt-1 ml-1">14:27 PM</span>
+                                        </div>
+
+                                        <!-- AI Draft Suggestion Pill -->
+                                        <div class="p-2.5 rounded-xl bg-emerald-50/80 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 flex items-start gap-2">
+                                            <div class="w-5 h-5 rounded-md bg-emerald-600 text-white flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">
+                                                AI
                                             </div>
-                                            <div class="flex items-center text-gray-600 gap-3">
-                                                <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M14.25 8.75c-.5 2.5-2.385 4.854-5.03 5.38A6.25 6.25 0 0 1 3.373 3.798C5.187 1.8 8.25 1.25 10.75 2.25"/><path d="m5.75 7.75l2.5 2.5l6-6.5"/></g></svg>
-                                                </span>
-                                                <h3>{{ getDetail(item?.metadata, 'team_limit') == '-1' ? $t('Unlimited') : getDetail(item?.metadata, 'team_limit') }} {{ $t('Users') }}</h3>
+                                            <div class="flex-1">
+                                                <div class="flex items-center justify-between">
+                                                    <span class="text-[10px] font-bold text-emerald-700 dark:text-emerald-300">Suggested Smart Reply</span>
+                                                    <button type="button" class="text-[9px] font-semibold text-emerald-600 hover:underline">Apply Draft</button>
+                                                </div>
+                                                <p class="text-[11px] text-slate-600 dark:text-zinc-300 mt-0.5">
+                                                    "Absolutely Sarah! We have Thursday 10:00 AM reserved for your team. I will send your calendar invite shortly."
+                                                </p>
                                             </div>
+                                        </div>
+
+                                        <!-- Agent reply -->
+                                        <div class="flex flex-col items-end ml-auto max-w-[85%]">
+                                            <div class="p-3 rounded-2xl rounded-tr-sm bg-gradient-to-r from-emerald-600 to-teal-600 text-xs text-white">
+                                                Absolutely Sarah! We have Thursday 10:00 AM reserved for your team. I will send your calendar invite shortly.
+                                            </div>
+                                            <span class="text-[9px] text-slate-400 mt-1 mr-1 flex items-center gap-1">
+                                                <span>14:28 PM</span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 6 9 17 4 12"/><polyline points="22 6 13 17 10 14"/></svg>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <section id="section5" class="bg-gray-300/10 px-5 md:px-10 lg:px-20 2xl:px-60 py-10">
-            <div>
-                <div class="flex justify-center mb-2">
-                    <div class="bg-secondary/10 text-secondary py-1 px-4 inline-block rounded-full mb-6 aos-init aos-animate" data-aos="fade-right" data-aos-duration="1000">
-                        <a href="#">
-                            <div class="flex items-center gap-2">
-                                <div>{{ $t('Reviews') }}</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="flex justify-center">
-                    <h2 class="text-center text-3xl md:text-3xl font-bold">{{ $t('Explore genuine client feedback') }}</h2>
-                </div>
-                <div class="flex justify-center">
-                    <h3 class="text-center text-[18px] mt-5 w-[30em]">{{ $t('Discover how businesses like yours transformed with our software. Real stories of growth, innovation, and success') }}</h3>
-                </div>
-                <div class="md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 space-y-4 md:space-y-0 mt-20">
-                    <div v-for="(item, index) in props.reviews" :key="index" class="bg-white rounded-[15px] p-5">
-                        <div class="flex">
-                            <svg :class="item.rating >= 1 ? 'text-[#f7ba2f]' : 'text-gray-300'" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12.86 10.44L11 6.06l-1.86 4.39l-4.75.41L8 14l-1.08 4.63L11 16.17l4.09 2.46L14 14l3.61-3.14zm3.73 10.26L11 17.34L5.42 20.7l1.46-6.35l-4.92-4.28l6.49-.57l2.55-6l2.55 6l6.49.57l-4.92 4.27z"/></svg>
-                            <svg :class="item.rating >= 2 ? 'text-[#f7ba2f]' : 'text-gray-300'" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12.86 10.44L11 6.06l-1.86 4.39l-4.75.41L8 14l-1.08 4.63L11 16.17l4.09 2.46L14 14l3.61-3.14zm3.73 10.26L11 17.34L5.42 20.7l1.46-6.35l-4.92-4.28l6.49-.57l2.55-6l2.55 6l6.49.57l-4.92 4.27z"/></svg>
-                            <svg :class="item.rating >= 3 ? 'text-[#f7ba2f]' : 'text-gray-300'" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12.86 10.44L11 6.06l-1.86 4.39l-4.75.41L8 14l-1.08 4.63L11 16.17l4.09 2.46L14 14l3.61-3.14zm3.73 10.26L11 17.34L5.42 20.7l1.46-6.35l-4.92-4.28l6.49-.57l2.55-6l2.55 6l6.49.57l-4.92 4.27z"/></svg>
-                            <svg :class="item.rating >= 4 ? 'text-[#f7ba2f]' : 'text-gray-300'" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12.86 10.44L11 6.06l-1.86 4.39l-4.75.41L8 14l-1.08 4.63L11 16.17l4.09 2.46L14 14l3.61-3.14zm3.73 10.26L11 17.34L5.42 20.7l1.46-6.35l-4.92-4.28l6.49-.57l2.55-6l2.55 6l6.49.57l-4.92 4.27z"/></svg>
-                            <svg :class="item.rating == 5 ? 'text-[#f7ba2f]' : 'text-gray-300'" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12.86 10.44L11 6.06l-1.86 4.39l-4.75.41L8 14l-1.08 4.63L11 16.17l4.09 2.46L14 14l3.61-3.14zm3.73 10.26L11 17.34L5.42 20.7l1.46-6.35l-4.92-4.28l6.49-.57l2.55-6l2.55 6l6.49.57l-4.92 4.27z"/></svg>
-                        </div>
-                        <p class="font-light">{{ item.review }}</p>
-                        <div class="flex justify-between items-center mt-5">
-                            <div>
-                                <h3 class="font-semibold">{{ item.name }}</h3>
-                                <p class="font-light">{{ item.position }}</p>
-                            </div>
-                            <div>
-                                <svg class="text-gray-500/10" xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 24 24"><path fill="currentColor" d="M19.417 6.679C20.447 7.773 21 9 21 10.989c0 3.5-2.456 6.637-6.03 8.188l-.893-1.378c3.335-1.804 3.987-4.145 4.248-5.621c-.537.278-1.24.375-1.93.311c-1.804-.167-3.226-1.648-3.226-3.489a3.5 3.5 0 0 1 3.5-3.5c1.073 0 2.1.49 2.748 1.179m-10 0C10.447 7.773 11 9 11 10.989c0 3.5-2.456 6.637-6.03 8.188l-.893-1.378c3.335-1.804 3.987-4.145 4.247-5.621c-.537.278-1.24.375-1.929.311C4.591 12.323 3.17 10.842 3.17 9a3.5 3.5 0 0 1 3.5-3.5c1.073 0 2.1.49 2.748 1.179"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="section6" class="px-5 md:px-10 lg:px-20 py-10">
-            <div class="aos-init aos-animate" data-aos="fade-up" data-aos-duration="2000">
-
-                <div class="text-center">
-                    <div class="flex justify-center mb-2">
-                        <div class="bg-secondary/10 text-secondary py-1 px-4 inline-block rounded-full mb-4 aos-init aos-animate" data-aos="fade-right" data-aos-duration="1000">
-                            <a href="#">
-                                <div class="flex items-center gap-2">
-                                    <div>{{ $t('FAQs') }}</div>
+                                <!-- Chat Input Simulator -->
+                                <div class="pt-3 border-t border-slate-100 dark:border-zinc-800">
+                                    <div class="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-50 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700">
+                                        <input
+                                            type="text"
+                                            readonly
+                                            value="Type a message or press '/' for canned responses..."
+                                            class="bg-transparent border-0 text-xs text-slate-400 w-full focus:outline-none"
+                                        />
+                                        <button class="w-7 h-7 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center shrink-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                                        </button>
+                                    </div>
                                 </div>
-                            </a>
+                            </div>
+
+                            <!-- Column 3: CRM Context & Automation Node -->
+                            <div class="hidden md:block md:col-span-3 border-l border-slate-200 dark:border-zinc-800 bg-slate-50/40 dark:bg-[#0D0D0F] p-4 space-y-4">
+                                <div>
+                                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-zinc-500">Contact CRM Card</span>
+                                    <div class="mt-2 space-y-2 text-xs">
+                                        <div class="flex justify-between py-1 border-b border-slate-200/60 dark:border-zinc-800/60">
+                                            <span class="text-slate-500">Status</span>
+                                            <span class="font-semibold text-emerald-600 dark:text-emerald-400">Qualified Lead</span>
+                                        </div>
+                                        <div class="flex justify-between py-1 border-b border-slate-200/60 dark:border-zinc-800/60">
+                                            <span class="text-slate-500">Lifecycle</span>
+                                            <span class="font-semibold text-slate-800 dark:text-zinc-200">Onboarding</span>
+                                        </div>
+                                        <div class="flex justify-between py-1 border-b border-slate-200/60 dark:border-zinc-800/60">
+                                            <span class="text-slate-500">Total Value</span>
+                                            <span class="font-bold text-emerald-600 dark:text-emerald-400">$1,200/yr</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="pt-2">
+                                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-zinc-500">Active Workflow</span>
+                                    <div class="mt-2 p-2.5 rounded-xl bg-white dark:bg-[#18181B] border border-slate-200 dark:border-zinc-800 text-[11px] space-y-1.5">
+                                        <div class="flex items-center gap-1.5 font-semibold text-slate-900 dark:text-white">
+                                            <span class="w-2 h-2 rounded-full bg-[#06B6D4]"></span>
+                                            <span>Inbound Demo Triage</span>
+                                        </div>
+                                        <p class="text-[10px] text-slate-500 dark:text-zinc-400">
+                                            Trigger: Keyword "demo" &rarr; Assign: Alex &rarr; Send Calendar link
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <h2 class="text-3xl md:text-5xl/tight font-bold mt-3 mb-4">{{ $t('Frequently asked questions') }}</h2>
-                    <div class="flex justify-center">
-                        <h3 class="text-center text-[18px] mt-5 w-[32em]">{{ $t('Learn how our platform works and find solutions to common queries. Need more help? Reach out to our support team for personalized assistance') }}</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- TRUST & ARCHITECTURE HIGHLIGHTS -->
+        <section class="py-12 border-y border-slate-200/80 dark:border-zinc-800 bg-slate-50/60 dark:bg-[#0D0D0F]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <p class="text-center text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-zinc-500 mb-8">
+                    {{ $t('Enterprise Reliability Built Directly on Meta Cloud Infrastructure') }}
+                </p>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                    <div class="p-4 rounded-xl bg-white dark:bg-[#111113] border border-slate-200/60 dark:border-zinc-800 shadow-sm">
+                        <div class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 mb-1">99.9%</div>
+                        <div class="text-xs font-medium text-slate-600 dark:text-zinc-400">{{ $t('Message Delivery SLA') }}</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-white dark:bg-[#111113] border border-slate-200/60 dark:border-zinc-800 shadow-sm">
+                        <div class="text-2xl font-extrabold text-[#06B6D4] mb-1">&lt; 1s</div>
+                        <div class="text-xs font-medium text-slate-600 dark:text-zinc-400">{{ $t('Webhook Real-time Latency') }}</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-white dark:bg-[#111113] border border-slate-200/60 dark:border-zinc-800 shadow-sm">
+                        <div class="text-2xl font-extrabold text-emerald-500 mb-1">100%</div>
+                        <div class="text-xs font-medium text-slate-600 dark:text-zinc-400">{{ $t('Meta Cloud API Compliant') }}</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-white dark:bg-[#111113] border border-slate-200/60 dark:border-zinc-800 shadow-sm">
+                        <div class="text-2xl font-extrabold text-teal-500 dark:text-teal-400 mb-1">E2E</div>
+                        <div class="text-xs font-medium text-slate-600 dark:text-zinc-400">{{ $t('End-to-End Encryption') }}</div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div data-fc-type="accordion" class="mt-14 lg:w-3/4 lg:mx-auto 2xl:w-2/3 space-y-2 md:px-20">
-                    <!-- 1 -->
-                    <div v-for="(item, index) in props.faqs.data" :key="index" class="border border-gray-300 rounded-lg">
-                        <button @click="selectedFaq = index+1" class="inline-flex p-5 items-center justify-between w-full text-left transition fc-collapse" data-fc-type="collapse">
-                            <div v-html="item.question"></div>
-                            <div>
-                                <svg v-if="selectedFaq != index+1" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M16.75 11.989a1.82 1.82 0 0 1-.57 1.36l-6.82 6.1a1.27 1.27 0 0 1-.65.31h-.19a1.3 1.3 0 0 1-.52-.1a1.23 1.23 0 0 1-.54-.47a1.19 1.19 0 0 1-.21-.68v-13a1.2 1.2 0 0 1 .21-.69a1.23 1.23 0 0 1 1.25-.56c.24.039.464.143.65.3l6.76 6.09c.19.162.344.363.45.59c.114.234.175.49.18.75"/></svg>
-                                <svg v-else xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M19.696 8.72a1.22 1.22 0 0 1-.3.64l-6.09 6.76a1.85 1.85 0 0 1-.58.46a1.7 1.7 0 0 1-1.42.03a1.75 1.75 0 0 1-.62-.42l-6.1-6.83a1.28 1.28 0 0 1-.31-.64a1.31 1.31 0 0 1 .56-1.26a1.36 1.36 0 0 1 .68-.21h13a1.293 1.293 0 0 1 1.15.76c.081.228.092.476.03.71"/></svg>
-                            </div>
+        <!-- PRODUCT OVERVIEW: 6 CORE PILLARS -->
+        <section class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2 block">
+                    {{ $t('Core Architecture') }}
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                    {{ $t('Everything your business needs to master WhatsApp at scale') }}
+                </h2>
+                <p class="mt-4 text-base text-slate-600 dark:text-zinc-400">
+                    {{ $t('From individual conversation triage to automated 50,000-contact broadcasts, Wappiyo unites your entire customer communication lifecycle.') }}
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 1. Shared Inbox -->
+                <div class="group p-8 rounded-2xl bg-white dark:bg-[#111113] border border-slate-200/80 dark:border-zinc-800 hover:border-emerald-300 dark:hover:border-emerald-800 transition-all hover:shadow-xl shadow-slate-900/5">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{{ $t('Multi-Agent Shared Inbox') }}</h3>
+                    <p class="text-xs text-slate-600 dark:text-zinc-400 leading-relaxed mb-6">
+                        {{ $t('Multiple team members collaborate from a single WhatsApp number. Assign conversations, leave private internal notes, and use canned quick replies.') }}
+                    </p>
+                    <Link href="/product/inbox" class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 hover:underline">
+                        <span>{{ $t('Discover Shared Inbox') }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                    </Link>
+                </div>
+
+                <!-- 2. WhatsApp CRM -->
+                <div class="group p-8 rounded-2xl bg-white dark:bg-[#111113] border border-slate-200/80 dark:border-zinc-800 hover:border-cyan-300 dark:hover:border-cyan-800 transition-all hover:shadow-xl shadow-slate-900/5">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/60 text-[#06B6D4] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{{ $t('Complete WhatsApp CRM') }}</h3>
+                    <p class="text-xs text-slate-600 dark:text-zinc-400 leading-relaxed mb-6">
+                        {{ $t('Centralize customer profiles, contact tags, custom fields, lifecycle stages, and conversation timelines with zero context loss.') }}
+                    </p>
+                    <Link href="/product/crm" class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#06B6D4] hover:underline">
+                        <span>{{ $t('Explore CRM Features') }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                    </Link>
+                </div>
+
+                <!-- 3. Broadcast Campaigns -->
+                <div class="group p-8 rounded-2xl bg-white dark:bg-[#111113] border border-slate-200/80 dark:border-zinc-800 hover:border-pink-300 dark:hover:border-pink-800 transition-all hover:shadow-xl shadow-slate-900/5">
+                    <div class="w-12 h-12 rounded-xl bg-pink-100 dark:bg-pink-950/60 text-[#EC4899] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{{ $t('Targeted Broadcast Campaigns') }}</h3>
+                    <p class="text-xs text-slate-600 dark:text-zinc-400 leading-relaxed mb-6">
+                        {{ $t('Send Meta-approved message templates with dynamic personalized tags. Schedule bulk campaigns and monitor delivery and read analytics in real-time.') }}
+                    </p>
+                    <Link href="/product/campaigns" class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#EC4899] hover:underline">
+                        <span>{{ $t('Learn About Campaigns') }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                    </Link>
+                </div>
+
+                <!-- 4. Flow Automation -->
+                <div class="group p-8 rounded-2xl bg-white dark:bg-[#111113] border border-slate-200/80 dark:border-zinc-800 hover:border-emerald-300 dark:hover:border-emerald-800 transition-all hover:shadow-xl shadow-slate-900/5">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{{ $t('Visual Flow Automation') }}</h3>
+                    <p class="text-xs text-slate-600 dark:text-zinc-400 leading-relaxed mb-6">
+                        {{ $t('Build interactive chatbot journeys without code. Configure instant keyword triggers, conditions, branching paths, and automated CRM updates.') }}
+                    </p>
+                    <Link href="/product/automation" class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 hover:underline">
+                        <span>{{ $t('See Flow Builder') }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                    </Link>
+                </div>
+
+                <!-- 5. AI Assistant -->
+                <div class="group p-8 rounded-2xl bg-white dark:bg-[#111113] border border-slate-200/80 dark:border-zinc-800 hover:border-teal-300 dark:hover:border-teal-800 transition-all hover:shadow-xl shadow-slate-900/5">
+                    <div class="w-12 h-12 rounded-xl bg-teal-100 dark:bg-teal-950/60 text-teal-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{{ $t('AI Smart Assistant') }}</h3>
+                    <p class="text-xs text-slate-600 dark:text-zinc-400 leading-relaxed mb-6">
+                        {{ $t('Empower agents with instant OpenAI-backed reply suggestions, conversation summarization, and automated intent classification.') }}
+                    </p>
+                    <Link href="/product/ai" class="inline-flex items-center gap-1.5 text-xs font-semibold text-teal-600 hover:underline">
+                        <span>{{ $t('Explore AI Assistant') }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                    </Link>
+                </div>
+
+                <!-- 6. Real-Time Analytics -->
+                <div class="group p-8 rounded-2xl bg-white dark:bg-[#111113] border border-slate-200/80 dark:border-zinc-800 hover:border-cyan-300 dark:hover:border-cyan-800 transition-all hover:shadow-xl shadow-slate-900/5">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/60 text-[#06B6D4] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{{ $t('Actionable Analytics') }}</h3>
+                    <p class="text-xs text-slate-600 dark:text-zinc-400 leading-relaxed mb-6">
+                        {{ $t('Track agent first response time (FRT), resolution speed, broadcast delivery rates, and contact engagement trends through intuitive dashboards.') }}
+                    </p>
+                    <Link href="/product/analytics" class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#06B6D4] hover:underline">
+                        <span>{{ $t('View Analytics Tour') }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                    </Link>
+                </div>
+            </div>
+        </section>
+
+        <!-- DYNAMIC PRICING PREVIEW SECTION -->
+        <section class="py-24 bg-slate-50/70 dark:bg-[#0E0E10] border-t border-slate-200/80 dark:border-zinc-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2 block">
+                        {{ $t('Transparent & Scalable') }}
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                        {{ $t('Simple, transparent pricing that grows with your business') }}
+                    </h2>
+                    <p class="mt-4 text-base text-slate-600 dark:text-zinc-400">
+                        {{ $t('No hidden setup fees. Choose the tier that matches your team and upgrade whenever your message volume expands.') }}
+                    </p>
+
+                    <!-- Billing Toggle -->
+                    <div class="mt-8 inline-flex items-center p-1 rounded-xl bg-slate-200/80 dark:bg-zinc-800 text-xs font-semibold">
+                        <button
+                            type="button"
+                            @click="billingCycle = 'monthly'"
+                            class="px-4 py-2 rounded-lg transition-all"
+                            :class="billingCycle === 'monthly' ? 'bg-white dark:bg-[#18181B] text-slate-900 dark:text-white shadow-sm' : 'text-slate-600 dark:text-zinc-400'"
+                        >
+                            {{ $t('Monthly Billing') }}
                         </button>
-                        <div class="w-full overflow-hidden transition-[height] duration-300" :class="selectedFaq === index+1 ? '' : 'hidden'" style="">
-                            <div class="text-slate-500 dark:text-gray-300 pt-3 p-5" v-html="item.answer"></div>
-                        </div>
+                        <button
+                            type="button"
+                            @click="billingCycle = 'yearly'"
+                            class="px-4 py-2 rounded-lg transition-all flex items-center gap-1.5"
+                            :class="billingCycle === 'yearly' ? 'bg-white dark:bg-[#18181B] text-slate-900 dark:text-white shadow-sm' : 'text-slate-600 dark:text-zinc-400'"
+                        >
+                            <span>{{ $t('Yearly Billing') }}</span>
+                            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-600 text-white">Save 20%</span>
+                        </button>
                     </div>
+                </div>
+
+                <!-- Plans Grid (Dynamically rendered from backend) -->
+                <div v-if="props.plans && props.plans.length" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto items-stretch">
+                    <div
+                        v-for="plan in props.plans"
+                        :key="plan.uuid || plan.id"
+                        class="relative rounded-3xl p-8 flex flex-col justify-between transition-all"
+                        :class="isPlanFeatured(plan) 
+                            ? 'bg-white dark:bg-[#111113] border-2 border-emerald-500 shadow-2xl shadow-emerald-600/15 ring-4 ring-emerald-600/10' 
+                            : 'bg-white dark:bg-[#111113] border border-slate-200/80 dark:border-zinc-800 shadow-md'"
+                    >
+                        <!-- Featured Badge -->
+                        <div v-if="isPlanFeatured(plan)" class="absolute -top-3.5 left-1/2 -translate-x-1/2">
+                            <span class="px-3.5 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md">
+                                {{ $t('Most Popular') }}
+                            </span>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white">{{ plan.name }}</h3>
+                            </div>
+                            <p class="text-xs text-slate-500 dark:text-zinc-400 min-h-[36px] mb-6">
+                                {{ getPlanDescription(plan) }}
+                            </p>
+
+                            <!-- Price Display -->
+                            <div class="mb-6 pb-6 border-b border-slate-100 dark:border-zinc-800">
+                                <div class="flex items-baseline gap-1">
+                                    <span class="text-4xl font-extrabold text-slate-900 dark:text-white">
+                                        {{ formatPlanPrice(plan) }}
+                                    </span>
+                                    <span class="text-xs text-slate-500 dark:text-zinc-400">
+                                        / {{ billingCycle === 'yearly' ? $t('year') : $t('month') }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Plan Limits & Capabilities -->
+                            <ul class="space-y-3 text-xs text-slate-700 dark:text-zinc-300 mb-8">
+                                <li class="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                                    <span>
+                                        <strong>{{ plan.contacts_limit || 'Unlimited' }}</strong> {{ $t('Stored Contacts') }}
+                                    </span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                                    <span>
+                                        <strong>{{ plan.messages_limit || 'Unlimited' }}</strong> {{ $t('Monthly Outbound Messages') }}
+                                    </span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                                    <span>
+                                        <strong>{{ plan.team_limit || 'Unlimited' }}</strong> {{ $t('Team Members / Agents') }}
+                                    </span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                                    <span>{{ $t('Shared Inbox & Tag Routing') }}</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                                    <span>{{ $t('Visual Flow Builder & Automation') }}</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                                    <span>{{ $t('Meta Cloud API Integration') }}</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- CTA Button leading to signup with plan uuid -->
+                        <Link
+                            :href="`/signup?plan=${plan.uuid}`"
+                            class="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl font-bold text-xs transition-all text-center"
+                            :class="isPlanFeatured(plan)
+                                ? 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-lg shadow-emerald-600/20'
+                                : 'bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-900 dark:text-white'"
+                        >
+                            <span>{{ $t('Get Started with') }} {{ plan.name }}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                        </Link>
+                    </div>
+                </div>
+
+                <!-- Link to Full Pricing & Comparison -->
+                <div class="mt-12 text-center">
+                    <Link
+                        href="/pricing"
+                        class="inline-flex items-center gap-2 text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline"
+                    >
+                        <span>{{ $t('View full plan comparison & available addons') }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                    </Link>
                 </div>
             </div>
         </section>
 
-        <footer id="section7" class="bg-gray-300/10 px-5 md:px-10 lg:px-20 md:pt-10 pb-5 2xl:px-60">
-            <div class="md:flex">
-                <div class="md:w-1/4 lg:w-1/2">
-                    <div>
-                        <img class="max-w-[150px]" v-if="props.companyConfig.logo" :src="'/media/' + props.companyConfig.logo" :alt="props.companyConfig.company_name">
-                        <h4 v-else class="text-2xl mb-2">{{ props.companyConfig.company_name }}</h4>
-                        <div style="margin-right: 21%;margin-top: 20px;">
-                        {{ $t('With WhatsApp.io, we ensure that you never miss a message. Our team is available to chat, resolve your queries, and assist you in real time.')}}
-                        </div>
-                    </div>
-                </div>
-                <div class="md:w-3/4 lg:w-1/2 md:flex md:justify-between text-sm space-y-8 md:space-y-0">
-                    <div>
-                        <h4 class="text-xl font-regular mb-2">{{ $t('Links') }}</h4>
-                        <div class="flex md:justify-between space-x-10 md:space-x-10 lg:space-x-20 space-y-2 md:space-y-0">
-                            <div class="space-y-2">
-                                <div>
-                                    <a href="#section2" class="border-b-2 border-[#fafbfb] hover:border-b-2 hover:border-black">{{ $t('Features') }}</a>
-                                </div>
-                                <div>
-                                    <a href="#section3" class="border-b-2 border-[#fafbfb] hover:border-b-2 hover:border-black">{{ $t('How it works') }}</a>
-                                </div>
-                                <div>
-                                    <a href="#section4" class="border-b-2 border-[#fafbfb] hover:border-b-2 hover:border-black">{{ $t('Pricing') }}</a>
-                                </div>
-                                <div>
-                                    <a href="#section5" class="border-b-2 border-[#fafbfb] hover:border-b-2 hover:border-black">{{ $t('Reviews') }}</a>
-                                </div>
-                                <div>
-                                    <a href="#section6" class="border-b-2 border-[#fafbfb] hover:border-b-2 hover:border-black">{{ $t('FAQs') }}</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            <h4 class="text-xl font-regular mb-2">{{ $t('Information') }}</h4>
-                            <div v-if="pages.length > 0" class="space-y-2">
-                                <div v-for="page in pages" :key="page.id">
-                                    <Link :href="'/pages/' + formattedName(page.name)" class="border-b-2 border-[#fafbfb] hover:border-b-2 hover:border-black">{{ $t(page.name) }}</Link>
-                                </div>
-                            </div>
-                        </div>
+        <!-- FREQUENTLY ASKED QUESTIONS SECTION -->
+        <section class="py-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2 block">
+                    {{ $t('Answers') }}
+                </span>
+                <h2 class="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                    {{ $t('Frequently Asked Questions') }}
+                </h2>
+                <p class="mt-3 text-sm text-slate-600 dark:text-zinc-400">
+                    {{ $t('Have questions about Wappiyo or WhatsApp Cloud API? Find quick answers here.') }}
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <div
+                    v-for="(item, idx) in defaultFaqs"
+                    :key="idx"
+                    class="rounded-2xl border border-slate-200/80 dark:border-zinc-800 bg-white dark:bg-[#111113] overflow-hidden transition-all"
+                >
+                    <button
+                        type="button"
+                        @click="toggleFaq(idx)"
+                        class="w-full px-6 py-4 flex items-center justify-between text-left text-sm font-semibold text-slate-900 dark:text-white hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-pointer"
+                    >
+                        <span>{{ item.q }}</span>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-4 h-4 transition-transform text-slate-400 shrink-0 ml-4"
+                            :class="activeFaq === idx ? 'rotate-180 text-emerald-600' : ''"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div
+                        v-show="activeFaq === idx"
+                        class="px-6 pb-5 pt-1 text-xs text-slate-600 dark:text-zinc-400 leading-relaxed border-t border-slate-100 dark:border-zinc-800/60"
+                    >
+                        {{ item.a }}
                     </div>
                 </div>
             </div>
-            <div class="mt-10 border-t pt-5 text-sm">
-                <p class="font-light">{{ $t('Copyright') }} {{ currentYear }}. {{ $t('All rights reserved') }}.</p>
+
+            <div class="mt-8 text-center">
+                <Link href="/faq" class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
+                    {{ $t('Browse all FAQ categories & documentation &rarr;') }}
+                </Link>
             </div>
-        </footer>
+        </section>
 
-        <!-- Floating WhatsApp Icon -->
-        <a href="https://wa.me/919916225399?text=Hi%2C%20I%20am%20interested" target="_blank" class="fixed bottom-5 right-5 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 transition duration-300">
-            <svg class="w-8 h-8" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16 2.5C8.544 2.5 2.5 8.544 2.5 16c0 2.75.732 5.453 2.108 7.844L2 30l6.309-2.553A13.373 13.373 0 0 0 16 29.5C23.456 29.5 29.5 23.456 29.5 16S23.456 2.5 16 2.5Zm0 2c6.69 0 12.5 5.81 12.5 12.5S22.69 27.5 16 27.5a11.44 11.44 0 0 1-5.963-1.65l-.429-.256-3.875 1.568 1.49-3.727-.276-.44A10.46 10.46 0 0 1 5.5 16C5.5 9.31 11.31 4.5 16 4.5Zm-4.025 7.22c-.276 0-.588.008-.912.035a1.36 1.36 0 0 0-.964.453c-.304.34-.988.964-.988 2.34 0 1.376.656 2.713.752 2.9.096.188 1.296 2.6 3.276 3.744 1.98 1.144 2.376 1.036 2.808.968.432-.068 1.38-.56 1.58-1.104.2-.544.2-1.012.144-1.104-.056-.092-.216-.144-.448-.252s-1.38-.68-1.596-.76c-.216-.08-.372-.12-.528.12-.156.24-.608.76-.748.92s-.276.18-.516.06c-.24-.12-.96-.36-1.836-1.144-.68-.608-1.144-1.364-1.28-1.6s-.014-.36.092-.48c.104-.112.228-.24.34-.36s.22-.24.336-.384c.112-.144.072-.264.048-.36-.024-.096-.528-1.32-.72-1.808-.192-.488-.384-.4-.528-.4Z"/>
-            </svg>
-        </a>
-
-    </div>
+        <!-- CTA CONVERSION SECTION -->
+        <WebsiteCtaBanner
+            :title="$t('Ready to elevate your customer conversations on WhatsApp?')"
+            :subtitle="$t('Instant Setup & 14-Day Free Trial')"
+            :description="$t('Join modern organizations delivering faster customer support, automated marketing, and higher conversion rates through Wappiyo.') "
+        />
+    </WebsiteLayout>
 </template>
+
 <script setup>
-    import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
-    import { Link } from "@inertiajs/vue3";
-    import LangToggle from '@/Components/LangToggle.vue';
+import { ref } from 'vue';
+import { Link } from '@inertiajs/vue3';
+import WebsiteLayout from './Layout/WebsiteLayout.vue';
+import WebsiteCtaBanner from './Components/WebsiteCtaBanner.vue';
 
-    const props = defineProps({ faqs: Object, plans: Object, reviews: Object, companyConfig: Object, languages: Object, currentLanguage:String, currency: String, pages: Object });
+const props = defineProps({
+    companyConfig: Object,
+    currency: String,
+    plans: {
+        type: Array,
+        default: () => [],
+    },
+    addons: {
+        type: Array,
+        default: () => [],
+    },
+    faqs: {
+        type: Array,
+        default: () => [],
+    },
+    reviews: {
+        type: Array,
+        default: () => [],
+    },
+    languages: Object,
+    currentLanguage: String,
+});
 
-    const currentYear = new Date().getFullYear();
-    const facebookUrl = ref(null);
-    const twitterUrl = ref(null);
-    const instagramUrl = ref(null);
-    const slackUrl = ref(null);
-    const linkedinUrl = ref(null);
+const billingCycle = ref('monthly');
+const activeFaq = ref(0);
 
-    const parseSocials = () => {
-        try {
-            const socialsArray = JSON.parse(props.companyConfig.socials);
+const toggleFaq = (idx) => {
+    activeFaq.value = activeFaq.value === idx ? null : idx;
+};
 
-            facebookUrl.value = socialsArray['facebook'] || null;
-            twitterUrl.value = socialsArray['twitter'] || null;
-            instagramUrl.value = socialsArray['instagram'] || null;
-            slackUrl.value = socialsArray['slack'] || null;
-            linkedinUrl.value = socialsArray['linkedin'] || null;
-        } catch (error) {
-            console.error('Error parsing socials:', error);
-        }
-    };
+const isPlanFeatured = (plan) => {
+    return Boolean(plan.metadata?.featured || plan.featured);
+};
 
-    const getDetail = (value, key) => {
-        if(value){
-            const item = JSON.parse(value);
-            return item?.[key] ?? null;
-        } else {
-            return null;
-        }
+const getPlanDescription = (plan) => {
+    return plan.metadata?.description || plan.description || 'Complete WhatsApp CRM and messaging suite designed for scaling teams.';
+};
+
+const formatPlanPrice = (plan) => {
+    const symbol = props.currency || '$';
+    if (billingCycle.value === 'yearly') {
+        const yearly = plan.metadata?.yearly_price || (parseFloat(plan.price || 0) * 10);
+        return `${symbol}${yearly}`;
     }
+    return `${symbol}${plan.price || 0}`;
+};
 
-    const formattedName = computed(() => {
-        return (value) => {
-            return value.trim().toLowerCase().replace(/\s+/g, '-');
-        };
-    });
-
-    const selectedFeature = ref(1);
-    const selectedFaq = ref(1);
-
-    onMounted(() => {
-        parseSocials();
-    });
+const defaultFaqs = [
+    {
+        q: 'Do I need my own WhatsApp Business API or does Wappiyo provide it?',
+        a: 'Wappiyo connects directly with the Official Meta WhatsApp Cloud API. You can bring your existing phone number or register a new verified business number in minutes using the embedded signup.'
+    },
+    {
+        q: 'Can multiple agents log in and reply simultaneously?',
+        a: 'Yes! Wappiyo includes a shared multi-agent inbox allowing your entire support and sales teams to collaborate on a single number with conversation assignment, collision protection, and private internal notes.'
+    },
+    {
+        q: 'How do broadcast campaigns comply with Meta guidelines?',
+        a: 'All broadcast campaigns use pre-approved WhatsApp message templates submitted through the Meta Cloud API. This protects your phone number quality rating and prevents blocking.'
+    },
+    {
+        q: 'Can I integrate Wappiyo with our existing CRM and tools?',
+        a: 'Yes, Wappiyo provides webhooks, REST APIs, and native integrations with popular payment gateways (Stripe, Razorpay) and AI services like OpenAI.'
+    },
+    {
+        q: 'Is there a free trial available?',
+        a: 'Yes, every new account can get started with a 14-day free trial. No credit card is required to explore the platform.'
+    }
+];
 </script>

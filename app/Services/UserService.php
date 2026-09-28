@@ -18,6 +18,7 @@ use Propaganistas\LaravelPhone\PhoneNumber;
 class UserService
 {
     private $organization;
+    private $organizationService;
     private $role;
 
     public function __construct($role)
@@ -120,6 +121,8 @@ class UserService
                 $newOrganization = Organization::create([
                     'identifier' => $timestamp . $userId . $randomString,
                     'name' => $request->input('organization_name'),
+                    'timezone' => 'Asia/Kolkata',
+                    'metadata' => json_encode(['timezone' => 'Asia/Kolkata']),
                     'created_by' => $creatorId
                 ]);
 

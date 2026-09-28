@@ -20,12 +20,12 @@ class BillingController extends BaseController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Inertia::render('Admin/Organization/Index', [
+        return Inertia::render('Admin/Payment/Index', [
             'title' => __('Billing'),
             'allowCreate' => true,
-            'rows' => $this->billingService->get($request), 
+            'rows' => $this->billingService->get($request),
             'filters' => $request->all()
         ]);
     }
@@ -38,8 +38,9 @@ class BillingController extends BaseController
         $this->billingService->store($request);
 
         return back()->with(
-            'status', [
-                'type' => 'success', 
+            'status',
+            [
+                'type' => 'success',
                 'message' => __('Transaction created successfully!')
             ]
         );

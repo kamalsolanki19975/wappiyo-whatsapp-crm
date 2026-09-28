@@ -3,6 +3,7 @@ import { Link } from '@inertiajs/vue3';
 import EmptyState from '@/Components/UI/EmptyState.vue';
 import Badge from '@/Components/UI/Badge.vue';
 import Button from '@/Components/UI/Button.vue';
+import { formatDate } from '@/Utils/dateTime';
 
 const props = defineProps({
     campaigns: {
@@ -88,7 +89,7 @@ const getStatusVariant = (status) => {
                                 {{ item.name }}
                             </h4>
                             <p class="text-[11px] text-slate-400 dark:text-zinc-500">
-                                {{ item.created_at ? new Date(item.created_at).toLocaleDateString() : 'Active queue' }}
+                                {{ item.created_at ? formatDate(item.created_at) : 'Active queue' }}
                             </p>
                         </div>
                     </div>

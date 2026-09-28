@@ -15,12 +15,12 @@ class CampaignLog extends Model {
 
     public function getCreatedAtAttribute($value)
     {
-        return DateTimeHelper::convertToOrganizationTimezone($value)->toDateTimeString();
+        return DateTimeHelper::convertToOrganizationTimezone($value)?->toDateTimeString();
     }
 
     public function getUpdatedAtAttribute($value)
     {
-        return DateTimeHelper::convertToOrganizationTimezone($value)->toDateTimeString();
+        return DateTimeHelper::convertToOrganizationTimezone($value)?->toDateTimeString();
     }
 
     public function campaign(){
@@ -33,5 +33,9 @@ class CampaignLog extends Model {
 
     public function chat(){
         return $this->belongsTo(Chat::class, 'chat_id', 'id');
+    }
+
+    public function retries(){
+        return $this->hasMany(CampaignRetry::class, 'campaign_log_id', 'id')->orderBy('id', 'asc');
     }
 }

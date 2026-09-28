@@ -21,12 +21,17 @@ class Contact extends Model {
 
     public function getCreatedAtAttribute($value)
     {
-        return DateTimeHelper::convertToOrganizationTimezone($value)->toDateTimeString();
+        return DateTimeHelper::convertToOrganizationTimezone($value)?->toDateTimeString();
     }
 
     public function getUpdatedAtAttribute($value)
     {
-        return DateTimeHelper::convertToOrganizationTimezone($value)->toDateTimeString();
+        return DateTimeHelper::convertToOrganizationTimezone($value)?->toDateTimeString();
+    }
+
+    public function getLatestChatCreatedAtAttribute($value)
+    {
+        return DateTimeHelper::convertToOrganizationTimezone($value)?->toDateTimeString();
     }
 
     public function getAllContacts($organizationId, $searchTerm)

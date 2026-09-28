@@ -23,7 +23,7 @@
             <Link
                 v-if="props.displayCreateBtn"
                 :href="$page.url + '/create'"
-                class="p-2 rounded-xl bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30 hover:bg-[#5B46D6] transition-colors"
+                class="p-2 rounded-xl bg-emerald-600 text-white shadow-sm shadow-emerald-600/30 hover:bg-emerald-700 transition-colors"
                 title="Create"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -61,6 +61,8 @@
             :user="props.user"
             :organization="props.organization"
             :organizations="props.organizations"
+            :menuIconsOnly="false"
+            :unreadMessages="props.unreadMessages || 0"
             @closeSidebar="closeSidebar"
         />
     </aside>
@@ -108,6 +110,10 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+    unreadMessages: {
+        type: [String, Number],
+        default: 0,
+    },
 });
 
 const isSidebarOpen = ref(false);
@@ -125,4 +131,13 @@ function openModal() {
 const closeModal = () => {
     isProfileOpen.value = false;
 };
+
+const openSidebar = () => {
+    isSidebarOpen.value = true;
+};
+
+defineExpose({
+    openSidebar,
+    closeSidebar,
+});
 </script>

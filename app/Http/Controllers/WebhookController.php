@@ -38,15 +38,19 @@ class WebhookController extends BaseController
     {
         $this->paymentPlatformResolver = new PaymentPlatformResolver();
 
-        Config::set('broadcasting.connections.pusher', [
-            'driver' => 'pusher',
-            'key' => Setting::where('key', 'pusher_app_key')->value('value'),
-            'secret' => Setting::where('key', 'pusher_app_secret')->value('value'),
-            'app_id' => Setting::where('key', 'pusher_app_id')->value('value'),
-            'options' => [
-                'cluster' => Setting::where('key', 'pusher_app_cluster')->value('value'),
-            ],
-        ]);
+        try {
+            Config::set('broadcasting.connections.pusher', [
+                'driver' => 'pusher',
+                'key' => Setting::where('key', 'pusher_app_key')->value('value'),
+                'secret' => Setting::where('key', 'pusher_app_secret')->value('value'),
+                'app_id' => Setting::where('key', 'pusher_app_id')->value('value'),
+                'options' => [
+                    'cluster' => Setting::where('key', 'pusher_app_cluster')->value('value'),
+                ],
+            ]);
+        } catch (\Throwable $e) {
+            // Silently fallback if DB is initializing or during CLI route reflection
+        }
     }
 
     public function whatsappWebhook(Request $request){

@@ -98,5 +98,12 @@ class TeamController extends BaseController
     public function delete($uuid)
     {
         $this->teamService->destroy($uuid);
+
+        return Redirect::back()->with(
+            'status', [
+                'type' => 'success', 
+                'message' => __('Team member removed successfully!')
+            ]
+        );
     }
 }

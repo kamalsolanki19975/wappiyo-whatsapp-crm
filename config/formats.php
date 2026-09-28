@@ -1,9 +1,54 @@
 <?php
-$timezones = array_values(array_combine(timezone_identifiers_list(), timezone_identifiers_list()));
-
+$identifiers = timezone_identifiers_list();
 $zones = [];
-foreach ($timezones as $timezone) {
-    $zones[] = ['value' => $timezone, 'label' => $timezone];
+
+// Primary default: India Standard Time (Asia/Kolkata)
+$zones[] = [
+    'value' => 'Asia/Kolkata',
+    'label' => 'India Standard Time (UTC+05:30)',
+];
+
+$now = new DateTime('now', new DateTimeZone('UTC'));
+$otherZones = [];
+
+foreach ($identifiers as $tz) {
+    if ($tz === 'Asia/Kolkata') {
+        continue;
+    }
+    try {
+        $tzObj = new DateTimeZone($tz);
+        $offset = $tzObj->getOffset($now);
+        $hours = intdiv($offset, 3600);
+        $minutes = abs(intdiv($offset % 3600, 60));
+        $sign = $offset >= 0 ? '+' : '-';
+        $formattedOffset = sprintf('UTC%s%02d:%02d', $sign, abs($hours), $minutes);
+        $label = "({$formattedOffset}) " . str_replace('_', ' ', $tz);
+        $otherZones[] = [
+            'value' => $tz,
+            'label' => $label,
+            'offset' => $offset,
+        ];
+    } catch (\Exception $e) {
+        $otherZones[] = [
+            'value' => $tz,
+            'label' => $tz,
+            'offset' => 0,
+        ];
+    }
+}
+
+usort($otherZones, function ($a, $b) {
+    if ($a['offset'] === $b['offset']) {
+        return strcmp($a['value'], $b['value']);
+    }
+    return $a['offset'] <=> $b['offset'];
+});
+
+foreach ($otherZones as $item) {
+    $zones[] = [
+        'value' => $item['value'],
+        'label' => $item['label'],
+    ];
 }
 
 $date_formats = [

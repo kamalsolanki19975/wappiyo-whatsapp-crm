@@ -17,6 +17,8 @@ use Validator;
 
 class FaqController extends BaseController
 {
+    protected $faqService;
+
     public function __construct(FaqService $faqService)
     {
         $this->faqService = $faqService;

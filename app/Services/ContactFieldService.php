@@ -8,7 +8,7 @@ use App\Models\ContactField;
 class ContactFieldService
 {
     private $organizationId;
-    
+
     public function __construct($organizationId = NULL)
     {
         $this->organizationId = $organizationId;
@@ -30,7 +30,8 @@ class ContactFieldService
 
     public function getByUuid($uuid = null)
     {
-        return ContactField::where('organization_id', $this->organizationId)->where('uuid', $uuid)->first();;
+        return ContactField::where('organization_id', $this->organizationId)->where('uuid', $uuid)->first();
+        ;
     }
 
     /**
@@ -44,19 +45,19 @@ class ContactFieldService
     {
         $last_position = ContactField::where('organization_id', $this->organizationId)->where('deleted_at', null)->count();
 
-        $field = $uuid === null ? new ContactField() : ContactField::where('uuid', $uuid)->firstOrFail();
+        $field = $uuid === null ? new ContactField() : ContactField::where('organization_id', $this->organizationId)->where('uuid', $uuid)->firstOrFail();
         $field->organization_id = $this->organizationId;
         $field->name = $request->name;
         $field->type = $request->component;
 
-        if($uuid === null){
+        if ($uuid === null) {
             $field->position = $last_position + 1;
         }
 
-        if($request->component === 'select'){
+        if ($request->component === 'select') {
             $transformedString = collect($request->options)->pluck('value')->implode(', ');
             $field->value = $transformedString;
-        } else if($request->component === 'input'){
+        } else if ($request->component === 'input') {
             $field->value = $request->type;
         } else {
             $field->value = null;
@@ -77,9 +78,9 @@ class ContactFieldService
      */
     public function delete($uuid)
     {
-        return ContactField::where('uuid', $uuid)->update([
+        return ContactField::where('organization_id', $this->organizationId)->where('uuid', $uuid)->update([
             'deleted_at' => date('Y-m-d H:i:s'),
             'deleted_by' => auth()->user()->id
         ]);
-    } 
+    }
 }

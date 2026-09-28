@@ -1,31 +1,13 @@
 <template>
   <div class="min-h-screen bg-slate-50 dark:bg-[#09090B] flex flex-col justify-center py-12 sm:px-6 lg:px-8 transition-colors antialiased relative overflow-hidden">
     <!-- Ambient Background Glows -->
-    <div class="absolute top-0 right-1/2 translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-[#6C5CE7]/15 via-[#8B5CF6]/10 to-transparent blur-3xl pointer-events-none -z-10"></div>
-    <div class="absolute bottom-0 left-0 w-[400px] h-[300px] bg-gradient-to-tr from-[#EC4899]/10 to-transparent blur-3xl pointer-events-none -z-10"></div>
+    <div class="absolute top-0 right-1/2 translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-[#22C55E]/15 via-[#10B981]/10 to-transparent blur-3xl pointer-events-none -z-10"></div>
+    <div class="absolute bottom-0 left-0 w-[400px] h-[300px] bg-gradient-to-tr from-[#022828]/15 to-transparent blur-3xl pointer-events-none -z-10"></div>
 
     <div class="sm:mx-auto sm:w-full sm:max-w-xl px-4">
       <!-- Logo -->
       <div class="flex justify-center mb-6">
-        <Link href="/" class="flex items-center gap-3">
-          <template v-if="companyConfig?.logo">
-            <img
-              class="max-h-10 object-contain"
-              :src="`/media/${companyConfig.logo}`"
-              :alt="companyConfig.company_name"
-            />
-          </template>
-          <template v-else>
-            <div class="flex items-center gap-2.5">
-              <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#6C5CE7] to-[#8B5CF6] flex items-center justify-center text-white font-extrabold text-lg shadow-lg shadow-indigo-500/25">
-                W
-              </div>
-              <span class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-                {{ companyConfig?.company_name || 'Wappiyo' }}
-              </span>
-            </div>
-          </template>
-        </Link>
+        <BrandLogo :custom-logo="companyConfig?.logo" :company-name="companyConfig?.company_name || 'Wappiyo'" mode="auto" href="/" />
       </div>
 
       <div class="text-center space-y-1 mb-8">
@@ -36,7 +18,7 @@
           {{ $t('Already have an account?') }}
           <Link
             href="/login"
-            class="font-semibold text-[#6C5CE7] hover:text-[#5b4bc4] dark:text-indigo-400 hover:underline"
+            class="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 hover:underline"
           >
             {{ $t('Log in here') }}
           </Link>
@@ -45,6 +27,15 @@
     </div>
 
     <div class="sm:mx-auto sm:w-full sm:max-w-xl px-4">
+      <!-- Pre-selected Plan Banner -->
+      <div v-if="props.selectedPlan" class="mb-4 p-3 rounded-2xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800 text-xs text-[#6C5CE7] dark:text-purple-300 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-[#6C5CE7] animate-pulse"></span>
+          <span><strong>{{ $t('Plan Selected:') }}</strong> {{ $t('14-day free trial will start after setup.') }}</span>
+        </div>
+        <Link href="/pricing" class="font-bold underline text-[11px]">{{ $t('Change') }}</Link>
+      </div>
+
       <div class="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 py-8 px-6 sm:px-10 rounded-2xl shadow-xl shadow-slate-900/5 dark:shadow-black/40">
         <form @submit.prevent="submitForm" class="space-y-4">
           <!-- Name Row -->
@@ -123,7 +114,7 @@
           <div v-if="!otpSent" class="pt-2">
             <button
               type="button"
-              class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-[#6C5CE7] to-[#8B5CF6] hover:from-[#5b4bc4] hover:to-[#7c4deb] shadow-md shadow-indigo-500/20 active:scale-[0.98] transition-all disabled:opacity-50"
+              class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-[#22C55E] via-[#16A34A] to-[#022828] hover:from-[#15803D] hover:to-[#011d1d] shadow-md shadow-emerald-500/20 active:scale-[0.98] transition-all disabled:opacity-50"
               @click="sendOtp"
               :disabled="isLoadingOtp || !form.phone"
             >
@@ -217,13 +208,17 @@
     import { ref } from 'vue';
     import { Link, useForm } from '@inertiajs/vue3';
     import { useI18n } from 'vue-i18n';
+    import BrandLogo from '@/Components/UI/BrandLogo.vue';
     import FormInput from '@/Components/FormInput.vue';
     import FormPhoneInput from '@/Components/FormPhoneInput.vue';
     import axios from 'axios';
 
     const { t } = useI18n();
 
-    const props = defineProps({ companyConfig: Object });
+    const props = defineProps({
+        companyConfig: Object,
+        selectedPlan: String,
+    });
     const companyConfig = props.companyConfig;
 
     const form = useForm({
@@ -236,6 +231,7 @@
         password_confirmation: '',
         otp: '',
         recaptcha_response: '',
+        plan: props.selectedPlan || '',
     });
 
     const isLoadingOtp = ref(false);

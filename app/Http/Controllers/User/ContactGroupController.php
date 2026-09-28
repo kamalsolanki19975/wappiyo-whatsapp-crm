@@ -25,7 +25,7 @@ class ContactGroupController extends BaseController
 
     public function index(Request $request, $uuid = null)
     {
-        if($uuid === 'export') {
+        if ($uuid === 'export') {
             return Excel::download(new ContactGroupsExport, 'contact-groups.xlsx');
         } else {
             $organizationId = $this->getCurrentOrganizationId();
@@ -48,7 +48,7 @@ class ContactGroupController extends BaseController
         }
     }
 
-    public function import(Request $request) 
+    public function import(Request $request)
     {
         $import = new ContactGroupsImport();
         Excel::import($import, $request->file);
@@ -56,10 +56,11 @@ class ContactGroupController extends BaseController
         $successfulImports = $import->getsuccessfulImports();
 
         //dd($successfulImports);
-        
+
         return redirect('/contact-groups')->with(
-            'status', [
-                'type' => $successfulImports > 0 ? 'success' : 'error', 
+            'status',
+            [
+                'type' => $successfulImports > 0 ? 'success' : 'error',
                 'message' => $successfulImports > 0 ? __('Excel import successful!') : __('Excel import failed!'),
                 'successfulImports' => $import->getsuccessfulImports(),
                 'failedDuplicates' => $import->getFailedImportsDueToDuplicatesCount(),
@@ -85,7 +86,7 @@ class ContactGroupController extends BaseController
         // Trigger webhook
         WebhookHelper::triggerWebhookEvent('group.created', $cleanContactGroup);
 
-        return response()->json(['success' => true, 'message'=> __('Contact group added successfully'), 'data' => $contactGroup]);
+        return response()->json(['success' => true, 'message' => __('Contact group added successfully'), 'data' => $contactGroup]);
     }
 
     public function update(StoreContactGroup $request, $uuid)
@@ -95,10 +96,11 @@ class ContactGroupController extends BaseController
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['success' => false, 'errors'=>$validator->messages()->get('*')]);
+            return response()->json(['success' => false, 'errors' => $validator->messages()->get('*')]);
         }
 
-        $contactGroup = ContactGroup::where('uuid', $uuid)->firstOrFail();
+        $organizationId = session()->get('current_organization');
+        $contactGroup = ContactGroup::where('uuid', $uuid)->where('organization_id', $organizationId)->firstOrFail();
         $contactGroup->name = $request->name;
         $contactGroup->updated_at = now();
         $contactGroup->save();
@@ -107,9 +109,9 @@ class ContactGroupController extends BaseController
         $cleanContactGroup = $contactGroup->makeHidden(['id', 'organization_id', 'created_by']);
 
         // Trigger webhook
-        WebhookHelper::triggerWebhookEvent('group.created', $cleanContactGroup);
+        WebhookHelper::triggerWebhookEvent('group.updated', $cleanContactGroup);
 
-        return response()->json(['success' => true, 'message'=> __('Contact group updated successfully'), 'data' => $contactGroup]);
+        return response()->json(['success' => true, 'message' => __('Contact group updated successfully'), 'data' => $contactGroup]);
     }
 
     public function delete(Request $request)
@@ -131,10 +133,10 @@ class ContactGroupController extends BaseController
                 ];
             }
         } else {
-            $contactGroupIds = ContactGroup::whereIn('uuid', $uuids)->pluck('id');
+            $contactGroupIds = ContactGroup::whereIn('uuid', $uuids)->where('organization_id', $organizationId)->pluck('id');
             Contact::whereIn('contact_group_id', $contactGroupIds)->where('organization_id', $organizationId)->update(['contact_group_id' => null]);
 
-            foreach($uuids as $uuid){
+            foreach ($uuids as $uuid) {
                 // Prepare deleted contact for the webhook
                 $deletedGroups[] = [
                     'uuid' => $uuid,
@@ -151,7 +153,8 @@ class ContactGroupController extends BaseController
         ]);
 
         return redirect('/contact-groups')->with(
-            'status', [
+            'status',
+            [
                 'type' => 'success',
                 'message' => __('Group(s) deleted successfully')
             ]

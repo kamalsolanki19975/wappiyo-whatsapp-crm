@@ -54,15 +54,23 @@ class SubscriptionPlanService
                 'contacts_limit' => $request->input('contacts_limit'),
                 'canned_replies_limit' => $request->input('canned_replies_limit'),
                 'team_limit' => $request->input('team_limit'),
-                'receive_messages_after_expiration' => $request->input('receive_messages_after_expiration') == true ? 1 : 0
+                'receive_messages_after_expiration' => $request->input('receive_messages_after_expiration') == true ? 1 : 0,
+                'description' => $request->input('description'),
+                'yearly_price' => $request->input('yearly_price'),
+                'featured' => $request->input('featured') == true ? 1 : 0,
+                'sort_order' => (int)$request->input('sort_order', 0),
             ]),
         ]);
 
         $stripe = PaymentGateway::where('name', 'Stripe')->first();
 
-        if($stripe->active == '1'){
+        if ($stripe && $stripe->is_active == 1) {
             //Create product in Stripe
-            (new StripeService)->createProduct($newSubscriptionPlan);
+            try {
+                (new StripeService)->createProduct($newSubscriptionPlan);
+            } catch (\Exception $e) {
+                \Log::warning('Stripe create product error: ' . $e->getMessage());
+            }
         }
     
         return $newSubscriptionPlan;
@@ -76,13 +84,17 @@ class SubscriptionPlanService
     public function update(Object $request, $uuid)
     {
         $plan = SubscriptionPlan::where('uuid', $uuid)->firstOrFail();
-        $metadata = json_decode($plan->metadata, true);
+        $metadata = json_decode($plan->metadata, true) ?: [];
         $metadata['campaign_limit'] = $request->input('campaign_limit');
         $metadata['message_limit'] = $request->input('message_limit');
         $metadata['contacts_limit'] = $request->input('contacts_limit');
         $metadata['canned_replies_limit'] = $request->input('canned_replies_limit');
         $metadata['team_limit'] = $request->input('team_limit');
         $metadata['receive_messages_after_expiration'] = $request->input('receive_messages_after_expiration') == true ? 1 : 0;
+        $metadata['description'] = $request->input('description');
+        $metadata['yearly_price'] = $request->input('yearly_price');
+        $metadata['featured'] = $request->input('featured') == true ? 1 : 0;
+        $metadata['sort_order'] = (int)$request->input('sort_order', 0);
 
         $plan->name = $request->input('name');
         $plan->price = $request->input('price');
@@ -94,9 +106,13 @@ class SubscriptionPlanService
 
         $stripe = PaymentGateway::where('name', 'Stripe')->first();
 
-        if($stripe->active == '1'){
+        if ($stripe && $stripe->is_active == 1) {
             //Update product in Stripe
-            (new StripeService)->updateProduct($plan);
+            try {
+                (new StripeService)->updateProduct($plan);
+            } catch (\Exception $e) {
+                \Log::warning('Stripe update product error: ' . $e->getMessage());
+            }
         }
 
         return $plan;
@@ -114,9 +130,13 @@ class SubscriptionPlanService
 
         $stripe = PaymentGateway::where('name', 'Stripe')->first();
 
-        if($stripe->active == '1'){
-            //Update product in Stripe
-            (new StripeService)->deleteProduct($subscriptionPlan);
+        if ($stripe && $stripe->is_active == 1) {
+            //Delete product in Stripe
+            try {
+                (new StripeService)->deleteProduct($subscriptionPlan);
+            } catch (\Exception $e) {
+                \Log::warning('Stripe delete product error: ' . $e->getMessage());
+            }
         }
     }
 }

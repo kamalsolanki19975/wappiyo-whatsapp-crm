@@ -4,6 +4,7 @@ import { Link, usePage } from "@inertiajs/vue3";
 import ProfileModal from '@/Components/ProfileModal.vue';
 import LangToggle from '@/Components/LangToggle.vue';
 import Avatar from '@/Components/UI/Avatar.vue';
+import BrandLogo from '@/Components/UI/BrandLogo.vue';
 
 const props = defineProps({
     config: {
@@ -23,6 +24,10 @@ const props = defineProps({
         default: () => ({}),
     },
     isSidebarOpen: {
+        type: Boolean,
+        default: false
+    },
+    menuIconsOnly: {
         type: Boolean,
         default: false
     }
@@ -62,24 +67,17 @@ const userFullName = computed(() => {
 <template>
     <div class="flex flex-col h-full bg-white dark:bg-[#111113] border-r border-slate-200/80 dark:border-zinc-800 text-slate-800 dark:text-zinc-200 transition-colors">
         <!-- Logo / Brand Header -->
-        <div class="flex items-center justify-between px-4 h-16 border-b border-slate-100 dark:border-zinc-800/80 shrink-0">
-            <Link href="/admin/dashboard" class="flex items-center gap-2.5 min-w-0" @click="closeSidebar">
-                <div v-if="getValueByKey('logo')" class="h-8 flex items-center">
-                    <img :src="'/media/' + getValueByKey('logo')" :alt="getValueByKey('company_name') || 'Wappiyo Admin'" class="max-h-8 object-contain">
-                </div>
-                <div v-else class="flex items-center gap-2.5">
-                    <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#6C5CE7] to-[#EC4899] flex items-center justify-center text-white font-bold text-sm shadow-md shadow-purple-600/30 shrink-0">
-                        A
-                    </div>
-                    <div class="min-w-0">
-                        <span class="font-extrabold text-base tracking-tight text-slate-900 dark:text-white truncate block">
-                            {{ getValueByKey('company_name') || 'Wappiyo' }}
-                        </span>
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-[#6C5CE7] dark:text-purple-400 block -mt-1">
-                            Admin Center
-                        </span>
-                    </div>
-                </div>
+        <div class="flex items-center justify-between px-3.5 h-16 border-b border-slate-100 dark:border-zinc-800/80 shrink-0">
+            <Link href="/admin/dashboard" class="flex items-center gap-2.5 min-w-0 focus:outline-none" @click="closeSidebar">
+                <BrandLogo 
+                    :variant="menuIconsOnly ? 'mark' : 'full'"
+                    :custom-logo="getValueByKey('logo')"
+                    :company-name="getValueByKey('company_name') || 'Wappiyo Admin'"
+                    mode="auto"
+                />
+                <span v-if="!menuIconsOnly" class="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-md bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 shrink-0">
+                    Admin
+                </span>
             </Link>
 
             <button
@@ -106,7 +104,7 @@ const userFullName = computed(() => {
                     :class="[
                         'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                         $page.url.startsWith('/admin/dashboard')
-                            ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                            ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                             : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white'
                     ]"
                     @click="closeSidebar"
@@ -121,7 +119,7 @@ const userFullName = computed(() => {
                     :class="[
                         'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                         $page.url.startsWith('/admin/organization')
-                            ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                            ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                             : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white'
                     ]"
                     @click="closeSidebar"
@@ -136,7 +134,7 @@ const userFullName = computed(() => {
                     :class="[
                         'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                         $page.url.startsWith('/admin/user')
-                            ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                            ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                             : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white'
                     ]"
                     @click="closeSidebar"
@@ -145,13 +143,28 @@ const userFullName = computed(() => {
                     <span>{{ $t('Users') }}</span>
                 </Link>
 
+                <!-- Website Leads -->
+                <Link
+                    href="/admin/leads"
+                    :class="[
+                        'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
+                        $page.url.startsWith('/admin/lead')
+                            ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
+                            : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white'
+                    ]"
+                    @click="closeSidebar"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/><path d="m14 2 4 4-7 7H7v-4l7-7z"/></svg>
+                    <span>{{ $t('Website Leads') }}</span>
+                </Link>
+
                 <!-- Billing Logs -->
                 <Link
                     href="/admin/payment-logs"
                     :class="[
                         'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                         $page.url.startsWith('/admin/payment-logs')
-                            ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                            ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                             : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white'
                     ]"
                     @click="closeSidebar"
@@ -160,13 +173,28 @@ const userFullName = computed(() => {
                     <span>{{ $t('Billing') }}</span>
                 </Link>
 
+                <!-- Reports Center -->
+                <Link
+                    href="/admin/reports"
+                    :class="[
+                        'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
+                        $page.url.startsWith('/admin/report')
+                            ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
+                            : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white'
+                    ]"
+                    @click="closeSidebar"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    <span>{{ $t('Reports') }}</span>
+                </Link>
+
                 <!-- Support Desk -->
                 <Link
                     href="/admin/support"
                     :class="[
                         'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                         $page.url.startsWith('/admin/support')
-                            ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                            ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                             : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white'
                     ]"
                     @click="closeSidebar"
@@ -181,7 +209,7 @@ const userFullName = computed(() => {
                     :class="[
                         'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                         $page.url.startsWith('/admin/team/users')
-                            ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                            ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                             : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white'
                     ]"
                     @click="closeSidebar"
@@ -203,7 +231,7 @@ const userFullName = computed(() => {
                     :class="[
                         'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                         $page.url.startsWith('/admin/team/roles')
-                            ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                            ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                             : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white'
                     ]"
                     @click="closeSidebar"
@@ -218,7 +246,7 @@ const userFullName = computed(() => {
                     :class="[
                         'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                         $page.url.startsWith('/admin/plan')
-                            ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                            ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                             : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white'
                     ]"
                     @click="closeSidebar"
@@ -233,7 +261,7 @@ const userFullName = computed(() => {
                     :class="[
                         'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                         $page.url.startsWith('/admin/faq')
-                            ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                            ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                             : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white'
                     ]"
                     @click="closeSidebar"
@@ -248,7 +276,7 @@ const userFullName = computed(() => {
                     :class="[
                         'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                         $page.url.startsWith('/admin/testimonial')
-                            ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                            ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                             : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white'
                     ]"
                     @click="closeSidebar"
@@ -263,7 +291,7 @@ const userFullName = computed(() => {
                     :class="[
                         'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
                         $page.url.startsWith('/admin/setting')
-                            ? 'bg-[#6C5CE7] text-white shadow-sm shadow-purple-600/30'
+                            ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                             : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white'
                     ]"
                     @click="closeSidebar"
@@ -279,7 +307,7 @@ const userFullName = computed(() => {
             <!-- Addons Link -->
             <Link
                 href="/admin/addons"
-                class="w-full flex items-center justify-between p-2 rounded-xl border border-purple-200/60 dark:border-purple-800/40 bg-purple-50/50 dark:bg-purple-950/30 text-[#6C5CE7] dark:text-purple-300 hover:bg-purple-100/60 dark:hover:bg-purple-900/40 transition-colors"
+                class="w-full flex items-center justify-between p-2 rounded-xl border border-emerald-200/60 dark:border-emerald-800/40 bg-emerald-50/50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100/60 dark:hover:bg-emerald-900/40 transition-colors"
                 @click="closeSidebar"
             >
                 <div class="flex items-center gap-2">
@@ -301,7 +329,7 @@ const userFullName = computed(() => {
                         <h4 class="text-xs font-semibold text-slate-900 dark:text-white truncate">
                             {{ userFullName }}
                         </h4>
-                        <span class="text-[11px] text-[#6C5CE7] dark:text-purple-400 hover:underline block leading-tight">
+                        <span class="text-[11px] text-emerald-600 dark:text-emerald-400 hover:underline block leading-tight">
                             {{ $t('View profile') }}
                         </span>
                     </div>

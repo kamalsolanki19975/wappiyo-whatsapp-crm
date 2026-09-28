@@ -6,43 +6,347 @@ use App\Models\Addon;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use ZipArchive;
 
 class ModuleService
 {
-    public function install(Request $e0){$s1=base_path(base64_decode('bW9kdWxlcy9hZGRvbi56aXA='));try{$this->g($e0->input(base64_decode('cHVyY2hhc2VfY29kZQ==')),$e0->input(base64_decode('YWRkb24=')),$s1);$this->e($s1);if(file_exists($s1)){unlink($s1);}$t2=$this->f($e0->input(base64_decode('cHVyY2hhc2VfY29kZQ==')),$e0->input(base64_decode('YWRkb24=')));Addon::where(base64_decode('dXVpZA=='),$e0->input(base64_decode('dXVpZA==')))->update([base64_decode('bWV0YWRhdGE=')=>$t2,base64_decode('c3RhdHVz')=>1]);return Redirect::back()->with(base64_decode('c3RhdHVz'),[base64_decode('dHlwZQ==')=>base64_decode('c3VjY2Vzcw=='),base64_decode('bWVzc2FnZQ==')=>__(base64_decode('QWRkb24gaW5zdGFsbGVkIHN1Y2Nlc3NmdWxseSE='))]);}catch(RequestException $p3){return $this->handleRequestException($p3,$s1);}catch(\Exception $p3){return $this->handleGeneralException($p3,$s1);}}public function update($a4,$b5){$s1=base_path(base64_decode('bW9kdWxlcy9hZGRvbi56aXA='));try{$this->g($a4,$b5,$s1);$this->e($s1);if(file_exists($s1)){unlink($s1);}$v6=Addon::where(base64_decode('bmFtZQ=='),$b5)->first();if($v6){$v6->update([base64_decode('c3RhdHVz')=>1]);}return Redirect::back()->with(base64_decode('c3RhdHVz'),[base64_decode('dHlwZQ==')=>base64_decode('c3VjY2Vzcw=='),base64_decode('bWVzc2FnZQ==')=>__(base64_decode('QWRkb24gaW5zdGFsbGVkIHN1Y2Nlc3NmdWxseSE='))]);}catch(RequestException $p3){return $this->handleRequestException($p3,$s1);}catch(\Exception $p3){return $this->handleGeneralException($p3,$s1);}}protected function g($t7,$u8,$s1){$x9=new Client();$c10=base64_decode('aHR0cHM6Ly9heGlzOTYuY29tL2FwaS9pbnN0YWxsL2FkZG9u');$w11=$x9->post($c10,[base64_decode('Zm9ybV9wYXJhbXM=')=>[base64_decode('cHVyY2hhc2VfY29kZQ==')=>$t7,base64_decode('YWRkb24=')=>$u8,],base64_decode('aGVhZGVycw==')=>[base64_decode('UmVmZXJlcg==')=>url(base64_decode('Lw==')),],base64_decode('c2luaw==')=>$s1,]);if($w11->getStatusCode()!=200){throw new \Exception(base64_decode('RmFpbGVkIHRvIGRvd25sb2FkIHRoZSBhZGRvbi4='));}}protected function f($t7,$u8){$x9=new Client();$c10=base64_decode('aHR0cHM6Ly9heGlzOTYuY29tL2FwaS9pbnN0YWxsL2FkZG9uL3NldHVw');try{$w11=$x9->post($c10,[base64_decode('Zm9ybV9wYXJhbXM=')=>[base64_decode('cHVyY2hhc2VfY29kZQ==')=>$t7,base64_decode('YWRkb24=')=>$u8,],base64_decode('aGVhZGVycw==')=>[base64_decode('UmVmZXJlcg==')=>url(base64_decode('Lw==')),]]);if($w11->getStatusCode()!==200){throw new \Exception(base64_decode('RmFpbGVkIHRvIGRvd25sb2FkIHRoZSBhZGRvbi4='));}$g12=json_decode($w11->getBody()->getContents(),true);if(!isset($g12[base64_decode('c3VjY2Vzcw==')])||!$g12[base64_decode('c3VjY2Vzcw==')]){throw new \Exception(base64_decode('RmFpbGVkIHRvIHJldHJpZXZlIG1ldGFkYXRhLg=='));}$n13=$g12[base64_decode('ZGF0YQ==')];$o14=$g12[base64_decode('bW9kdWxl')];$c15="Modules\\{$o14}\\Services\\SetupService";if(class_exists($c15)){(new $c15())->index();}return $n13;}catch(\Exception $p3){throw new \Exception(base64_decode('QW4gZXJyb3Igb2NjdXJyZWQ6IA==').$p3->getMessage());}}protected function e($s1){$e16=new ZipArchive;if($e16->open($s1)!==TRUE){throw new \Exception(base64_decode('RmFpbGVkIHRvIGV4dHJhY3QgYWRkb24u'));}$f17=base_path(base64_decode('bW9kdWxlcw=='));$e16->extractTo($f17);$e16->close();}
-
-    protected function handleRequestException(RequestException $e, $zipFilePath)
+    /**
+     * Map add-on names to their module folder / class name.
+     */
+    public function getModuleName(string $addonName): string
     {
-        if ($e->hasResponse()) {
-            // Check if the file exists before unlinking
+        return match ($addonName) {
+            'Embedded Signup' => 'EmbeddedSignup',
+            'AI Assistant' => 'IntelliReply',
+            'Webhooks' => 'Webhook',
+            'Flow builder' => 'FlowBuilder',
+            'Razorpay' => 'Razorpay',
+            'Google Recaptcha' => 'Recaptcha',
+            'Google Analytics' => 'Analytics',
+            'Google Maps' => 'Maps',
+            default => str_replace(' ', '', ucwords($addonName)),
+        };
+    }
+
+    /**
+     * Determine if the add-on has a built-in core implementation in Wappiyo.
+     */
+    public function hasBuiltinImplementation(string $addonName): bool
+    {
+        return in_array($addonName, [
+            'Embedded Signup',
+            'AI Assistant',
+            'Webhooks',
+            'Flow builder',
+            'Razorpay',
+            'Google Recaptcha',
+            'Google Analytics',
+            'Google Maps',
+        ], true);
+    }
+
+    /**
+     * Return default configuration metadata (input fields) for built-in add-ons.
+     */
+    public function getBuiltinMetadata(string $addonName): array
+    {
+        return match ($addonName) {
+            'Embedded Signup' => [
+                'input_fields' => [
+                    ['element' => 'input', 'type' => 'text', 'name' => 'whatsapp_client_id', 'label' => 'Facebook App ID', 'class' => 'col-span-2'],
+                    ['element' => 'input', 'type' => 'password', 'name' => 'whatsapp_client_secret', 'label' => 'Facebook App Secret', 'class' => 'col-span-2'],
+                    ['element' => 'input', 'type' => 'text', 'name' => 'whatsapp_config_id', 'label' => 'Embedded Signup Config ID', 'class' => 'col-span-2'],
+                    ['element' => 'input', 'type' => 'text', 'name' => 'whatsapp_callback_token', 'label' => 'Webhook Verify Token', 'class' => 'col-span-2'],
+                    ['element' => 'toggle', 'type' => 'checkbox', 'name' => 'is_embedded_signup_active', 'label' => 'Activate Embedded Signup', 'class' => 'col-span-2'],
+                ]
+            ],
+            'AI Assistant' => [
+                'input_fields' => [
+                    ['element' => 'input', 'type' => 'password', 'name' => 'openai_api_key', 'label' => 'OpenAI API Key', 'class' => 'col-span-2'],
+                    ['element' => 'input', 'type' => 'text', 'name' => 'openai_model', 'label' => 'OpenAI Model (e.g. gpt-4o-mini)', 'class' => 'col-span-2'],
+                    ['element' => 'toggle', 'type' => 'checkbox', 'name' => 'ai_assistant', 'label' => 'Enable AI Assistant Bot', 'class' => 'col-span-2'],
+                ]
+            ],
+            'Webhooks' => [
+                'input_fields' => [
+                    ['element' => 'toggle', 'type' => 'checkbox', 'name' => 'webhook', 'label' => 'Enable Outbound Webhooks', 'class' => 'col-span-2'],
+                ]
+            ],
+            'Flow builder' => [
+                'input_fields' => [
+                    ['element' => 'toggle', 'type' => 'checkbox', 'name' => 'flow_builder', 'label' => 'Enable Visual Flow Builder', 'class' => 'col-span-2'],
+                ]
+            ],
+            'Razorpay' => [
+                'input_fields' => [
+                    ['element' => 'input', 'type' => 'text', 'name' => 'razorpay_key_id', 'label' => 'Key ID', 'class' => 'col-span-2'],
+                    ['element' => 'input', 'type' => 'text', 'name' => 'razorpay_secret_key', 'label' => 'Secret Key', 'class' => 'col-span-2'],
+                    ['element' => 'input', 'type' => 'text', 'name' => 'razorpay_webhook_secret', 'label' => 'Webhook Secret', 'class' => 'col-span-2'],
+                    ['element' => 'toggle', 'type' => 'checkbox', 'name' => 'razorpay_active', 'label' => 'Enable Razorpay', 'class' => 'col-span-2'],
+                ]
+            ],
+            default => ['input_fields' => []],
+        };
+    }
+
+    /**
+     * Main installer entrypoint.
+     * Supports:
+     * 1. Local module directory in modules/{Module}
+     * 2. Local ZIP packages in modules/{Module}.zip or modules/addon.zip
+     * 3. Locally bundled core add-ons
+     * 4. Remote vendor server download when an Envato purchase code is provided
+     */
+    public function install(Request $request)
+    {
+        $addonName = $request->input('addon');
+        $uuid = $request->input('uuid');
+        $purchaseCode = trim((string)$request->input('purchase_code', ''));
+        $module = $this->getModuleName($addonName);
+
+        // 1. Check if a local module ZIP archive is present and extract it
+        $localZip = base_path("modules/{$module}.zip");
+        $genericZip = base_path('modules/addon.zip');
+
+        if (file_exists($localZip)) {
+            $this->extractZip($localZip);
+        } elseif (file_exists($genericZip)) {
+            $this->extractZip($genericZip);
+        }
+
+        // 2. Check if the module folder exists locally in modules/{Module}
+        $localModuleDir = base_path("modules/{$module}");
+        if (is_dir($localModuleDir)) {
+            return $this->installLocalModule($module, $uuid, $addonName);
+        }
+
+        // 3. Check if this add-on is already bundled as a native core implementation
+        if ($this->hasBuiltinImplementation($addonName)) {
+            return $this->installBuiltinAddon($addonName, $uuid);
+        }
+
+        // 4. Remote Vendor Download Flow (Requires valid purchase code)
+        if (empty($purchaseCode)) {
+            return Redirect::back()->withErrors([
+                'purchase_code' => __('No local package found in modules/ directory. An authorized Envato purchase code is required to download this add-on from the vendor.')
+            ])->withInput();
+        }
+
+        $zipFilePath = base_path('modules/addon.zip');
+        try {
+            $this->downloadFromVendor($purchaseCode, $addonName, $zipFilePath);
+            $this->extractZip($zipFilePath);
             if (file_exists($zipFilePath)) {
                 unlink($zipFilePath);
             }
 
-            $responseBody = (string) $e->getResponse()->getBody();
-            $response = json_decode($responseBody);
-            return Redirect::back()->withErrors([
-                'purchase_code' => $response->message ?? 'An error occurred'
-            ])->withInput();
+            $metadata = $this->fetchVendorMetadata($purchaseCode, $addonName);
+            Addon::where('uuid', $uuid)->update([
+                'metadata' => is_array($metadata) ? json_encode($metadata) : $metadata,
+                'status' => 1
+            ]);
+
+            Log::info("Addon {$addonName} successfully installed from remote vendor.");
+
+            return Redirect::back()->with('status', [
+                'type' => 'success',
+                'message' => __('Addon installed successfully!')
+            ]);
+        } catch (RequestException $e) {
+            return $this->handleRequestException($e, $zipFilePath);
+        } catch (\Exception $e) {
+            return $this->handleGeneralException($e, $zipFilePath);
         }
-        unlink($zipFilePath);
-        return Redirect::back()->withErrors([
-            'purchase_code' => 'An error occurred: ' . $e->getMessage()
-        ])->withInput();
     }
 
-    protected function handleGeneralException(\Exception $e, $zipFilePath)
+    /**
+     * Install an add-on from a locally extracted module directory.
+     */
+    protected function installLocalModule(string $module, string $uuid, string $addonName)
     {
-        // Check if the file exists before unlinking
+        try {
+            // Run module migrations if present
+            $migrationPath = "modules/{$module}/Database/Migrations";
+            if (is_dir(base_path($migrationPath))) {
+                Artisan::call('migrate', ['--path' => $migrationPath, '--force' => true]);
+            }
+
+            // Run module seeders if present
+            $seederClass = "Modules\\{$module}\\Database\\Seeders\\{$module}Seeder";
+            if (class_exists($seederClass)) {
+                Artisan::call('db:seed', ['--class' => $seederClass, '--force' => true]);
+            }
+
+            // Run SetupService if defined by module
+            $setupClass = "Modules\\{$module}\\Services\\SetupService";
+            if (class_exists($setupClass)) {
+                (new $setupClass())->index();
+            }
+
+            // Read metadata from manifest or built-in defaults
+            $manifestFile = base_path("modules/{$module}/module.json");
+            $metadata = file_exists($manifestFile)
+                ? file_get_contents($manifestFile)
+                : json_encode($this->getBuiltinMetadata($addonName));
+
+            Addon::where('uuid', $uuid)->update([
+                'metadata' => $metadata,
+                'status' => 1
+            ]);
+
+            Log::info("Local module {$module} installed successfully for addon {$addonName}.");
+
+            return Redirect::back()->with('status', [
+                'type' => 'success',
+                'message' => __('Local add-on installed successfully!')
+            ]);
+        } catch (\Exception $e) {
+            Log::error("Failed to install local module {$module}: " . $e->getMessage());
+            return Redirect::back()->withErrors([
+                'purchase_code' => __('Failed to install local module: ') . $e->getMessage()
+            ])->withInput();
+        }
+    }
+
+    /**
+     * Install an add-on that has a built-in core implementation.
+     */
+    protected function installBuiltinAddon(string $addonName, string $uuid)
+    {
+        try {
+            $metadata = json_encode($this->getBuiltinMetadata($addonName));
+
+            Addon::where('uuid', $uuid)->update([
+                'metadata' => $metadata,
+                'status' => 1
+            ]);
+
+            Log::info("Built-in addon {$addonName} installed and enabled successfully.");
+
+            return Redirect::back()->with('status', [
+                'type' => 'success',
+                'message' => __('Add-on installed successfully!')
+            ]);
+        } catch (\Exception $e) {
+            Log::error("Failed to enable built-in addon {$addonName}: " . $e->getMessage());
+            return Redirect::back()->withErrors([
+                'purchase_code' => __('Failed to enable add-on: ') . $e->getMessage()
+            ])->withInput();
+        }
+    }
+
+    /**
+     * Download the add-on ZIP package from the vendor's official server.
+     */
+    protected function downloadFromVendor(string $purchaseCode, string $addonName, string $destinationZip)
+    {
+        $client = new Client();
+        $response = $client->post('https://axis96.com/api/install/addon', [
+            'form_params' => [
+                'purchase_code' => $purchaseCode,
+                'addon' => $addonName,
+            ],
+            'headers' => [
+                'Referer' => url('/'),
+            ],
+            'sink' => $destinationZip,
+        ]);
+
+        if ($response->getStatusCode() !== 200) {
+            throw new \Exception(__('Failed to download the addon from vendor server.'));
+        }
+    }
+
+    /**
+     * Retrieve add-on metadata and execute module setup service from vendor server.
+     */
+    protected function fetchVendorMetadata(string $purchaseCode, string $addonName)
+    {
+        $client = new Client();
+        $response = $client->post('https://axis96.com/api/install/addon/setup', [
+            'form_params' => [
+                'purchase_code' => $purchaseCode,
+                'addon' => $addonName,
+            ],
+            'headers' => [
+                'Referer' => url('/'),
+            ],
+        ]);
+
+        if ($response->getStatusCode() !== 200) {
+            throw new \Exception(__('Failed to retrieve addon metadata from vendor server.'));
+        }
+
+        $payload = json_decode($response->getBody()->getContents(), true);
+        if (!isset($payload['success']) || !$payload['success']) {
+            throw new \Exception(__('Failed to retrieve valid metadata from vendor server.'));
+        }
+
+        $moduleName = $payload['module'] ?? '';
+        $setupClass = "Modules\\{$moduleName}\\Services\\SetupService";
+        if (class_exists($setupClass)) {
+            (new $setupClass())->index();
+        }
+
+        return $payload['data'] ?? [];
+    }
+
+    /**
+     * Extract a ZIP archive to the base modules directory safely.
+     */
+    protected function extractZip(string $zipPath)
+    {
+        $zip = new ZipArchive();
+        if ($zip->open($zipPath) !== true) {
+            throw new \Exception(__('Failed to open the addon zip archive.'));
+        }
+
+        $modulesDir = base_path('modules');
+        if (!is_dir($modulesDir)) {
+            mkdir($modulesDir, 0755, true);
+        }
+
+        $zip->extractTo($modulesDir);
+        $zip->close();
+    }
+
+    /**
+     * Handle HTTP request exceptions during remote downloads.
+     */
+    protected function handleRequestException(RequestException $e, string $zipFilePath)
+    {
         if (file_exists($zipFilePath)) {
             unlink($zipFilePath);
         }
-        
+
+        if ($e->hasResponse()) {
+            $body = (string) $e->getResponse()->getBody();
+            $decoded = json_decode($body);
+            return Redirect::back()->withErrors([
+                'purchase_code' => $decoded->message ?? __('An error occurred while contacting the vendor license server.')
+            ])->withInput();
+        }
+
         return Redirect::back()->withErrors([
-            'purchase_code' => 'An error occurred: ' . $e->getMessage()
+            'purchase_code' => __('Unable to reach the vendor activation server: ') . $e->getMessage()
+        ])->withInput();
+    }
+
+    /**
+     * Handle general exceptions during installation.
+     */
+    protected function handleGeneralException(\Exception $e, string $zipFilePath)
+    {
+        if (file_exists($zipFilePath)) {
+            unlink($zipFilePath);
+        }
+
+        return Redirect::back()->withErrors([
+            'purchase_code' => $e->getMessage()
         ])->withInput();
     }
 }

@@ -11,6 +11,7 @@ import DashboardSubscription from "./DashboardComponents/DashboardSubscription.v
 import DashboardQuickActions from "./DashboardComponents/DashboardQuickActions.vue";
 import DashboardAiCard from "./DashboardComponents/DashboardAiCard.vue";
 import DashboardTeamBanner from "./DashboardComponents/DashboardTeamBanner.vue";
+import DashboardOnboardingChecklist from "./DashboardComponents/DashboardOnboardingChecklist.vue";
 
 const props = defineProps({ 
     user: Object, 
@@ -32,6 +33,10 @@ const props = defineProps({
     appId: String,
     configId: String,
     graphAPIVersion: String,
+    onboardingState: {
+        type: Object,
+        default: () => ({}),
+    },
 });
 
 const isOwner = computed(() => {
@@ -91,6 +96,12 @@ const dismissNotification = () => {
                 :user="props.auth?.user || props.user"
                 :organization="props.organization"
                 :setupWhatsapp="props.setupWhatsapp"
+            />
+
+            <!-- 1b. Guided Company Onboarding Progress Checklist -->
+            <DashboardOnboardingChecklist
+                v-if="isOwner && props.onboardingState"
+                :onboardingState="props.onboardingState"
             />
 
             <!-- 2. Team Invitation Alert (if owner & not dismissed) -->

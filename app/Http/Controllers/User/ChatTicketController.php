@@ -109,5 +109,12 @@ class ChatTicketController extends BaseController
                 ]
             );
         }
+
+        return Redirect::back()->with(
+            'status', [
+                'type' => 'error', 
+                'message' => __('Unable to assign ticket. Invalid user or team member.')
+            ]
+        );
     }
 }

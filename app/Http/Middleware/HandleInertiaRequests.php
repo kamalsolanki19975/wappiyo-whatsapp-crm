@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Helpers\DateTimeHelper;
 use App\Models\Chat;
 use App\Models\Language;
 use App\Models\Organization;
@@ -49,19 +50,43 @@ class HandleInertiaRequests extends Middleware
         $language = session('locale') ?? 'en';
         $unreadMessages = 0;
 
-        if ($user && $user->role === 'user') {
+        if ($user) {
             $organizationId = session('current_organization');
-            $user->load(['teams' => function ($query) use ($organizationId) {
-                $query->where('organization_id', $organizationId);
-            }]);
 
-            $organizations = Team::with('organization')->where('user_id', $user->id)->get();
-            $organization = Organization::where('id', $organizationId)->first();
-            $unreadMessages = Chat::where('organization_id', $organizationId)
-                ->where('type', 'inbound')
-                ->where('deleted_at', NULL)
-                ->where('is_read', 0)
-                ->count();
+            // Auto-fallback to user's first active organization if session key is not set
+            if (!$organizationId && $user->role === 'user') {
+                $firstTeam = Team::where('user_id', $user->id)->whereHas('organization')->first();
+                if ($firstTeam) {
+                    $organizationId = $firstTeam->organization_id;
+                    session()->put('current_organization', $organizationId);
+                }
+            }
+
+            if ($organizationId) {
+                $user->load(['teams' => function ($query) use ($organizationId) {
+                    $query->where('organization_id', $organizationId);
+                }]);
+
+                $organization = Organization::where('id', $organizationId)->first();
+                $unreadMessages = Chat::where('organization_id', $organizationId)
+                    ->where('type', 'inbound')
+                    ->where('deleted_at', NULL)
+                    ->where('is_read', 0)
+                    ->count();
+            }
+
+            if ($user->role === 'user') {
+                // Ensure only teams with active (non-deleted) organizations are passed
+                $organizations = Team::with('organization')->where('user_id', $user->id)->whereHas('organization')->get();
+            } else {
+                // If admin is impersonating/testing, provide active organizations list
+                $organizations = Organization::latest()->take(20)->get()->map(function ($org) {
+                    return (object) [
+                        'role' => 'admin',
+                        'organization' => $org,
+                    ];
+                });
+            }
         }
 
         if($this->isInstalled()){
@@ -89,7 +114,9 @@ class HandleInertiaRequests extends Middleware
             'response_data' => fn () => $request->session()->get('response_data'),
             'languages' => $languages,
             'unreadMessages' => $unreadMessages,
-            'currentLanguage' => $language
+            'currentLanguage' => $language,
+            'timezone' => fn () => DateTimeHelper::getOrganizationTimezone($organization ?: null),
+            'timezone_display' => fn () => DateTimeHelper::getTimezoneDisplay(DateTimeHelper::getOrganizationTimezone($organization ?: null)),
         ]);
     }
 

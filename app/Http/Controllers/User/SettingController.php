@@ -18,6 +18,8 @@ use Validator;
 
 class SettingController extends BaseController
 {
+    protected $contactFieldService;
+
     public function __construct(ContactFieldService $contactFieldService)
     {
         $this->contactFieldService = $contactFieldService;
@@ -413,6 +415,94 @@ class SettingController extends BaseController
                     'message' => __('Something went wrong. Refresh the page and try again')
                 ]
             );
+        }
+    }
+
+    /**
+     * Complete WhatsApp Embedded Signup by exchanging authorization code for system user access token.
+     */
+    public function exchangeCode(Request $request)
+    {
+        $code = $request->input('token');
+        if (empty($code)) {
+            return back()->with('status', [
+                'type' => 'error',
+                'message' => __('No authorization code provided from Meta.')
+            ]);
+        }
+
+        $appId = Setting::where('key', 'whatsapp_client_id')->value('value');
+        $appSecret = Setting::where('key', 'whatsapp_client_secret')->value('value');
+        $apiVersion = config('graph.api_version', 'v19.0');
+
+        if (empty($appId) || empty($appSecret)) {
+            return back()->with('status', [
+                'type' => 'error',
+                'message' => __('Facebook App ID and App Secret must be configured in Admin Add-ons for Embedded Signup.')
+            ]);
+        }
+
+        try {
+            $tokenUrl = "https://graph.facebook.com/{$apiVersion}/oauth/access_token";
+            $response = \Illuminate\Support\Facades\Http::get($tokenUrl, [
+                'client_id' => $appId,
+                'client_secret' => $appSecret,
+                'code' => $code,
+            ]);
+
+            if ($response->successful()) {
+                $accessToken = $response->json('access_token');
+
+                // Inspect debug_token to get WABA ID
+                $debugUrl = "https://graph.facebook.com/debug_token";
+                $debugResponse = \Illuminate\Support\Facades\Http::get($debugUrl, [
+                    'input_token' => $accessToken,
+                    'access_token' => "{$appId}|{$appSecret}",
+                ]);
+
+                $wabaId = null;
+                $phoneNumberId = null;
+
+                if ($debugResponse->successful()) {
+                    $granularScopes = $debugResponse->json('data.granular_scopes', []);
+                    foreach ($granularScopes as $scope) {
+                        if (($scope['scope'] ?? '') === 'whatsapp_business_management' && !empty($scope['target_ids'])) {
+                            $wabaId = $scope['target_ids'][0];
+                            break;
+                        }
+                    }
+                }
+
+                // If WABA ID found, query phone numbers
+                if ($wabaId) {
+                    $phonesResponse = \Illuminate\Support\Facades\Http::withToken($accessToken)
+                        ->get("https://graph.facebook.com/{$apiVersion}/{$wabaId}/phone_numbers");
+                    if ($phonesResponse->successful()) {
+                        $phoneData = $phonesResponse->json('data.0', []);
+                        $phoneNumberId = $phoneData['id'] ?? null;
+                    }
+                }
+
+                return $this->saveWhatsappSettings(
+                    $accessToken,
+                    $appId,
+                    $phoneNumberId,
+                    $wabaId,
+                    true
+                );
+            }
+
+            $errorMessage = $response->json('error.message', __('Failed to exchange token with Meta API'));
+            return back()->with('status', [
+                'type' => 'error',
+                'message' => $errorMessage
+            ]);
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Embedded Signup exchange error: ' . $e->getMessage());
+            return back()->with('status', [
+                'type' => 'error',
+                'message' => __('Error connecting WhatsApp: ') . $e->getMessage()
+            ]);
         }
     }
 }

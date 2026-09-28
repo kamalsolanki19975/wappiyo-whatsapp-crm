@@ -10,13 +10,34 @@
         @php
             $config = collect($page['props']['config'] ?? []);
             $google_analytics = $config->firstWhere('key', 'google_analytics_tracking_id')['value'] ?? null;
-            $favicon = $config->firstWhere('key', 'favicon')['value'] ?? null;
-            $favicon = $favicon ? '/media/' . $favicon : '/images/favicon.png';
+            $customFavicon = $config->firstWhere('key', 'favicon')['value'] ?? null;
+            if ($customFavicon) {
+                $faviconUrl = (str_starts_with($customFavicon, '/') || str_starts_with($customFavicon, 'http'))
+                    ? $customFavicon
+                    : '/media/' . $customFavicon;
+            } else {
+                $faviconUrl = '/favicon.ico';
+            }
         @endphp
-        <!-- Dynamic Favicon -->
-        @if($favicon)
-        <link rel="icon" href="{{ url($favicon) }}">
-        @endif
+        <!-- Favicon & Brand Icons -->
+        <link rel="icon" type="image/x-icon" href="{{ url($faviconUrl) }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+        <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+        <meta name="theme-color" content="#22C55E">
+        <meta name="application-name" content="Wappiyo">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="apple-mobile-web-app-title" content="Wappiyo">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-TileColor" content="#09090B">
+        <link rel="mask-icon" href="{{ asset('images/logo-mark.png') }}" color="#22C55E">
+        <meta property="og:site_name" content="Wappiyo">
+        <meta property="og:image" content="{{ asset('images/og-image.png') }}">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:image" content="{{ asset('images/og-image.png') }}">
 
         <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
         <link rel="preconnect" href="https://fonts.googleapis.com">

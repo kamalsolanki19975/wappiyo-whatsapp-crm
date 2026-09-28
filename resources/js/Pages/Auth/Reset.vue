@@ -1,27 +1,12 @@
 <template>
     <div class="min-h-screen bg-slate-50 dark:bg-[#09090B] flex flex-col justify-center py-12 sm:px-6 lg:px-8 transition-colors antialiased relative overflow-hidden">
         <!-- Ambient Background Glows -->
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-[#6C5CE7]/20 via-[#8B5CF6]/15 to-transparent blur-3xl pointer-events-none -z-10"></div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-[#22C55E]/15 via-[#10B981]/10 to-transparent blur-3xl pointer-events-none -z-10"></div>
 
         <div class="sm:mx-auto sm:w-full sm:max-w-md px-4">
             <!-- Brand Logo -->
             <div class="flex justify-center mb-6">
-                <Link href="/" class="flex items-center gap-3">
-                    <img 
-                        v-if="props.companyConfig?.logo" 
-                        class="max-h-10 object-contain" 
-                        :src="'/media/' + props.companyConfig.logo" 
-                        :alt="props.companyConfig.company_name"
-                    >
-                    <div v-else class="flex items-center gap-2.5">
-                        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#6C5CE7] to-[#8B5CF6] flex items-center justify-center text-white font-extrabold text-lg shadow-lg shadow-indigo-500/25">
-                            W
-                        </div>
-                        <span class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-                            {{ props.companyConfig?.company_name || 'Wappiyo' }}
-                        </span>
-                    </div>
-                </Link>
+                <BrandLogo :custom-logo="props.companyConfig?.logo" :company-name="props.companyConfig?.company_name || 'Wappiyo'" mode="auto" href="/" />
             </div>
 
             <div class="text-center space-y-1 mb-8">
@@ -30,7 +15,7 @@
                 </h1>
                 <p class="text-xs text-slate-500 dark:text-zinc-400">
                     {{ $t('Remember your password?') }} 
-                    <Link href="/login" class="font-semibold text-[#6C5CE7] hover:text-[#5b4bc4] dark:text-indigo-400 hover:underline">
+                    <Link href="/login" class="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 hover:underline">
                         {{ $t('Log in here') }}
                     </Link>
                 </p>
@@ -76,7 +61,7 @@
                         <button 
                             type="submit" 
                             :disabled="isLoading"
-                            class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-[#6C5CE7] to-[#8B5CF6] hover:from-[#5b4bc4] hover:to-[#7c4deb] shadow-md shadow-indigo-500/20 active:scale-[0.98] transition-all disabled:opacity-50"
+                            class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-[#22C55E] via-[#16A34A] to-[#022828] hover:from-[#15803D] hover:to-[#011d1d] shadow-md shadow-emerald-500/20 active:scale-[0.98] transition-all disabled:opacity-50"
                         >
                             <svg v-if="isLoading" class="animate-spin w-4 h-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -93,6 +78,7 @@
 
 <script setup>
     import { Link, useForm } from "@inertiajs/vue3";
+    import BrandLogo from '@/Components/UI/BrandLogo.vue';
     import FormInput from '@/Components/FormInput.vue';
     import { ref, onMounted, onUnmounted } from 'vue';
     import { useRecaptcha, unMountRecaptcha } from '../../Composables/ReCaptcha';

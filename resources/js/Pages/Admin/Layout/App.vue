@@ -1,7 +1,11 @@
 <template>
     <div class="min-h-screen bg-slate-50/70 dark:bg-[#09090B] text-slate-900 dark:text-zinc-100 antialiased flex flex-col font-sans transition-colors duration-200">
+        <!-- PWA Status Banners (Offline, Reconnected, Update) -->
+        <PwaStatusBanner />
+
         <!-- Mobile Sidebar -->
         <MobileSidebar
+            ref="mobileSidebarRef"
             :user="user"
             :config="config"
             :title="currentPageTitle"
@@ -23,12 +27,20 @@
                     @openProfile="isProfileModalOpen = true"
                 />
 
-                <!-- Page View Slot -->
-                <main class="flex-1 overflow-y-auto min-w-0">
+                <!-- Page View Slot (with mobile bottom padding for bottom nav) -->
+                <main class="flex-1 overflow-y-auto min-w-0 pb-16 md:pb-0">
                     <slot :user="user" />
                 </main>
             </div>
         </div>
+
+        <!-- Admin Mobile Bottom Navigation Bar (5 tabs: Dashboard, Teams, Users, Plans, More) -->
+        <AdminMobileBottomNav
+            @toggleSidebar="mobileSidebarRef?.openSidebar()"
+        />
+
+        <!-- PWA Installation Banner -->
+        <PwaInstallPrompt />
 
         <!-- Global Command Palette (⌘K) -->
         <CommandPalette />
@@ -54,12 +66,23 @@ import MobileSidebar from "./MobileSidebar.vue";
 import Header from "@/Components/UI/Header.vue";
 import CommandPalette from "@/Components/UI/CommandPalette.vue";
 import ProfileModal from "@/Components/ProfileModal.vue";
+import PwaStatusBanner from "@/Components/UI/PwaStatusBanner.vue";
+import PwaInstallPrompt from "@/Components/UI/PwaInstallPrompt.vue";
+import AdminMobileBottomNav from "@/Components/UI/AdminMobileBottomNav.vue";
 import { useCommandPalette } from "@/Composables/useCommandPalette";
 import { useTheme } from "@/Composables/useTheme";
+import { usePwa } from "@/Composables/usePwa";
 
 const { setupKeyboardListener } = useCommandPalette();
 const { initTheme } = useTheme();
+const {
+    checkDisplayMode,
+    initNetworkListeners,
+    registerServiceWorker,
+    initInstallPrompt,
+} = usePwa();
 
+const mobileSidebarRef = ref(null);
 const user = computed(() => usePage().props.auth?.user || {});
 const config = computed(() => usePage().props.config || []);
 const currentPageTitle = computed(() => usePage().props.title || '');
@@ -82,6 +105,12 @@ let cleanupKeyboard = null;
 onMounted(() => {
     initTheme();
     cleanupKeyboard = setupKeyboardListener();
+
+    // PWA initialization
+    checkDisplayMode();
+    initNetworkListeners();
+    registerServiceWorker();
+    initInstallPrompt();
 });
 
 onUnmounted(() => {

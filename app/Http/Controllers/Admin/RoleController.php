@@ -106,5 +106,12 @@ class RoleController extends BaseController
     public function destroy(StoreRoleUuid $request, $uuid)
     {
         $this->roleService->destroy($request, $uuid);
+
+        return back()->with(
+            'status', [
+                'type' => 'success', 
+                'message' => __('Role deleted successfully!')
+            ]
+        );
     }
 }

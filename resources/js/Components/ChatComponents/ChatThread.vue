@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import ChatBubble from '@/Components/ChatComponents/ChatBubble.vue';
+import { formatDate } from '@/Utils/dateTime';
 
 const props = defineProps({
     rows: {
@@ -31,7 +32,7 @@ const formatDateDivider = (dateString) => {
     if (isSameDay(date, today)) return 'Today';
     if (isSameDay(date, yesterday)) return 'Yesterday';
 
-    return date.toLocaleDateString([], {
+    return formatDate(date, {
         weekday: 'short',
         month: 'short',
         day: 'numeric',

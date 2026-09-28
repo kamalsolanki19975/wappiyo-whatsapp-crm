@@ -1,6 +1,7 @@
 <script setup>
 import axios from 'axios';
 import { ref, watchEffect, computed } from 'vue';
+import { toast } from 'vue3-toastify';
 import Button from '@/Components/UI/Button.vue';
 
 const props = defineProps(['contact', 'chatLimitReached']);
@@ -48,6 +49,11 @@ const adjustTextareaHeight = () => {
 const sendMessage = async () => {
     if (!formTextInput.value?.trim() && !form.value.file) return;
 
+    if (typeof navigator !== 'undefined' && !navigator.onLine) {
+        toast.error("You're offline. Message could not be sent.");
+        return;
+    }
+
     form.value.message = formTextInput.value;
     const formData = new FormData();
 
@@ -73,6 +79,7 @@ const sendMessage = async () => {
         }
     } catch (error) {
         console.error('Failed to send message:', error);
+        toast.error(error.response?.data?.message || 'Message could not be sent. Please check your connection.');
     } finally {
         processingForm.value = false;
     }

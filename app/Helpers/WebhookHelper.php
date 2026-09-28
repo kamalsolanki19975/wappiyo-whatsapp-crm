@@ -9,7 +9,7 @@ class WebhookHelper
 {
     public static function triggerWebhookEvent($event, $data, $organizationId = NULL)
     {
-        $organizationId = $organizationId = NULL ? session()->get('current_organization') : $organizationId;
+        $organizationId = $organizationId ?? session()->get('current_organization');
         $webhookAddon = Addon::where('name', 'Webhooks')->first();
         $webhookSetting = Setting::where('key', 'webhook')->first();
         $webhookModule = $webhookAddon && $webhookAddon->status && $webhookSetting && $webhookSetting->value == 1;

@@ -88,6 +88,7 @@
     import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
     import FormSelect from '@/Components/FormSelect.vue';
     import FormTextArea from '@/Components/FormTextArea.vue';
+    import { formatDateTime } from '@/Utils/dateTime';
 
     const props = defineProps(['title', 'ticket', 'users']);
     const priority = ref(props.ticket.priority);
@@ -103,10 +104,6 @@
         { value: 'low', label: 'Low' },
     ])
 
-    const formatDateTime = (value) => {
-        const options = { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-        return new Date(value).toLocaleString('en-US', options);
-    };
 
     const getInitials = (firstName, lastName) => {
       const firstInitial = firstName.charAt(0).toUpperCase();

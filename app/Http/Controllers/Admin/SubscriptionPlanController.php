@@ -10,7 +10,7 @@ use Inertia\Inertia;
 
 class SubscriptionPlanController extends BaseController
 {
-    private $SubscriptionPlanService;
+    private $subscriptionPlanService;
 
     /**
      * SubscriptionController constructor.
@@ -105,5 +105,12 @@ class SubscriptionPlanController extends BaseController
     public function destroy($uuid)
     {
         $this->subscriptionPlanService->destroy($uuid);
+
+        return back()->with(
+            'status', [
+                'type' => 'success', 
+                'message' => __('Plan deleted successfully!')
+            ]
+        );
     }
 }

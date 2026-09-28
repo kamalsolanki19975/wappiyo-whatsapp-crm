@@ -46,7 +46,7 @@
             </div>
 
             <!-- KPI Metric Cards Ribbon -->
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3 sm:gap-4">
                 <!-- Total Messages -->
                 <div class="p-4 rounded-2xl bg-white dark:bg-[#111113] border border-slate-200/80 dark:border-zinc-800 shadow-xs">
                     <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-zinc-500">{{ $t('Total Audience') }}</span>
@@ -93,18 +93,82 @@
                     <p class="text-xl sm:text-2xl font-extrabold text-rose-500 mt-1">
                         {{ props.campaign.total_failed_count || 0 }}
                     </p>
-                    <span class="text-[10px] text-rose-500/80">{{ $t('Errors / Invalid numbers') }}</span>
+                    <span class="text-[10px] text-rose-500/80">{{ $t('Errors / Invalid') }}</span>
+                </div>
+
+                <!-- Retry In Queue / Retrying -->
+                <div class="p-4 rounded-2xl bg-white dark:bg-[#111113] border border-slate-200/80 dark:border-zinc-800 shadow-xs">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-amber-500">{{ $t('Retrying') }}</span>
+                        <span v-if="props.campaign.total_retry_pending_count > 0" class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                        </span>
+                    </div>
+                    <p class="text-xl sm:text-2xl font-extrabold text-amber-600 dark:text-amber-400 mt-1">
+                        {{ props.campaign.total_retry_pending_count || 0 }}
+                    </p>
+                    <span class="text-[10px] text-amber-600/80 dark:text-amber-400/80">{{ $t('Queued in engine') }}</span>
+                </div>
+
+                <!-- Total Recovered -->
+                <div class="p-4 rounded-2xl bg-white dark:bg-[#111113] border border-slate-200/80 dark:border-zinc-800 shadow-xs">
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-500">{{ $t('Recovered') }}</span>
+                    <p class="text-xl sm:text-2xl font-extrabold text-cyan-600 dark:text-cyan-400 mt-1">
+                        {{ props.campaign.total_retried_count || 0 }}
+                    </p>
+                    <span class="text-[10px] text-cyan-600/80 dark:text-cyan-400/80">{{ $t('Retried sends') }}</span>
                 </div>
             </div>
 
-            <!-- Two-Column Analytics Workspace -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Tab Navigation Bar -->
+            <div class="flex items-center gap-2 border-b border-slate-200 dark:border-zinc-800">
+                <button
+                    @click="switchTab('overview')"
+                    type="button"
+                    :class="[
+                        'flex items-center gap-2 px-4 py-3 text-sm font-semibold border-b-2 transition-all',
+                        currentTab === 'overview'
+                            ? 'border-[#6C5CE7] text-[#6C5CE7] dark:text-purple-400'
+                            : 'border-transparent text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-zinc-200'
+                    ]"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    <span>{{ $t('Recipient Delivery Logs') }}</span>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">
+                        {{ props.campaign.total_message_count || 0 }}
+                    </span>
+                </button>
+
+                <button
+                    @click="switchTab('failed')"
+                    type="button"
+                    :class="[
+                        'flex items-center gap-2 px-4 py-3 text-sm font-semibold border-b-2 transition-all',
+                        currentTab === 'failed'
+                            ? 'border-rose-500 text-rose-600 dark:text-rose-400'
+                            : 'border-transparent text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-zinc-200'
+                    ]"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rose-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    <span>{{ $t('Failed Messages & Recovery') }}</span>
+                    <span
+                        v-if="(props.campaign.total_failed_count || 0) > 0"
+                        class="px-2 py-0.5 rounded-full text-xs font-extrabold bg-rose-500/10 text-rose-600 dark:bg-rose-500/20 dark:text-rose-400"
+                    >
+                        {{ props.campaign.total_failed_count }}
+                    </span>
+                </button>
+            </div>
+
+            <!-- TAB 1: OVERVIEW & GENERAL LOGS -->
+            <div v-show="currentTab === 'overview'" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <!-- LEFT COLUMN: Recipient Logs Table (2 Cols on lg) -->
                 <div class="lg:col-span-2 space-y-4">
                     <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#111113] border border-slate-200/80 dark:border-zinc-800 shadow-xs space-y-4">
                         <div class="flex items-center justify-between border-b border-slate-100 dark:border-zinc-800/80 pb-3">
                             <h2 class="text-sm font-bold uppercase tracking-wider text-slate-400 dark:text-zinc-500">
-                                {{ $t('Recipient Delivery Logs') }}
+                                {{ $t('All Audience Recipients') }}
                             </h2>
                         </div>
 
@@ -164,20 +228,63 @@
                 </div>
             </div>
 
+            <!-- TAB 2: FAILED MESSAGES RECOVERY WORKSPACE -->
+            <div v-show="currentTab === 'failed'" class="space-y-6">
+                <CampaignFailedTable
+                    :campaign="props.campaign"
+                    :rows="props.failedRows"
+                    :stats="props.failedStats"
+                    :filters="props.filters"
+                />
+            </div>
+
         </div>
     </AppLayout>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { ref, computed, watch } from 'vue';
+import { router, Link } from '@inertiajs/vue3';
 import AppLayout from "./../Layout/App.vue";
 import CampaignLogTable from '@/Components/Tables/CampaignLogTable.vue';
+import CampaignFailedTable from '@/Components/Tables/CampaignFailedTable.vue';
 import WhatsappTemplate from '@/Components/WhatsappTemplate.vue';
 import Button from '@/Components/UI/Button.vue';
 import Badge from '@/Components/UI/Badge.vue';
-import { Link } from "@inertiajs/vue3";
 
-const props = defineProps(['campaign', 'rows', 'filters', 'title']);
+const props = defineProps({
+    campaign: Object,
+    rows: Object,
+    failedRows: Object,
+    failedStats: Object,
+    activeTab: {
+        type: String,
+        default: 'overview'
+    },
+    filters: Object,
+    title: String,
+});
+
+const currentTab = ref(props.activeTab || 'overview');
+
+watch(() => props.activeTab, (newTab) => {
+    if (newTab) {
+        currentTab.value = newTab;
+    }
+});
+
+const switchTab = (tab) => {
+    currentTab.value = tab;
+    router.visit(`/campaigns/${props.campaign.uuid}`, {
+        method: 'get',
+        data: {
+            tab: tab,
+        },
+        preserveState: true,
+        preserveScroll: true,
+        replace: true,
+    });
+};
 
 const campaignStatusVariant = computed(() => {
     const s = String(props.campaign?.status || '').toLowerCase();

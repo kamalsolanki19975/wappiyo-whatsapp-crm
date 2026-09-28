@@ -16,7 +16,7 @@ trait HasUuid
         static::creating(function ($model) {
             $columnName = static::getUuidColumn();
 
-            $model->$columnName = Uuid::uuid4();
+            $model->$columnName = (string) Uuid::uuid4();
         });
     }
 
@@ -27,7 +27,7 @@ trait HasUuid
     {
         $columnName = static::getUuidColumn();
 
-        return $this->attributes[$columnName];
+        return isset($this->attributes[$columnName]) ? (string) $this->attributes[$columnName] : null;
     }
 
     protected static function getUuidColumn()

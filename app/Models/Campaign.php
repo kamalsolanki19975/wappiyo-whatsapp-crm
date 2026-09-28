@@ -16,17 +16,17 @@ class Campaign extends Model {
 
     public function getCreatedAtAttribute($value)
     {
-        return DateTimeHelper::convertToOrganizationTimezone($value)->toDateTimeString();
+        return DateTimeHelper::convertToOrganizationTimezone($value)?->toDateTimeString();
     }
 
     public function getDeletedAtAttribute($value)
     {
-        return DateTimeHelper::convertToOrganizationTimezone($value)->toDateTimeString();
+        return DateTimeHelper::convertToOrganizationTimezone($value)?->toDateTimeString();
     }
 
     public function getScheduledAtAttribute($value)
     {
-        return DateTimeHelper::convertToOrganizationTimezone($value)->toDateTimeString();
+        return DateTimeHelper::convertToOrganizationTimezone($value)?->toDateTimeString();
     }
 
     public function organization(){
@@ -93,6 +93,10 @@ class Campaign extends Model {
             ->count();
     }
 
+    public function retries(){
+        return $this->hasMany(CampaignRetry::class, 'campaign_id', 'id');
+    }
+
     public function getCounts(){
         return $this->campaignLogs()
             ->selectRaw('
@@ -101,7 +105,10 @@ class Campaign extends Model {
                 SUM(CASE WHEN campaign_logs.status = "success" AND chat.status IN ("delivered", "read") THEN 1 ELSE 0 END) as total_delivered_count,
                 SUM(CASE WHEN campaign_logs.status = "failed" THEN 1 ELSE 0 END) + 
                     SUM(CASE WHEN campaign_logs.status = "success" AND chat.status = "failed" THEN 1 ELSE 0 END) as total_failed_count,
-                SUM(CASE WHEN campaign_logs.status = "success" AND chat.status = "read" THEN 1 ELSE 0 END) as total_read_count
+                SUM(CASE WHEN campaign_logs.status = "success" AND chat.status = "read" THEN 1 ELSE 0 END) as total_read_count,
+                SUM(CASE WHEN campaign_logs.status = "pending" THEN 1 ELSE 0 END) as total_pending_count,
+                SUM(CASE WHEN campaign_logs.retry_status IN ("queued", "retrying") THEN 1 ELSE 0 END) as total_retry_pending_count,
+                SUM(CASE WHEN campaign_logs.retry_count > 0 THEN 1 ELSE 0 END) as total_retried_count
             ')
             ->leftJoin('chats as chat', 'chat.id', '=', 'campaign_logs.chat_id')
             ->where('campaign_logs.campaign_id', $this->id)

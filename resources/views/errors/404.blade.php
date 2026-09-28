@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>404 — Page Not Found | Wappiyo</title>
     <meta name="robots" content="noindex, follow">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,8 +20,8 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#6C5CE7',
-                        violet: '#8B5CF6',
+                        primary: '#22C55E',
+                        darkBrand: '#022828',
                     },
                     fontFamily: {
                         sans: ['Outfit', 'system-ui', 'sans-serif'],
@@ -32,11 +36,22 @@
         }
     </script>
 </head>
-<body class="bg-slate-50 dark:bg-[#09090B] text-slate-900 dark:text-zinc-100 font-sans min-h-screen flex items-center justify-center p-6 antialiased selection:bg-[#6C5CE7] selection:text-white">
+<body class="bg-slate-50 dark:bg-[#09090B] text-slate-900 dark:text-zinc-100 font-sans min-h-screen flex items-center justify-center p-6 antialiased selection:bg-emerald-500 selection:text-white relative overflow-hidden">
+    <!-- Ambient Background Glows -->
+    <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-[#22C55E]/15 via-[#10B981]/10 to-transparent blur-3xl pointer-events-none -z-10"></div>
+
     <div class="max-w-lg w-full text-center space-y-6">
+        <!-- Official Wappiyo Logo -->
+        <div class="flex justify-center mb-6">
+            <a href="/" class="focus:outline-none">
+                <img src="/images/logo.png" alt="Wappiyo" class="h-9 w-auto dark:hidden object-contain" />
+                <img src="/images/logo-dark.png" alt="Wappiyo" class="h-9 w-auto hidden dark:block object-contain" />
+            </a>
+        </div>
+
         <!-- Brand Badge -->
-        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-200/60 dark:border-indigo-900/50 text-[#6C5CE7] dark:text-indigo-400 text-xs font-bold uppercase tracking-wider">
-            <span class="w-2 h-2 rounded-full bg-[#6C5CE7] animate-pulse"></span>
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200/60 dark:border-emerald-800/60 text-emerald-700 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
             <span>404 Error</span>
         </div>
 
@@ -46,7 +61,7 @@
                 404
             </div>
             <div class="absolute inset-0 flex items-center justify-center">
-                <div class="w-20 h-20 rounded-3xl bg-gradient-to-tr from-[#6C5CE7] to-[#8B5CF6] text-white flex items-center justify-center shadow-xl shadow-indigo-500/25">
+                <div class="w-20 h-20 rounded-3xl bg-gradient-to-tr from-[#22C55E] to-[#022828] text-white flex items-center justify-center shadow-xl shadow-emerald-600/25">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"></circle>
                         <line x1="12" y1="8" x2="12" y2="12"></line>
@@ -67,7 +82,7 @@
 
         <!-- Actions -->
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-            <a href="/dashboard" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-[#6C5CE7] to-[#8B5CF6] hover:from-[#5b4bc4] hover:to-[#7c4deb] shadow-md shadow-indigo-500/20 active:scale-[0.98] transition-all">
+            <a href="/dashboard" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-[#22C55E] via-[#16A34A] to-[#022828] hover:from-[#15803D] hover:to-[#011d1d] shadow-md shadow-emerald-500/20 active:scale-[0.98] transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                 <span>{{ __('Return to Dashboard') }}</span>
             </a>

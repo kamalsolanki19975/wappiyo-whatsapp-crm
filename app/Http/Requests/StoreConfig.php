@@ -33,7 +33,7 @@ class StoreConfig extends FormRequest
         }
 
         if ($this->type == 'timezone') {
-            $rules['timezone'] = 'required';
+            $rules['timezone'] = ['required', 'string', \Illuminate\Validation\Rule::in(timezone_identifiers_list())];
             $rules['currency'] = 'required';
             $rules['date_format'] = 'required';
             $rules['time_format'] = 'required';
