@@ -102,8 +102,8 @@
         <TableBody>
             <TableBodyRow v-for="(item, index) in rows.data" :key="index" :class="!isLastRow(index) ? 'border-b' : ''">
                 <TableBodyRowItem :position="'first'" class="capitalize">{{ item.name }}</TableBodyRowItem>
-                <TableBodyRowItem class="hidden sm:table-cell">{{ item.owner.user.full_name }}</TableBodyRowItem>
-                <TableBodyRowItem class="hidden sm:table-cell">{{ item.owner.user.email }}</TableBodyRowItem>
+                <TableBodyRowItem class="hidden sm:table-cell">{{ item.owner?.user?.full_name ?? $t('Unassigned') }}</TableBodyRowItem>
+                <TableBodyRowItem class="hidden sm:table-cell">{{ item.owner?.user?.email ?? '—' }}</TableBodyRowItem>
                 <TableBodyRowItem class="hidden sm:table-cell">
                     <span>{{ item.teams_count }}</span>
                 </TableBodyRowItem>

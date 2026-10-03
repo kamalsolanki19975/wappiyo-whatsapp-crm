@@ -247,6 +247,12 @@ const doSomething = () => {};
 
 let cleanupKeyboard = null;
 
+const handleGlobalStartCall = (e) => {
+    if (e.detail?.contact || e.detail?.phone) {
+        startCall(e.detail.contact, e.detail.phone);
+    }
+};
+
 onMounted(() => {
     initTheme();
     cleanupKeyboard = setupKeyboardListener();
@@ -264,11 +270,6 @@ onMounted(() => {
         setAppBadge(newCount);
     });
 
-    const handleGlobalStartCall = (e) => {
-        if (e.detail?.contact || e.detail?.phone) {
-            startCall(e.detail.contact, e.detail.phone);
-        }
-    };
     window.addEventListener('wappiyo:start-call', handleGlobalStartCall);
 
     if (organization.value?.id) {

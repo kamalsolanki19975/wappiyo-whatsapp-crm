@@ -1,27 +1,27 @@
 {
-  "_AlertModal-12bc5be9.js": {
-    "file": "assets/AlertModal-12bc5be9.js",
+  "_AlertModal-868d7197.js": {
+    "file": "assets/AlertModal-868d7197.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
-      "_Avatar-a529517b.js"
+      "_Avatar-c0c5682a.js"
     ]
   },
-  "_App-bacb82eb.js": {
+  "_App-213a55d9.js": {
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/App-bacb82eb.js",
+    "file": "assets/App-213a55d9.js",
     "imports": [
       "resources/js/app.js",
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_PwaInstallPrompt-e9048f92.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_Badge-88e7c4bc.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_index-00a0ba38.js",
       "_vendor-realtime-c844a690.js",
       "_usePwa-54e0bb9b.js",
@@ -30,8 +30,8 @@
     ],
     "isDynamicEntry": true
   },
-  "_Avatar-a529517b.js": {
-    "file": "assets/Avatar-a529517b.js",
+  "_Avatar-c0c5682a.js": {
+    "file": "assets/Avatar-c0c5682a.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
@@ -45,79 +45,79 @@
       "_vendor-apexcharts-fa17c35b.js"
     ]
   },
-  "_BillingTable-71ab7e2d.js": {
+  "_BillingTable-41128865.js": {
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/BillingTable-71ab7e2d.js",
+    "file": "assets/BillingTable-41128865.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "_debounce-d5037be8.js",
       "resources/js/app.js"
     ]
   },
-  "_BrandLogo-e0495f64.js": {
-    "file": "assets/BrandLogo-e0495f64.js",
+  "_BrandLogo-b3f8a791.js": {
+    "file": "assets/BrandLogo-b3f8a791.js",
     "imports": [
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js"
     ]
   },
-  "_Button-6bd18ee6.js": {
-    "file": "assets/Button-6bd18ee6.js",
+  "_Button-b5d79ea6.js": {
+    "file": "assets/Button-b5d79ea6.js",
     "imports": [
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js"
     ]
   },
-  "_CallButton-d7759f5d.js": {
-    "file": "assets/CallButton-d7759f5d.js",
+  "_CallButton-56d4f665.js": {
+    "file": "assets/CallButton-56d4f665.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
-      "_Button-6bd18ee6.js",
-      "_App-bacb82eb.js",
+      "_Button-b5d79ea6.js",
+      "_App-213a55d9.js",
       "_index-00a0ba38.js"
     ]
   },
-  "_CampaignForm-ba59d6f9.js": {
-    "file": "assets/CampaignForm-ba59d6f9.js",
+  "_CampaignForm-66ffcd82.js": {
+    "file": "assets/CampaignForm-66ffcd82.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
       "_FormInput-580be0df.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "_WhatsappTemplate-eb782961.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_index-00a0ba38.js"
     ]
   },
-  "_ContactTable-87e156b4.js": {
-    "file": "assets/ContactTable-87e156b4.js",
+  "_ContactTable-f43fc883.js": {
+    "file": "assets/ContactTable-f43fc883.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "_debounce-d5037be8.js",
       "resources/js/app.js",
-      "_Modal-57e34001.js",
-      "_Button-6bd18ee6.js",
+      "_Modal-9df6000e.js",
+      "_Button-b5d79ea6.js",
       "_Badge-88e7c4bc.js",
       "_index-00a0ba38.js",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_Pagination-76eb7c6f.js",
-      "_Avatar-a529517b.js",
-      "_EmptyState-a30cc0f2.js"
+      "_Avatar-c0c5682a.js",
+      "_EmptyState-3442dcab.js"
     ]
   },
-  "_EmbeddedSignupBtn-26b5fcd8.js": {
-    "file": "assets/EmbeddedSignupBtn-26b5fcd8.js",
+  "_EmbeddedSignupBtn-ea84861d.js": {
+    "file": "assets/EmbeddedSignupBtn-ea84861d.js",
     "imports": [
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js"
     ]
   },
-  "_EmptyState-a30cc0f2.js": {
-    "file": "assets/EmptyState-a30cc0f2.js",
+  "_EmptyState-3442dcab.js": {
+    "file": "assets/EmptyState-3442dcab.js",
     "imports": [
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_vendor-apexcharts-fa17c35b.js"
     ]
   },
@@ -139,15 +139,15 @@
       "_vendor-apexcharts-fa17c35b.js"
     ]
   },
-  "_FormModalModified-1bc1e20d.js": {
-    "file": "assets/FormModalModified-1bc1e20d.js",
+  "_FormModalModified-b96ba7f2.js": {
+    "file": "assets/FormModalModified-b96ba7f2.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
-      "_Modal-57e34001.js",
+      "_Modal-9df6000e.js",
       "_FormInput-580be0df.js",
       "_FormImage-5f0b4374.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "_FormTextArea-8d9386d8.js"
     ]
   },
@@ -157,22 +157,22 @@
       "_vendor-apexcharts-fa17c35b.js"
     ]
   },
-  "_FormSelect-7860feea.js": {
-    "file": "assets/FormSelect-7860feea.js",
+  "_FormSelect-f06d3da2.js": {
+    "file": "assets/FormSelect-f06d3da2.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "_tabs-82b04da3.js",
-      "_PwaInstallPrompt-6500ba00.js",
-      "_Avatar-a529517b.js"
+      "_PwaInstallPrompt-e9048f92.js",
+      "_Avatar-c0c5682a.js"
     ]
   },
-  "_FormSelectCombo-4d2b8eff.js": {
-    "file": "assets/FormSelectCombo-4d2b8eff.js",
+  "_FormSelectCombo-ed36ad99.js": {
+    "file": "assets/FormSelectCombo-ed36ad99.js",
     "imports": [
       "_tabs-82b04da3.js",
-      "_PwaInstallPrompt-6500ba00.js",
-      "_Avatar-a529517b.js",
-      "_FormSelect-7860feea.js",
+      "_PwaInstallPrompt-e9048f92.js",
+      "_Avatar-c0c5682a.js",
+      "_FormSelect-f06d3da2.js",
       "_vendor-apexcharts-fa17c35b.js"
     ]
   },
@@ -200,27 +200,27 @@
       "_vendor-apexcharts-fa17c35b.js"
     ]
   },
-  "_Modal-57e34001.js": {
-    "file": "assets/Modal-57e34001.js",
+  "_Modal-9df6000e.js": {
+    "file": "assets/Modal-9df6000e.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
-      "_Avatar-a529517b.js"
+      "_Avatar-c0c5682a.js"
     ]
   },
-  "_OrganizationTable-99574048.js": {
+  "_OrganizationTable-90164430.js": {
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/OrganizationTable-99574048.js",
+    "file": "assets/OrganizationTable-90164430.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "_debounce-d5037be8.js",
       "resources/js/app.js",
-      "_AlertModal-12bc5be9.js",
+      "_AlertModal-868d7197.js",
       "_useAlertModal-3b6f15d4.js",
       "_TableBodyRowItem-ea502b92.js",
       "_TableHeaderRowItem-30aa26b6.js",
-      "_PwaInstallPrompt-6500ba00.js"
+      "_PwaInstallPrompt-e9048f92.js"
     ]
   },
   "_Pagination-76eb7c6f.js": {
@@ -230,8 +230,8 @@
       "_vendor-apexcharts-fa17c35b.js"
     ]
   },
-  "_PwaInstallPrompt-6500ba00.js": {
-    "file": "assets/PwaInstallPrompt-6500ba00.js",
+  "_PwaInstallPrompt-e9048f92.js": {
+    "file": "assets/PwaInstallPrompt-e9048f92.js",
     "imports": [
       "resources/js/app.js",
       "_usePwa-54e0bb9b.js",
@@ -239,9 +239,9 @@
       "_vendor-apexcharts-fa17c35b.js",
       "_Badge-88e7c4bc.js",
       "_tabs-82b04da3.js",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_LangToggle-549c0511.js",
-      "_BrandLogo-e0495f64.js"
+      "_BrandLogo-b3f8a791.js"
     ]
   },
   "_ReCaptcha-55f58cbf.js": {
@@ -274,28 +274,28 @@
       "_vendor-apexcharts-fa17c35b.js"
     ]
   },
-  "_TicketTable-abd87966.js": {
-    "file": "assets/TicketTable-abd87966.js",
+  "_TicketTable-3ae26d86.js": {
+    "file": "assets/TicketTable-3ae26d86.js",
     "imports": [
       "resources/js/app.js",
       "_TicketPriorityBadge-a9db960e.js",
       "_vendor-apexcharts-fa17c35b.js"
     ]
   },
-  "_UserTable-6264f72f.js": {
+  "_UserTable-b8d07746.js": {
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/UserTable-6264f72f.js",
+    "file": "assets/UserTable-b8d07746.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "_debounce-d5037be8.js",
       "resources/js/app.js",
-      "_AlertModal-12bc5be9.js",
+      "_AlertModal-868d7197.js",
       "_useAlertModal-3b6f15d4.js",
       "_TableBodyRowItem-ea502b92.js",
       "_TableHeaderRowItem-30aa26b6.js",
-      "_PwaInstallPrompt-6500ba00.js"
+      "_PwaInstallPrompt-e9048f92.js"
     ]
   },
   "_WhatsAppTemplatePreview-652b44fd.js": {
@@ -507,15 +507,15 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-711624ee.js",
+    "file": "assets/Index-179692f5.js",
     "imports": [
       "resources/js/Pages/Admin/Layout/App.vue",
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_debounce-d5037be8.js",
-      "_AlertModal-12bc5be9.js",
+      "_AlertModal-868d7197.js",
       "_useAlertModal-3b6f15d4.js",
-      "_Modal-57e34001.js",
+      "_Modal-9df6000e.js",
       "_FormInput-580be0df.js",
       "_FormToggleSwitch-d696ab5f.js",
       "_Pagination-76eb7c6f.js",
@@ -523,11 +523,11 @@
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -544,22 +544,22 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Show-27b25d5d.js",
+    "file": "assets/Show-40ac21e0.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/Admin/Layout/App.vue",
       "resources/js/app.js",
       "_FormTextArea-8d9386d8.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -575,21 +575,21 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-7a35e906.js",
+    "file": "assets/Index-dff3d9a3.js",
     "imports": [
       "resources/js/Pages/Admin/Layout/App.vue",
       "resources/js/app.js",
-      "_UserTable-6264f72f.js",
+      "_UserTable-b8d07746.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -598,7 +598,7 @@
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "_debounce-d5037be8.js",
-      "_AlertModal-12bc5be9.js",
+      "_AlertModal-868d7197.js",
       "_useAlertModal-3b6f15d4.js",
       "_TableBodyRowItem-ea502b92.js",
       "_Pagination-76eb7c6f.js",
@@ -612,7 +612,7 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Show-0b0d8ae0.js",
+    "file": "assets/Show-c96b9491.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/Admin/Layout/App.vue",
@@ -621,15 +621,15 @@
       "_FormImage-5f0b4374.js",
       "_FormInput-580be0df.js",
       "_FormPhoneInput-3fdc5f1b.js",
-      "_OrganizationTable-99574048.js",
+      "_OrganizationTable-90164430.js",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -638,7 +638,7 @@
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "_debounce-d5037be8.js",
-      "_AlertModal-12bc5be9.js",
+      "_AlertModal-868d7197.js",
       "_useAlertModal-3b6f15d4.js",
       "_TableBodyRowItem-ea502b92.js",
       "_Pagination-76eb7c6f.js",
@@ -652,14 +652,14 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Dashboard-39c5b1e9.js",
+    "file": "assets/Dashboard-685f8f8f.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Pages/Admin/Layout/App.vue",
       "_useTheme-885eda7c.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_Badge-88e7c4bc.js",
-      "_EmptyState-a30cc0f2.js",
+      "_EmptyState-3442dcab.js",
       "_dateTime-96eee721.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_vendor-code-highlighter-89154160.js",
@@ -668,12 +668,12 @@
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_LangToggle-549c0511.js"
     ],
@@ -684,24 +684,24 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-634ce771.js",
+    "file": "assets/Index-1c04f31f.js",
     "imports": [
       "resources/js/Pages/Admin/Layout/App.vue",
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_debounce-d5037be8.js",
-      "_AlertModal-12bc5be9.js",
+      "_AlertModal-868d7197.js",
       "_useAlertModal-3b6f15d4.js",
       "_TableBodyRowItem-ea502b92.js",
       "_TableHeaderRowItem-30aa26b6.js",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
@@ -720,22 +720,22 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Show-19d06103.js",
+    "file": "assets/Show-ba12342c.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/Admin/Layout/App.vue",
       "resources/js/app.js",
       "_FormTextArea-8d9386d8.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -751,14 +751,14 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/App-58ff6198.js",
+    "file": "assets/App-82300cfe.js",
     "imports": [
       "resources/js/app.js",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
-      "_Avatar-a529517b.js",
+      "_PwaInstallPrompt-e9048f92.js",
+      "_Avatar-c0c5682a.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
@@ -766,7 +766,7 @@
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_Badge-88e7c4bc.js",
       "_tabs-82b04da3.js",
       "_LangToggle-549c0511.js",
@@ -776,11 +776,11 @@
     "src": "resources/js/Pages/Admin/Layout/App.vue"
   },
   "resources/js/Pages/Admin/Layout/Menu.vue": {
-    "file": "assets/Menu-3f497d68.js",
+    "file": "assets/Menu-882a786a.js",
     "imports": [
       "resources/js/app.js",
-      "_Avatar-a529517b.js",
-      "_BrandLogo-e0495f64.js",
+      "_Avatar-c0c5682a.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
@@ -792,16 +792,16 @@
     "src": "resources/js/Pages/Admin/Layout/Menu.vue"
   },
   "resources/js/Pages/Admin/Layout/MobileSidebar.vue": {
-    "file": "assets/MobileSidebar-53bb616c.js",
+    "file": "assets/MobileSidebar-c470579c.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js"
     ],
@@ -809,7 +809,7 @@
     "src": "resources/js/Pages/Admin/Layout/MobileSidebar.vue"
   },
   "resources/js/Pages/Admin/Layout/Sidebar.vue": {
-    "file": "assets/Sidebar-085c65ef.js",
+    "file": "assets/Sidebar-32c1ce36.js",
     "imports": [
       "resources/js/Pages/Admin/Layout/Menu.vue",
       "_vendor-apexcharts-fa17c35b.js",
@@ -817,10 +817,10 @@
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js"
+      "_BrandLogo-b3f8a791.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Admin/Layout/Sidebar.vue"
@@ -829,7 +829,7 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-97538897.js",
+    "file": "assets/Index-804c3b6b.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
@@ -842,12 +842,12 @@
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_LangToggle-549c0511.js"
@@ -859,7 +859,7 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Show-fb0174b6.js",
+    "file": "assets/Show-7f00b2cc.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
@@ -871,12 +871,12 @@
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -889,7 +889,7 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-b5976594.js",
+    "file": "assets/Index-11cc5cd7.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
@@ -900,12 +900,12 @@
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -918,21 +918,21 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-2146d001.js",
+    "file": "assets/Index-70e6352a.js",
     "imports": [
       "resources/js/Pages/Admin/Layout/App.vue",
       "resources/js/app.js",
-      "_OrganizationTable-99574048.js",
+      "_OrganizationTable-90164430.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -941,7 +941,7 @@
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "_debounce-d5037be8.js",
-      "_AlertModal-12bc5be9.js",
+      "_AlertModal-868d7197.js",
       "_useAlertModal-3b6f15d4.js",
       "_TableBodyRowItem-ea502b92.js",
       "_Pagination-76eb7c6f.js",
@@ -955,26 +955,26 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Show-3247803f.js",
+    "file": "assets/Show-dfcaa3ce.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/Admin/Layout/App.vue",
       "resources/js/app.js",
       "_FormInput-580be0df.js",
       "_FormPhoneInput-3fdc5f1b.js",
-      "_FormSelect-7860feea.js",
-      "_BillingTable-71ab7e2d.js",
-      "_Modal-57e34001.js",
-      "_UserTable-6264f72f.js",
+      "_FormSelect-f06d3da2.js",
+      "_BillingTable-41128865.js",
+      "_Modal-9df6000e.js",
+      "_UserTable-b8d07746.js",
       "_index-00a0ba38.js",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -983,7 +983,7 @@
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "_debounce-d5037be8.js",
-      "_AlertModal-12bc5be9.js",
+      "_AlertModal-868d7197.js",
       "_useAlertModal-3b6f15d4.js",
       "_TableBodyRowItem-ea502b92.js",
       "_Pagination-76eb7c6f.js",
@@ -997,10 +997,10 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-65ed4464.js",
+    "file": "assets/Index-dcc6bf07.js",
     "imports": [
       "resources/js/Pages/Admin/Layout/App.vue",
-      "_BillingTable-71ab7e2d.js",
+      "_BillingTable-41128865.js",
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
       "_vendor-code-highlighter-89154160.js",
@@ -1009,12 +1009,12 @@
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1028,7 +1028,7 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-cc53f494.js",
+    "file": "assets/Index-aefc227c.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
@@ -1039,12 +1039,12 @@
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1057,24 +1057,24 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-ca0463bd.js",
+    "file": "assets/Index-1b43cfb3.js",
     "imports": [
       "resources/js/Pages/Admin/Layout/App.vue",
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_debounce-d5037be8.js",
-      "_AlertModal-12bc5be9.js",
+      "_AlertModal-868d7197.js",
       "_useAlertModal-3b6f15d4.js",
       "_TableBodyRowItem-ea502b92.js",
       "_TableHeaderRowItem-30aa26b6.js",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
@@ -1093,7 +1093,7 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Show-a063fd52.js",
+    "file": "assets/Show-34171378.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/Admin/Layout/App.vue",
@@ -1102,11 +1102,11 @@
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1122,7 +1122,7 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Billing-c76ef3e1.js",
+    "file": "assets/Billing-9092326c.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/Admin/Setting/Layout/App.vue",
@@ -1132,11 +1132,11 @@
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1153,22 +1153,22 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Broadcast-b69b6f5f.js",
+    "file": "assets/Broadcast-cd640ed6.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/Admin/Setting/Layout/App.vue",
       "resources/js/app.js",
       "_FormInput-580be0df.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "resources/js/Pages/Admin/Layout/App.vue",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1185,26 +1185,26 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Coupon-a35894bd.js",
+    "file": "assets/Coupon-52417bda.js",
     "imports": [
       "resources/js/Pages/Admin/Setting/Layout/App.vue",
       "resources/js/app.js",
-      "_AlertModal-12bc5be9.js",
+      "_AlertModal-868d7197.js",
       "_useAlertModal-3b6f15d4.js",
       "_TableBodyRowItem-ea502b92.js",
       "_TableHeaderRowItem-30aa26b6.js",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_vendor-apexcharts-fa17c35b.js",
-      "_FormModalModified-1bc1e20d.js",
+      "_FormModalModified-b96ba7f2.js",
       "_index-00a0ba38.js",
       "resources/js/Pages/Admin/Layout/App.vue",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
@@ -1216,9 +1216,9 @@
       "__plugin-vue_export-helper-c27b6911.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Modal-57e34001.js",
+      "_Modal-9df6000e.js",
       "_FormImage-5f0b4374.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "_FormTextArea-8d9386d8.js"
     ],
     "isDynamicEntry": true,
@@ -1228,22 +1228,22 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Email-22b38363.js",
+    "file": "assets/Email-44ef344b.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/Admin/Setting/Layout/App.vue",
       "resources/js/app.js",
       "_FormInput-580be0df.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "resources/js/Pages/Admin/Layout/App.vue",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1260,7 +1260,7 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-590dded4.js",
+    "file": "assets/Index-cf719cc8.js",
     "imports": [
       "resources/js/Pages/Admin/Setting/Layout/App.vue",
       "_vendor-apexcharts-fa17c35b.js",
@@ -1272,12 +1272,12 @@
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1296,7 +1296,7 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Show-ad952c9f.js",
+    "file": "assets/Show-c73657b6.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/Admin/Setting/Layout/App.vue",
@@ -1307,11 +1307,11 @@
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1327,7 +1327,7 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/General-74cfad33.js",
+    "file": "assets/General-622247f0.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/Admin/Setting/Layout/App.vue",
@@ -1339,11 +1339,11 @@
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1360,26 +1360,26 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-d247b9a1.js",
+    "file": "assets/Index-5da6d2e3.js",
     "imports": [
       "resources/js/Pages/Admin/Setting/Layout/App.vue",
       "resources/js/app.js",
-      "_AlertModal-12bc5be9.js",
+      "_AlertModal-868d7197.js",
       "_useAlertModal-3b6f15d4.js",
       "_TableBodyRowItem-ea502b92.js",
       "_TableHeaderRowItem-30aa26b6.js",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_vendor-apexcharts-fa17c35b.js",
-      "_FormModalModified-1bc1e20d.js",
+      "_FormModalModified-b96ba7f2.js",
       "_index-00a0ba38.js",
       "resources/js/Pages/Admin/Layout/App.vue",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
@@ -1391,9 +1391,9 @@
       "__plugin-vue_export-helper-c27b6911.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Modal-57e34001.js",
+      "_Modal-9df6000e.js",
       "_FormImage-5f0b4374.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "_FormTextArea-8d9386d8.js"
     ],
     "isDynamicEntry": true,
@@ -1403,7 +1403,7 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Show-0dcaf9bf.js",
+    "file": "assets/Show-27c5353f.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/Admin/Setting/Layout/App.vue",
@@ -1411,17 +1411,17 @@
       "_debounce-d5037be8.js",
       "_useAlertModal-3b6f15d4.js",
       "_FormTextArea-8d9386d8.js",
-      "_Modal-57e34001.js",
+      "_Modal-9df6000e.js",
       "resources/js/Pages/Admin/Layout/App.vue",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1438,7 +1438,7 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/App-2f0572e1.js",
+    "file": "assets/App-a141afe5.js",
     "imports": [
       "resources/js/Pages/Admin/Layout/App.vue",
       "resources/js/Pages/Admin/Setting/Layout/Sidebar.vue",
@@ -1447,15 +1447,15 @@
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1465,7 +1465,7 @@
     "src": "resources/js/Pages/Admin/Setting/Layout/App.vue"
   },
   "resources/js/Pages/Admin/Setting/Layout/Sidebar.vue": {
-    "file": "assets/Sidebar-c8bc6351.js",
+    "file": "assets/Sidebar-b34a4bd4.js",
     "imports": [
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
@@ -1480,7 +1480,7 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Main-63db8513.js",
+    "file": "assets/Main-1d8cad1e.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Pages/Admin/Layout/App.vue",
@@ -1491,12 +1491,12 @@
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1509,7 +1509,7 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-afda5dea.js",
+    "file": "assets/Index-0261235d.js",
     "imports": [
       "resources/js/Pages/Admin/Setting/Layout/App.vue",
       "_vendor-apexcharts-fa17c35b.js",
@@ -1517,21 +1517,21 @@
       "resources/js/app.js",
       "_TableBodyRowItem-ea502b92.js",
       "_TableHeaderRowItem-30aa26b6.js",
-      "_FormModalModified-1bc1e20d.js",
+      "_FormModalModified-b96ba7f2.js",
       "_index-00a0ba38.js",
       "resources/js/Pages/Admin/Layout/App.vue",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1539,9 +1539,9 @@
       "resources/js/Pages/Admin/Setting/Layout/Sidebar.vue",
       "_Pagination-76eb7c6f.js",
       "__plugin-vue_export-helper-c27b6911.js",
-      "_Modal-57e34001.js",
+      "_Modal-9df6000e.js",
       "_FormImage-5f0b4374.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "_FormTextArea-8d9386d8.js"
     ],
     "isDynamicEntry": true,
@@ -1551,7 +1551,7 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Show-f6379f17.js",
+    "file": "assets/Show-0948a210.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/Admin/Setting/Layout/App.vue",
@@ -1562,13 +1562,13 @@
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1582,28 +1582,28 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/PaymentGateway-eb6e7965.js",
+    "file": "assets/PaymentGateway-86a7438b.js",
     "imports": [
       "resources/js/Pages/Admin/Setting/Layout/App.vue",
       "resources/js/app.js",
       "_useAlertModal-3b6f15d4.js",
       "_vendor-apexcharts-fa17c35b.js",
-      "_Modal-57e34001.js",
+      "_Modal-9df6000e.js",
       "_FormInput-580be0df.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "_TableBodyRowItem-ea502b92.js",
       "resources/js/Pages/Admin/Layout/App.vue",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1619,7 +1619,7 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Socials-35d27d45.js",
+    "file": "assets/Socials-bd3a6df8.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/Admin/Setting/Layout/App.vue",
@@ -1629,14 +1629,14 @@
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1650,25 +1650,25 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Storage-03980b31.js",
+    "file": "assets/Storage-1e78d400.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/Admin/Setting/Layout/App.vue",
       "resources/js/app.js",
       "_FormInput-580be0df.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "resources/js/Pages/Admin/Layout/App.vue",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1682,7 +1682,7 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Subscription-10330a2c.js",
+    "file": "assets/Subscription-882d11ca.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/Admin/Setting/Layout/App.vue",
@@ -1693,14 +1693,14 @@
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1714,27 +1714,27 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Tax-86e44302.js",
+    "file": "assets/Tax-728ca70a.js",
     "imports": [
       "resources/js/Pages/Admin/Setting/Layout/App.vue",
       "resources/js/app.js",
-      "_AlertModal-12bc5be9.js",
+      "_AlertModal-868d7197.js",
       "_useAlertModal-3b6f15d4.js",
       "_TableBodyRowItem-ea502b92.js",
       "_TableHeaderRowItem-30aa26b6.js",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_vendor-apexcharts-fa17c35b.js",
-      "_FormModalModified-1bc1e20d.js",
-      "_FormSelect-7860feea.js",
+      "_FormModalModified-b96ba7f2.js",
+      "_FormSelect-f06d3da2.js",
       "_index-00a0ba38.js",
       "resources/js/Pages/Admin/Layout/App.vue",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
@@ -1746,7 +1746,7 @@
       "resources/js/Pages/Admin/Setting/Layout/Sidebar.vue",
       "_Pagination-76eb7c6f.js",
       "__plugin-vue_export-helper-c27b6911.js",
-      "_Modal-57e34001.js",
+      "_Modal-9df6000e.js",
       "_FormImage-5f0b4374.js",
       "_FormTextArea-8d9386d8.js"
     ],
@@ -1757,25 +1757,25 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Timezone-8663459a.js",
+    "file": "assets/Timezone-b91ef99a.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/Admin/Setting/Layout/App.vue",
       "resources/js/app.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "resources/js/Pages/Admin/Layout/App.vue",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1789,7 +1789,7 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/RenewalDue-900bd178.js",
+    "file": "assets/RenewalDue-68c955cc.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
@@ -1800,12 +1800,12 @@
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1818,24 +1818,24 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-40b2d4fd.js",
+    "file": "assets/Index-8389f034.js",
     "imports": [
       "resources/js/Pages/Admin/Layout/App.vue",
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_debounce-d5037be8.js",
-      "_AlertModal-12bc5be9.js",
+      "_AlertModal-868d7197.js",
       "_useAlertModal-3b6f15d4.js",
       "_TableBodyRowItem-ea502b92.js",
       "_TableHeaderRowItem-30aa26b6.js",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
@@ -1854,26 +1854,26 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Show-579677db.js",
+    "file": "assets/Show-b2c7b607.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/Admin/Layout/App.vue",
       "resources/js/app.js",
       "_FormInput-580be0df.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "_FormToggleSwitch-d696ab5f.js",
       "_index-00a0ba38.js",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1886,30 +1886,30 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-92b2b6ee.js",
+    "file": "assets/Index-f1517a63.js",
     "imports": [
       "resources/js/Pages/Admin/Layout/App.vue",
       "resources/js/app.js",
-      "_UserTable-6264f72f.js",
+      "_UserTable-b8d07746.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
       "_debounce-d5037be8.js",
-      "_AlertModal-12bc5be9.js",
+      "_AlertModal-868d7197.js",
       "_useAlertModal-3b6f15d4.js",
       "_TableBodyRowItem-ea502b92.js",
       "_Pagination-76eb7c6f.js",
@@ -1923,7 +1923,7 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Show-138cc398.js",
+    "file": "assets/Show-600a6321.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/Admin/Layout/App.vue",
@@ -1931,18 +1931,18 @@
       "_FormImage-5f0b4374.js",
       "_FormInput-580be0df.js",
       "_FormPhoneInput-3fdc5f1b.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -1955,26 +1955,26 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-d4ab0b90.js",
+    "file": "assets/Index-bfc36f98.js",
     "imports": [
       "resources/js/Pages/Admin/Layout/App.vue",
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_debounce-d5037be8.js",
-      "_AlertModal-12bc5be9.js",
+      "_AlertModal-868d7197.js",
       "_useAlertModal-3b6f15d4.js",
       "_TableBodyRowItem-ea502b92.js",
       "_TableHeaderRowItem-30aa26b6.js",
-      "_PwaInstallPrompt-6500ba00.js",
-      "_FormModalModified-1bc1e20d.js",
+      "_PwaInstallPrompt-e9048f92.js",
+      "_FormModalModified-b96ba7f2.js",
       "_index-00a0ba38.js",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
@@ -1985,9 +1985,9 @@
       "_LangToggle-549c0511.js",
       "_Pagination-76eb7c6f.js",
       "__plugin-vue_export-helper-c27b6911.js",
-      "_Modal-57e34001.js",
+      "_Modal-9df6000e.js",
       "_FormImage-5f0b4374.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "_FormTextArea-8d9386d8.js"
     ],
     "isDynamicEntry": true,
@@ -1997,26 +1997,26 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Create-25d047bf.js",
+    "file": "assets/Create-b933822b.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/Admin/Layout/App.vue",
       "resources/js/app.js",
       "_FormInput-580be0df.js",
-      "_FormSelect-7860feea.js",
-      "_FormSelectCombo-4d2b8eff.js",
+      "_FormSelect-f06d3da2.js",
+      "_FormSelectCombo-ed36ad99.js",
       "_FormTextArea-8d9386d8.js",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -2029,24 +2029,24 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-ec987be4.js",
+    "file": "assets/Index-52b0fb2f.js",
     "imports": [
       "resources/js/Pages/Admin/Layout/App.vue",
       "resources/js/app.js",
-      "_TicketTable-abd87966.js",
+      "_TicketTable-3ae26d86.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -2060,26 +2060,26 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/View-962e5e0e.js",
+    "file": "assets/View-1e5634a4.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/Admin/Layout/App.vue",
       "resources/js/app.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "_FormTextArea-8d9386d8.js",
       "_dateTime-96eee721.js",
       "_index-414f8b11.js",
       "resources/js/Pages/Admin/Layout/Sidebar.vue",
       "resources/js/Pages/Admin/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Admin/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -2089,11 +2089,11 @@
     "src": "resources/js/Pages/Admin/Ticket/View.vue"
   },
   "resources/js/Pages/Auth/Forgot.vue": {
-    "file": "assets/Forgot-e0789449.js",
+    "file": "assets/Forgot-39384021.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_FormInput-580be0df.js",
       "_ReCaptcha-55f58cbf.js",
       "_vendor-code-highlighter-89154160.js",
@@ -2104,11 +2104,11 @@
     "src": "resources/js/Pages/Auth/Forgot.vue"
   },
   "resources/js/Pages/Auth/Invite.vue": {
-    "file": "assets/Invite-01c15c5d.js",
+    "file": "assets/Invite-19c92bbf.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_FormInput-580be0df.js",
       "_ReCaptcha-55f58cbf.js",
       "_vendor-code-highlighter-89154160.js",
@@ -2126,11 +2126,11 @@
     "css": [
       "assets/Login-a02af678.css"
     ],
-    "file": "assets/Login-5b7e2761.js",
+    "file": "assets/Login-736db3f4.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_ReCaptcha-55f58cbf.js",
       "_useTheme-885eda7c.js",
       "_index-414f8b11.js",
@@ -2143,11 +2143,11 @@
     "src": "resources/js/Pages/Auth/Login.vue"
   },
   "resources/js/Pages/Auth/Register.vue": {
-    "file": "assets/Register-446a9b97.js",
+    "file": "assets/Register-2c0e1519.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_FormInput-580be0df.js",
       "_FormPhoneInput-3fdc5f1b.js",
       "_vendor-code-highlighter-89154160.js",
@@ -2158,11 +2158,11 @@
     "src": "resources/js/Pages/Auth/Register.vue"
   },
   "resources/js/Pages/Auth/Reset.vue": {
-    "file": "assets/Reset-fddcc43a.js",
+    "file": "assets/Reset-c16ad6bb.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_FormInput-580be0df.js",
       "_ReCaptcha-55f58cbf.js",
       "_vendor-code-highlighter-89154160.js",
@@ -2176,10 +2176,10 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/VerifyEmail-4fb83d1f.js",
+    "file": "assets/VerifyEmail-78852961.js",
     "imports": [
       "resources/js/app.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_index-414f8b11.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_vendor-code-highlighter-89154160.js",
@@ -2190,7 +2190,7 @@
     "src": "resources/js/Pages/Auth/VerifyEmail.vue"
   },
   "resources/js/Pages/Frontend/About.vue": {
-    "file": "assets/About-86953cac.js",
+    "file": "assets/About-80a1b7fd.js",
     "imports": [
       "resources/js/Pages/Frontend/Layout/WebsiteLayout.vue",
       "resources/js/Pages/Frontend/Components/WebsiteCtaBanner.vue",
@@ -2200,7 +2200,7 @@
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Frontend/Components/WebsiteHeader.vue",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_LangToggle-549c0511.js",
       "_useTheme-885eda7c.js",
       "resources/js/Pages/Frontend/Components/WebsiteFooter.vue"
@@ -2209,7 +2209,7 @@
     "src": "resources/js/Pages/Frontend/About.vue"
   },
   "resources/js/Pages/Frontend/Components/WebsiteCtaBanner.vue": {
-    "file": "assets/WebsiteCtaBanner-e8d8832e.js",
+    "file": "assets/WebsiteCtaBanner-72eed12e.js",
     "imports": [
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
@@ -2221,10 +2221,10 @@
     "src": "resources/js/Pages/Frontend/Components/WebsiteCtaBanner.vue"
   },
   "resources/js/Pages/Frontend/Components/WebsiteFooter.vue": {
-    "file": "assets/WebsiteFooter-9fb25684.js",
+    "file": "assets/WebsiteFooter-cf7179df.js",
     "imports": [
       "resources/js/app.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
@@ -2234,11 +2234,11 @@
     "src": "resources/js/Pages/Frontend/Components/WebsiteFooter.vue"
   },
   "resources/js/Pages/Frontend/Components/WebsiteHeader.vue": {
-    "file": "assets/WebsiteHeader-26de6dd7.js",
+    "file": "assets/WebsiteHeader-0eebf044.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_LangToggle-549c0511.js",
       "_useTheme-885eda7c.js",
       "_vendor-code-highlighter-89154160.js",
@@ -2249,7 +2249,7 @@
     "src": "resources/js/Pages/Frontend/Components/WebsiteHeader.vue"
   },
   "resources/js/Pages/Frontend/Contact.vue": {
-    "file": "assets/Contact-49dad469.js",
+    "file": "assets/Contact-224c0579.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
@@ -2258,7 +2258,7 @@
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Frontend/Components/WebsiteHeader.vue",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_LangToggle-549c0511.js",
       "_useTheme-885eda7c.js",
       "resources/js/Pages/Frontend/Components/WebsiteFooter.vue"
@@ -2267,7 +2267,7 @@
     "src": "resources/js/Pages/Frontend/Contact.vue"
   },
   "resources/js/Pages/Frontend/Dynamic.vue": {
-    "file": "assets/Dynamic-46232dde.js",
+    "file": "assets/Dynamic-fd0bd3ad.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Pages/Frontend/Layout/WebsiteLayout.vue",
@@ -2276,7 +2276,7 @@
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Frontend/Components/WebsiteHeader.vue",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_LangToggle-549c0511.js",
       "_useTheme-885eda7c.js",
       "resources/js/Pages/Frontend/Components/WebsiteFooter.vue"
@@ -2285,7 +2285,7 @@
     "src": "resources/js/Pages/Frontend/Dynamic.vue"
   },
   "resources/js/Pages/Frontend/Faq.vue": {
-    "file": "assets/Faq-eea1b778.js",
+    "file": "assets/Faq-24454578.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
@@ -2294,7 +2294,7 @@
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Frontend/Components/WebsiteHeader.vue",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_LangToggle-549c0511.js",
       "_useTheme-885eda7c.js",
       "resources/js/Pages/Frontend/Components/WebsiteFooter.vue"
@@ -2303,7 +2303,7 @@
     "src": "resources/js/Pages/Frontend/Faq.vue"
   },
   "resources/js/Pages/Frontend/Features.vue": {
-    "file": "assets/Features-c1e29654.js",
+    "file": "assets/Features-61bf0178.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Pages/Frontend/Layout/WebsiteLayout.vue",
@@ -2313,7 +2313,7 @@
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Frontend/Components/WebsiteHeader.vue",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_LangToggle-549c0511.js",
       "_useTheme-885eda7c.js",
       "resources/js/Pages/Frontend/Components/WebsiteFooter.vue"
@@ -2322,7 +2322,7 @@
     "src": "resources/js/Pages/Frontend/Features.vue"
   },
   "resources/js/Pages/Frontend/Index.vue": {
-    "file": "assets/Index-787a07ac.js",
+    "file": "assets/Index-2ef0a22b.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
@@ -2332,7 +2332,7 @@
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Frontend/Components/WebsiteHeader.vue",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_LangToggle-549c0511.js",
       "_useTheme-885eda7c.js",
       "resources/js/Pages/Frontend/Components/WebsiteFooter.vue"
@@ -2341,7 +2341,7 @@
     "src": "resources/js/Pages/Frontend/Index.vue"
   },
   "resources/js/Pages/Frontend/Integrations.vue": {
-    "file": "assets/Integrations-3e4c5c72.js",
+    "file": "assets/Integrations-14c1d6ed.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
@@ -2351,7 +2351,7 @@
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Frontend/Components/WebsiteHeader.vue",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_LangToggle-549c0511.js",
       "_useTheme-885eda7c.js",
       "resources/js/Pages/Frontend/Components/WebsiteFooter.vue"
@@ -2360,7 +2360,7 @@
     "src": "resources/js/Pages/Frontend/Integrations.vue"
   },
   "resources/js/Pages/Frontend/Layout.vue": {
-    "file": "assets/Layout-4a08ff99.js",
+    "file": "assets/Layout-cdb74607.js",
     "imports": [
       "resources/js/Pages/Frontend/Layout/WebsiteLayout.vue",
       "_vendor-apexcharts-fa17c35b.js",
@@ -2369,7 +2369,7 @@
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Frontend/Components/WebsiteHeader.vue",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_LangToggle-549c0511.js",
       "_useTheme-885eda7c.js",
       "resources/js/Pages/Frontend/Components/WebsiteFooter.vue"
@@ -2378,7 +2378,7 @@
     "src": "resources/js/Pages/Frontend/Layout.vue"
   },
   "resources/js/Pages/Frontend/Layout/WebsiteLayout.vue": {
-    "file": "assets/WebsiteLayout-71641c00.js",
+    "file": "assets/WebsiteLayout-b213e4e9.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Pages/Frontend/Components/WebsiteHeader.vue",
@@ -2388,14 +2388,14 @@
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_LangToggle-549c0511.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Frontend/Layout/WebsiteLayout.vue"
   },
   "resources/js/Pages/Frontend/Legal.vue": {
-    "file": "assets/Legal-f05c0e2b.js",
+    "file": "assets/Legal-ee4077f2.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Pages/Frontend/Layout/WebsiteLayout.vue",
@@ -2404,7 +2404,7 @@
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Frontend/Components/WebsiteHeader.vue",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_LangToggle-549c0511.js",
       "_useTheme-885eda7c.js",
       "resources/js/Pages/Frontend/Components/WebsiteFooter.vue"
@@ -2413,7 +2413,7 @@
     "src": "resources/js/Pages/Frontend/Legal.vue"
   },
   "resources/js/Pages/Frontend/Pricing.vue": {
-    "file": "assets/Pricing-45f78642.js",
+    "file": "assets/Pricing-12084445.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Pages/Frontend/Layout/WebsiteLayout.vue",
@@ -2423,7 +2423,7 @@
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Frontend/Components/WebsiteHeader.vue",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_LangToggle-549c0511.js",
       "_useTheme-885eda7c.js",
       "resources/js/Pages/Frontend/Components/WebsiteFooter.vue"
@@ -2432,7 +2432,7 @@
     "src": "resources/js/Pages/Frontend/Pricing.vue"
   },
   "resources/js/Pages/Frontend/Product/Ai.vue": {
-    "file": "assets/Ai-1c72cb29.js",
+    "file": "assets/Ai-4282dd1a.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Pages/Frontend/Layout/WebsiteLayout.vue",
@@ -2442,7 +2442,7 @@
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Frontend/Components/WebsiteHeader.vue",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_LangToggle-549c0511.js",
       "_useTheme-885eda7c.js",
       "resources/js/Pages/Frontend/Components/WebsiteFooter.vue"
@@ -2451,7 +2451,7 @@
     "src": "resources/js/Pages/Frontend/Product/Ai.vue"
   },
   "resources/js/Pages/Frontend/Product/Analytics.vue": {
-    "file": "assets/Analytics-5de7a7ce.js",
+    "file": "assets/Analytics-56e93c62.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Pages/Frontend/Layout/WebsiteLayout.vue",
@@ -2461,7 +2461,7 @@
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Frontend/Components/WebsiteHeader.vue",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_LangToggle-549c0511.js",
       "_useTheme-885eda7c.js",
       "resources/js/Pages/Frontend/Components/WebsiteFooter.vue"
@@ -2470,7 +2470,7 @@
     "src": "resources/js/Pages/Frontend/Product/Analytics.vue"
   },
   "resources/js/Pages/Frontend/Product/Automation.vue": {
-    "file": "assets/Automation-27d01c6f.js",
+    "file": "assets/Automation-20e3693e.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Pages/Frontend/Layout/WebsiteLayout.vue",
@@ -2480,7 +2480,7 @@
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Frontend/Components/WebsiteHeader.vue",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_LangToggle-549c0511.js",
       "_useTheme-885eda7c.js",
       "resources/js/Pages/Frontend/Components/WebsiteFooter.vue"
@@ -2489,7 +2489,7 @@
     "src": "resources/js/Pages/Frontend/Product/Automation.vue"
   },
   "resources/js/Pages/Frontend/Product/Campaigns.vue": {
-    "file": "assets/Campaigns-424e5d17.js",
+    "file": "assets/Campaigns-60067627.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Pages/Frontend/Layout/WebsiteLayout.vue",
@@ -2499,7 +2499,7 @@
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Frontend/Components/WebsiteHeader.vue",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_LangToggle-549c0511.js",
       "_useTheme-885eda7c.js",
       "resources/js/Pages/Frontend/Components/WebsiteFooter.vue"
@@ -2508,7 +2508,7 @@
     "src": "resources/js/Pages/Frontend/Product/Campaigns.vue"
   },
   "resources/js/Pages/Frontend/Product/Crm.vue": {
-    "file": "assets/Crm-70132f8c.js",
+    "file": "assets/Crm-a11a30b0.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Pages/Frontend/Layout/WebsiteLayout.vue",
@@ -2518,7 +2518,7 @@
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Frontend/Components/WebsiteHeader.vue",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_LangToggle-549c0511.js",
       "_useTheme-885eda7c.js",
       "resources/js/Pages/Frontend/Components/WebsiteFooter.vue"
@@ -2527,7 +2527,7 @@
     "src": "resources/js/Pages/Frontend/Product/Crm.vue"
   },
   "resources/js/Pages/Frontend/Product/Inbox.vue": {
-    "file": "assets/Inbox-b9962f8d.js",
+    "file": "assets/Inbox-2bc0a6a0.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Pages/Frontend/Layout/WebsiteLayout.vue",
@@ -2537,7 +2537,7 @@
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/Frontend/Components/WebsiteHeader.vue",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_LangToggle-549c0511.js",
       "_useTheme-885eda7c.js",
       "resources/js/Pages/Frontend/Components/WebsiteFooter.vue"
@@ -2546,7 +2546,7 @@
     "src": "resources/js/Pages/Frontend/Product/Inbox.vue"
   },
   "resources/js/Pages/Installer/Index.vue": {
-    "file": "assets/Index-40698670.js",
+    "file": "assets/Index-1b97e3ce.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
@@ -2559,7 +2559,7 @@
     "src": "resources/js/Pages/Installer/Index.vue"
   },
   "resources/js/Pages/Installer/Update.vue": {
-    "file": "assets/Update-07abd8fc.js",
+    "file": "assets/Update-3dc4b705.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
@@ -2575,27 +2575,27 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-07c72fe3.js",
+    "file": "assets/Index-4117dcee.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/User/Automation/Layout.vue",
       "resources/js/app.js",
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_index-00a0ba38.js",
       "_vendor-realtime-c844a690.js",
       "_useCalling-de676ea9.js",
@@ -2607,7 +2607,7 @@
     "src": "resources/js/Pages/User/Ai/Index.vue"
   },
   "resources/js/Pages/User/Analytics/Components/AnalyticsHeader.vue": {
-    "file": "assets/AnalyticsHeader-3e67134b.js",
+    "file": "assets/AnalyticsHeader-af71f055.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
@@ -2628,7 +2628,7 @@
     "src": "resources/js/Pages/User/Analytics/Components/AnalyticsKpis.vue"
   },
   "resources/js/Pages/User/Analytics/Components/AutomationPerformanceCard.vue": {
-    "file": "assets/AutomationPerformanceCard-af2439e4.js",
+    "file": "assets/AutomationPerformanceCard-af5b7251.js",
     "imports": [
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
@@ -2640,7 +2640,7 @@
     "src": "resources/js/Pages/User/Analytics/Components/AutomationPerformanceCard.vue"
   },
   "resources/js/Pages/User/Analytics/Components/CampaignPerformanceTable.vue": {
-    "file": "assets/CampaignPerformanceTable-0d6a7b3d.js",
+    "file": "assets/CampaignPerformanceTable-da47d902.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
@@ -2680,7 +2680,7 @@
     "src": "resources/js/Pages/User/Analytics/Components/MessageVolumeChart.vue"
   },
   "resources/js/Pages/User/Analytics/Components/TeamActivityTable.vue": {
-    "file": "assets/TeamActivityTable-2fc349db.js",
+    "file": "assets/TeamActivityTable-61837bf8.js",
     "imports": [
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
@@ -2692,7 +2692,7 @@
     "src": "resources/js/Pages/User/Analytics/Components/TeamActivityTable.vue"
   },
   "resources/js/Pages/User/Analytics/Components/TemplateUsageCard.vue": {
-    "file": "assets/TemplateUsageCard-9678b068.js",
+    "file": "assets/TemplateUsageCard-b8e5b327.js",
     "imports": [
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
@@ -2707,10 +2707,10 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-1befb20e.js",
+    "file": "assets/Index-8a5f43d9.js",
     "imports": [
       "resources/js/app.js",
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "resources/js/Pages/User/Analytics/Components/AnalyticsHeader.vue",
       "resources/js/Pages/User/Analytics/Components/AnalyticsKpis.vue",
       "resources/js/Pages/User/Analytics/Components/MessageVolumeChart.vue",
@@ -2727,18 +2727,18 @@
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_index-00a0ba38.js",
       "_vendor-realtime-c844a690.js",
       "_useCalling-de676ea9.js"
@@ -2750,33 +2750,33 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Create-6db5cf1a.js",
+    "file": "assets/Create-934d5f4e.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
       "_index-00a0ba38.js",
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "_FormInput-580be0df.js",
-      "_FormSelect-7860feea.js",
-      "_FormSelectCombo-4d2b8eff.js",
+      "_FormSelect-f06d3da2.js",
+      "_FormSelectCombo-ed36ad99.js",
       "_FormTextArea-8d9386d8.js",
-      "_Modal-57e34001.js",
+      "_Modal-9df6000e.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_vendor-realtime-c844a690.js",
       "_useCalling-de676ea9.js"
     ],
@@ -2787,33 +2787,33 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Edit-10dddf9f.js",
+    "file": "assets/Edit-c0e729ee.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
       "_index-00a0ba38.js",
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "_FormInput-580be0df.js",
-      "_FormSelect-7860feea.js",
-      "_FormSelectCombo-4d2b8eff.js",
+      "_FormSelect-f06d3da2.js",
+      "_FormSelectCombo-ed36ad99.js",
       "_FormTextArea-8d9386d8.js",
-      "_Modal-57e34001.js",
+      "_Modal-9df6000e.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_vendor-realtime-c844a690.js",
       "_useCalling-de676ea9.js"
     ],
@@ -2824,7 +2824,7 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-ef3ce064.js",
+    "file": "assets/Index-337509c6.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
@@ -2832,27 +2832,27 @@
       "resources/js/Pages/User/Automation/Layout.vue",
       "_index-00a0ba38.js",
       "_Pagination-76eb7c6f.js",
-      "_AlertModal-12bc5be9.js",
+      "_AlertModal-868d7197.js",
       "_useAlertModal-3b6f15d4.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_vendor-realtime-c844a690.js",
       "_useCalling-de676ea9.js",
       "__plugin-vue_export-helper-c27b6911.js"
@@ -2861,7 +2861,7 @@
     "src": "resources/js/Pages/User/Automation/Basic/Index.vue"
   },
   "resources/js/Pages/User/Automation/Builder/Index.vue": {
-    "file": "assets/Index-1985eaec.js",
+    "file": "assets/Index-7e899c3c.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
@@ -2987,7 +2987,7 @@
     "src": "resources/js/Pages/User/Automation/Builder/WorkflowNodePalette.vue"
   },
   "resources/js/Pages/User/Automation/Builder/WorkflowTestModal.vue": {
-    "file": "assets/WorkflowTestModal-67146cc3.js",
+    "file": "assets/WorkflowTestModal-5e1889a9.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
@@ -3019,26 +3019,26 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Layout-65b4af73.js",
+    "file": "assets/Layout-f1ff7137.js",
     "imports": [
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_index-00a0ba38.js",
       "_vendor-realtime-c844a690.js",
       "_useCalling-de676ea9.js",
@@ -3053,31 +3053,31 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-086dbb0c.js",
+    "file": "assets/Index-b511ee71.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
-      "_App-bacb82eb.js",
-      "_BillingTable-71ab7e2d.js",
+      "_App-213a55d9.js",
+      "_BillingTable-41128865.js",
       "resources/js/app.js",
-      "_Modal-57e34001.js",
+      "_Modal-9df6000e.js",
       "_FormInput-580be0df.js",
       "_vendor-realtime-c844a690.js",
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_index-00a0ba38.js",
       "_useCalling-de676ea9.js",
       "_debounce-d5037be8.js"
@@ -3089,29 +3089,29 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Plan-8f19a54a.js",
+    "file": "assets/Plan-759008be.js",
     "imports": [
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_index-00a0ba38.js",
       "_vendor-realtime-c844a690.js",
       "_useCalling-de676ea9.js"
@@ -3123,16 +3123,16 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-a8b67281.js",
+    "file": "assets/Index-e90ac76e.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
-      "_App-bacb82eb.js",
-      "_Avatar-a529517b.js",
+      "_App-213a55d9.js",
+      "_Avatar-c0c5682a.js",
       "_Badge-88e7c4bc.js",
       "_Pagination-76eb7c6f.js",
-      "_CallButton-d7759f5d.js",
-      "_Button-6bd18ee6.js",
+      "_CallButton-56d4f665.js",
+      "_Button-b5d79ea6.js",
       "_index-00a0ba38.js",
       "_index-414f8b11.js",
       "_vendor-code-highlighter-89154160.js",
@@ -3140,12 +3140,12 @@
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Modal-57e34001.js",
-      "_BrandLogo-e0495f64.js",
+      "_Modal-9df6000e.js",
+      "_BrandLogo-b3f8a791.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_LangToggle-549c0511.js",
@@ -3160,26 +3160,26 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Create-88f31995.js",
+    "file": "assets/Create-afbfd331.js",
     "imports": [
-      "_App-bacb82eb.js",
-      "_CampaignForm-ba59d6f9.js",
-      "_Button-6bd18ee6.js",
+      "_App-213a55d9.js",
+      "_CampaignForm-66ffcd82.js",
+      "_Button-b5d79ea6.js",
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -3187,7 +3187,7 @@
       "_index-00a0ba38.js",
       "_vendor-realtime-c844a690.js",
       "_useCalling-de676ea9.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "_WhatsappTemplate-eb782961.js"
     ],
     "isDynamicEntry": true,
@@ -3197,28 +3197,28 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-91594289.js",
+    "file": "assets/Index-aa50897a.js",
     "imports": [
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_debounce-d5037be8.js",
-      "_AlertModal-12bc5be9.js",
+      "_AlertModal-868d7197.js",
       "_useAlertModal-3b6f15d4.js",
       "_Badge-88e7c4bc.js",
-      "_Button-6bd18ee6.js",
-      "_EmptyState-a30cc0f2.js",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_Button-b5d79ea6.js",
+      "_EmptyState-3442dcab.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_Pagination-76eb7c6f.js",
       "_index-00a0ba38.js",
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
@@ -3237,16 +3237,16 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/View-8ca86190.js",
+    "file": "assets/View-301007f4.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "_debounce-d5037be8.js",
-      "_Modal-57e34001.js",
+      "_Modal-9df6000e.js",
       "_Badge-88e7c4bc.js",
-      "_Button-6bd18ee6.js",
-      "_Avatar-a529517b.js",
+      "_Button-b5d79ea6.js",
+      "_Avatar-c0c5682a.js",
       "_Pagination-76eb7c6f.js",
       "_index-00a0ba38.js",
       "_WhatsappTemplate-eb782961.js",
@@ -3256,11 +3256,11 @@
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_LangToggle-549c0511.js",
@@ -3275,30 +3275,30 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-58b88043.js",
+    "file": "assets/Index-f078285a.js",
     "imports": [
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "resources/js/app.js",
-      "_CampaignForm-ba59d6f9.js",
+      "_CampaignForm-66ffcd82.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_index-414f8b11.js",
-      "_Button-6bd18ee6.js",
-      "_AlertModal-12bc5be9.js",
-      "_PwaInstallPrompt-6500ba00.js",
-      "_FormSelectCombo-4d2b8eff.js",
+      "_Button-b5d79ea6.js",
+      "_AlertModal-868d7197.js",
+      "_PwaInstallPrompt-e9048f92.js",
+      "_FormSelectCombo-ed36ad99.js",
       "_FormTextArea-8d9386d8.js",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_Badge-88e7c4bc.js",
-      "_CallButton-d7759f5d.js",
+      "_CallButton-56d4f665.js",
       "_index-00a0ba38.js",
       "_debounce-d5037be8.js",
       "_Pagination-76eb7c6f.js",
-      "_EmptyState-a30cc0f2.js",
+      "_EmptyState-3442dcab.js",
       "_dateTime-96eee721.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
@@ -3309,7 +3309,7 @@
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_useCalling-de676ea9.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "_WhatsappTemplate-eb782961.js",
       "_LangToggle-549c0511.js",
       "__plugin-vue_export-helper-c27b6911.js"
@@ -3321,30 +3321,30 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Group-974c84c2.js",
+    "file": "assets/Group-e6eb1412.js",
     "imports": [
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
-      "_Modal-57e34001.js",
+      "_Modal-9df6000e.js",
       "_FormInput-580be0df.js",
       "_FormImage-5f0b4374.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "_index-414f8b11.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_Badge-88e7c4bc.js",
       "_index-00a0ba38.js",
-      "_ContactTable-87e156b4.js",
+      "_ContactTable-f43fc883.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_LangToggle-549c0511.js",
@@ -3353,7 +3353,7 @@
       "_debounce-d5037be8.js",
       "_Pagination-76eb7c6f.js",
       "__plugin-vue_export-helper-c27b6911.js",
-      "_EmptyState-a30cc0f2.js"
+      "_EmptyState-3442dcab.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/User/Contact/Group.vue"
@@ -3362,28 +3362,28 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-9d584e10.js",
+    "file": "assets/Index-55881d4e.js",
     "imports": [
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_FormCheckbox-7f1b3573.js",
       "_FormInput-580be0df.js",
       "_FormPhoneInput-3fdc5f1b.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "_FormTextArea-8d9386d8.js",
-      "_Button-6bd18ee6.js",
-      "_Avatar-a529517b.js",
+      "_Button-b5d79ea6.js",
+      "_Avatar-c0c5682a.js",
       "_index-00a0ba38.js",
-      "_ContactTable-87e156b4.js",
-      "_PwaInstallPrompt-6500ba00.js",
-      "_Modal-57e34001.js",
+      "_ContactTable-f43fc883.js",
+      "_PwaInstallPrompt-e9048f92.js",
+      "_Modal-9df6000e.js",
       "_Badge-88e7c4bc.js",
-      "_CallButton-d7759f5d.js",
+      "_CallButton-56d4f665.js",
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
@@ -3396,7 +3396,7 @@
       "_debounce-d5037be8.js",
       "_Pagination-76eb7c6f.js",
       "__plugin-vue_export-helper-c27b6911.js",
-      "_EmptyState-a30cc0f2.js",
+      "_EmptyState-3442dcab.js",
       "_LangToggle-549c0511.js"
     ],
     "isDynamicEntry": true,
@@ -3406,10 +3406,10 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Dashboard-1072d84b.js",
+    "file": "assets/Dashboard-e4da22ba.js",
     "imports": [
       "resources/js/app.js",
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "resources/js/Pages/User/DashboardComponents/DashboardHero.vue",
       "resources/js/Pages/User/DashboardComponents/DashboardKpis.vue",
       "resources/js/Pages/User/DashboardComponents/DashboardAnalytics.vue",
@@ -3427,33 +3427,33 @@
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_index-00a0ba38.js",
       "_vendor-realtime-c844a690.js",
       "_useCalling-de676ea9.js",
-      "_EmbeddedSignupBtn-26b5fcd8.js",
-      "_EmptyState-a30cc0f2.js",
+      "_EmbeddedSignupBtn-ea84861d.js",
+      "_EmptyState-3442dcab.js",
       "_dateTime-96eee721.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/User/Dashboard.vue"
   },
   "resources/js/Pages/User/DashboardComponents/DashboardAiCard.vue": {
-    "file": "assets/DashboardAiCard-75164262.js",
+    "file": "assets/DashboardAiCard-6d4a3622.js",
     "imports": [
       "resources/js/app.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
@@ -3472,12 +3472,12 @@
     "src": "resources/js/Pages/User/DashboardComponents/DashboardAnalytics.vue"
   },
   "resources/js/Pages/User/DashboardComponents/DashboardCampaigns.vue": {
-    "file": "assets/DashboardCampaigns-291dc8e2.js",
+    "file": "assets/DashboardCampaigns-6a5f489e.js",
     "imports": [
       "resources/js/app.js",
-      "_EmptyState-a30cc0f2.js",
+      "_EmptyState-3442dcab.js",
       "_Badge-88e7c4bc.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_dateTime-96eee721.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_vendor-code-highlighter-89154160.js",
@@ -3488,10 +3488,10 @@
     "src": "resources/js/Pages/User/DashboardComponents/DashboardCampaigns.vue"
   },
   "resources/js/Pages/User/DashboardComponents/DashboardHero.vue": {
-    "file": "assets/DashboardHero-89ac0ab5.js",
+    "file": "assets/DashboardHero-d1733295.js",
     "imports": [
       "resources/js/app.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_Badge-88e7c4bc.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_vendor-code-highlighter-89154160.js",
@@ -3502,7 +3502,7 @@
     "src": "resources/js/Pages/User/DashboardComponents/DashboardHero.vue"
   },
   "resources/js/Pages/User/DashboardComponents/DashboardKpis.vue": {
-    "file": "assets/DashboardKpis-c6713a69.js",
+    "file": "assets/DashboardKpis-d81b30b2.js",
     "imports": [
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
@@ -3514,7 +3514,7 @@
     "src": "resources/js/Pages/User/DashboardComponents/DashboardKpis.vue"
   },
   "resources/js/Pages/User/DashboardComponents/DashboardOnboardingChecklist.vue": {
-    "file": "assets/DashboardOnboardingChecklist-1498229f.js",
+    "file": "assets/DashboardOnboardingChecklist-e19d5d12.js",
     "imports": [
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
@@ -3526,7 +3526,7 @@
     "src": "resources/js/Pages/User/DashboardComponents/DashboardOnboardingChecklist.vue"
   },
   "resources/js/Pages/User/DashboardComponents/DashboardQuickActions.vue": {
-    "file": "assets/DashboardQuickActions-38522622.js",
+    "file": "assets/DashboardQuickActions-68d03615.js",
     "imports": [
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
@@ -3538,11 +3538,11 @@
     "src": "resources/js/Pages/User/DashboardComponents/DashboardQuickActions.vue"
   },
   "resources/js/Pages/User/DashboardComponents/DashboardSubscription.vue": {
-    "file": "assets/DashboardSubscription-63387352.js",
+    "file": "assets/DashboardSubscription-96ce3fb3.js",
     "imports": [
       "resources/js/app.js",
       "_Badge-88e7c4bc.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
@@ -3552,10 +3552,10 @@
     "src": "resources/js/Pages/User/DashboardComponents/DashboardSubscription.vue"
   },
   "resources/js/Pages/User/DashboardComponents/DashboardTeamBanner.vue": {
-    "file": "assets/DashboardTeamBanner-aaf67c14.js",
+    "file": "assets/DashboardTeamBanner-fa62f438.js",
     "imports": [
       "resources/js/app.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
@@ -3565,11 +3565,11 @@
     "src": "resources/js/Pages/User/DashboardComponents/DashboardTeamBanner.vue"
   },
   "resources/js/Pages/User/DashboardComponents/DashboardWhatsAppStatus.vue": {
-    "file": "assets/DashboardWhatsAppStatus-abf6858e.js",
+    "file": "assets/DashboardWhatsAppStatus-81ef1c06.js",
     "imports": [
       "resources/js/app.js",
-      "_EmbeddedSignupBtn-26b5fcd8.js",
-      "_Button-6bd18ee6.js",
+      "_EmbeddedSignupBtn-ea84861d.js",
+      "_Button-b5d79ea6.js",
       "_Badge-88e7c4bc.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_vendor-code-highlighter-89154160.js",
@@ -3588,7 +3588,7 @@
       "assets/Documentation-bb3fac5d.css",
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Documentation-48421059.js",
+    "file": "assets/Documentation-f4d7d5a6.js",
     "imports": [
       "resources/js/app.js",
       "_index-414f8b11.js",
@@ -3611,33 +3611,33 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-de3be5b1.js",
+    "file": "assets/Index-d81538b8.js",
     "imports": [
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "resources/js/Pages/User/Developer/Documentation.vue",
       "resources/js/Pages/User/Developer/Menu.vue",
       "resources/js/app.js",
-      "_AlertModal-12bc5be9.js",
+      "_AlertModal-868d7197.js",
       "_useAlertModal-3b6f15d4.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_index-00a0ba38.js",
       "_vendor-realtime-c844a690.js",
       "_useCalling-de676ea9.js",
@@ -3647,7 +3647,7 @@
     "src": "resources/js/Pages/User/Developer/Index.vue"
   },
   "resources/js/Pages/User/Developer/Menu.vue": {
-    "file": "assets/Menu-ecf7d39b.js",
+    "file": "assets/Menu-71824139.js",
     "imports": [
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
@@ -3659,13 +3659,13 @@
     "src": "resources/js/Pages/User/Developer/Menu.vue"
   },
   "resources/js/Pages/User/Layout/Menu.vue": {
-    "file": "assets/Menu-5d278a70.js",
+    "file": "assets/Menu-4f6f953a.js",
     "imports": [
       "resources/js/app.js",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_vendor-apexcharts-fa17c35b.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
@@ -3676,17 +3676,17 @@
     "src": "resources/js/Pages/User/Layout/Menu.vue"
   },
   "resources/js/Pages/User/Layout/MobileSidebar.vue": {
-    "file": "assets/MobileSidebar-91036ec5.js",
+    "file": "assets/MobileSidebar-2c4d36d0.js",
     "imports": [
       "resources/js/app.js",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
-      "_Modal-57e34001.js",
-      "_BrandLogo-e0495f64.js",
+      "_Modal-9df6000e.js",
+      "_BrandLogo-b3f8a791.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js"
     ],
@@ -3694,7 +3694,7 @@
     "src": "resources/js/Pages/User/Layout/MobileSidebar.vue"
   },
   "resources/js/Pages/User/Layout/Sidebar.vue": {
-    "file": "assets/Sidebar-350f17e8.js",
+    "file": "assets/Sidebar-553c78e5.js",
     "imports": [
       "resources/js/Pages/User/Layout/Menu.vue",
       "_vendor-apexcharts-fa17c35b.js",
@@ -3702,11 +3702,11 @@
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js"
+      "_BrandLogo-b3f8a791.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/User/Layout/Sidebar.vue"
@@ -3719,12 +3719,12 @@
     "css": [
       "assets/Index-371d6f05.css"
     ],
-    "file": "assets/Index-0ea2c8bd.js",
+    "file": "assets/Index-4f947a1c.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
-      "_EmbeddedSignupBtn-26b5fcd8.js",
-      "_BrandLogo-e0495f64.js",
+      "_EmbeddedSignupBtn-ea84861d.js",
+      "_BrandLogo-b3f8a791.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
@@ -3734,7 +3734,7 @@
     "src": "resources/js/Pages/User/Onboarding/Index.vue"
   },
   "resources/js/Pages/User/OrganizationSelect.vue": {
-    "file": "assets/OrganizationSelect-93ebd9ed.js",
+    "file": "assets/OrganizationSelect-55566c3c.js",
     "imports": [
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
@@ -3749,11 +3749,11 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-7cdcdfbb.js",
+    "file": "assets/Index-256b5b65.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "_Badge-88e7c4bc.js",
       "_useTheme-885eda7c.js",
       "_index-00a0ba38.js",
@@ -3763,16 +3763,16 @@
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_LangToggle-549c0511.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_vendor-realtime-c844a690.js",
       "_useCalling-de676ea9.js"
     ],
@@ -3783,31 +3783,31 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Automation-6c3c40f6.js",
+    "file": "assets/Automation-6fcafa83.js",
     "imports": [
       "resources/js/Pages/User/Settings/Layout.vue",
       "resources/js/app.js",
       "_vendor-draggable-f4affb23.js",
       "_vendor-apexcharts-fa17c35b.js",
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_index-00a0ba38.js",
       "_vendor-realtime-c844a690.js",
       "_useCalling-de676ea9.js"
@@ -3819,33 +3819,33 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Contact-a4a8bd70.js",
+    "file": "assets/Contact-80fba63d.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/Pages/User/Settings/Layout.vue",
       "resources/js/app.js",
       "_index-00a0ba38.js",
       "_vendor-draggable-f4affb23.js",
-      "_Modal-57e34001.js",
+      "_Modal-9df6000e.js",
       "_FormInput-580be0df.js",
-      "_FormSelect-7860feea.js",
-      "_AlertModal-12bc5be9.js",
+      "_FormSelect-f06d3da2.js",
+      "_AlertModal-868d7197.js",
       "_useAlertModal-3b6f15d4.js",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_Pagination-76eb7c6f.js",
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
       "_Badge-88e7c4bc.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_vendor-realtime-c844a690.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
@@ -3860,7 +3860,7 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/General-c71970b6.js",
+    "file": "assets/General-4e44490c.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
@@ -3869,22 +3869,22 @@
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_index-00a0ba38.js",
       "_vendor-realtime-c844a690.js",
       "_useCalling-de676ea9.js"
@@ -3896,29 +3896,29 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Layout-3480b58a.js",
+    "file": "assets/Layout-fd8475ea.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_index-00a0ba38.js",
       "_vendor-realtime-c844a690.js",
       "_useCalling-de676ea9.js"
@@ -3930,10 +3930,10 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Main-bf0d06e0.js",
+    "file": "assets/Main-d15e507f.js",
     "imports": [
       "resources/js/app.js",
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "_vendor-apexcharts-fa17c35b.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
@@ -3941,18 +3941,18 @@
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_index-00a0ba38.js",
       "_vendor-realtime-c844a690.js",
       "_useCalling-de676ea9.js"
@@ -3964,30 +3964,30 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Ticket-f5fb62ad.js",
+    "file": "assets/Ticket-5337060a.js",
     "imports": [
       "resources/js/Pages/User/Settings/Layout.vue",
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_index-00a0ba38.js",
       "_vendor-realtime-c844a690.js",
       "_useCalling-de676ea9.js"
@@ -3999,31 +3999,31 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Whatsapp-0a290d03.js",
+    "file": "assets/Whatsapp-e88b5571.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
       "resources/js/Pages/User/Settings/Layout.vue",
-      "_EmbeddedSignupBtn-26b5fcd8.js",
+      "_EmbeddedSignupBtn-ea84861d.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_index-00a0ba38.js",
       "_vendor-realtime-c844a690.js",
       "_useCalling-de676ea9.js"
@@ -4035,29 +4035,29 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Create-0a26ae11.js",
+    "file": "assets/Create-f3ad208a.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_index-00a0ba38.js",
       "_vendor-realtime-c844a690.js",
       "_useCalling-de676ea9.js"
@@ -4069,31 +4069,31 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-c5c7c3fd.js",
+    "file": "assets/Index-2faee0aa.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
       "_debounce-d5037be8.js",
-      "_App-bacb82eb.js",
-      "_TicketTable-abd87966.js",
+      "_App-213a55d9.js",
+      "_TicketTable-3ae26d86.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_index-00a0ba38.js",
       "_vendor-realtime-c844a690.js",
       "_useCalling-de676ea9.js",
@@ -4106,11 +4106,11 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/View-a631a117.js",
+    "file": "assets/View-d30d2d65.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "_TicketPriorityBadge-a9db960e.js",
       "_dateTime-96eee721.js",
       "_vendor-code-highlighter-89154160.js",
@@ -4119,18 +4119,18 @@
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_index-00a0ba38.js",
       "_vendor-realtime-c844a690.js",
       "_useCalling-de676ea9.js"
@@ -4142,13 +4142,13 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-90806593.js",
+    "file": "assets/Index-8cdcc1d7.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
       "_debounce-d5037be8.js",
-      "_App-bacb82eb.js",
-      "_AlertModal-12bc5be9.js",
+      "_App-213a55d9.js",
+      "_AlertModal-868d7197.js",
       "_useAlertModal-3b6f15d4.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
@@ -4156,18 +4156,18 @@
       "_index-414f8b11.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Modal-57e34001.js",
-      "_Avatar-a529517b.js",
+      "_Modal-9df6000e.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
       "_LangToggle-549c0511.js",
-      "_Button-6bd18ee6.js",
+      "_Button-b5d79ea6.js",
       "_index-00a0ba38.js",
       "_vendor-realtime-c844a690.js",
       "_useCalling-de676ea9.js"
@@ -4179,29 +4179,29 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Add-28de65fd.js",
+    "file": "assets/Add-ff3bc944.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "_FormInput-580be0df.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "_FormTextArea-8d9386d8.js",
       "_HeaderTextArea-44a5759d.js",
       "_WhatsAppTemplatePreview-652b44fd.js",
-      "_Button-6bd18ee6.js",
-      "_Modal-57e34001.js",
+      "_Button-b5d79ea6.js",
+      "_Modal-9df6000e.js",
       "_index-414f8b11.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -4217,30 +4217,30 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Edit-0414442d.js",
+    "file": "assets/Edit-e3db8efd.js",
     "imports": [
       "_vendor-apexcharts-fa17c35b.js",
       "resources/js/app.js",
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "_FormInput-580be0df.js",
-      "_FormSelect-7860feea.js",
+      "_FormSelect-f06d3da2.js",
       "_FormTextArea-8d9386d8.js",
       "_HeaderTextArea-44a5759d.js",
       "_WhatsAppTemplatePreview-652b44fd.js",
       "_TemplateStatusBadge-6d4563b6.js",
-      "_Button-6bd18ee6.js",
-      "_Modal-57e34001.js",
+      "_Button-b5d79ea6.js",
+      "_Modal-9df6000e.js",
       "_index-414f8b11.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
-      "_PwaInstallPrompt-6500ba00.js",
+      "_PwaInstallPrompt-e9048f92.js",
       "_usePwa-54e0bb9b.js",
       "_useTheme-885eda7c.js",
       "_Badge-88e7c4bc.js",
@@ -4256,29 +4256,29 @@
     "css": [
       "assets/index-755185d7.css"
     ],
-    "file": "assets/Index-59ee0c0c.js",
+    "file": "assets/Index-31fd589a.js",
     "imports": [
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "resources/js/app.js",
       "_vendor-apexcharts-fa17c35b.js",
-      "_AlertModal-12bc5be9.js",
+      "_AlertModal-868d7197.js",
       "_useAlertModal-3b6f15d4.js",
       "_index-414f8b11.js",
       "_TableBodyRowItem-ea502b92.js",
       "_TableHeaderRowItem-30aa26b6.js",
-      "_PwaInstallPrompt-6500ba00.js",
-      "_Button-6bd18ee6.js",
+      "_PwaInstallPrompt-e9048f92.js",
+      "_Button-b5d79ea6.js",
       "_Pagination-76eb7c6f.js",
-      "_EmptyState-a30cc0f2.js",
+      "_EmptyState-3442dcab.js",
       "_TemplateStatusBadge-6d4563b6.js",
-      "_Modal-57e34001.js",
+      "_Modal-9df6000e.js",
       "_WhatsAppTemplatePreview-652b44fd.js",
       "resources/js/Pages/User/Layout/Sidebar.vue",
       "resources/js/Pages/User/Layout/Menu.vue",
-      "_Avatar-a529517b.js",
+      "_Avatar-c0c5682a.js",
       "_FormInput-580be0df.js",
       "_tabs-82b04da3.js",
-      "_BrandLogo-e0495f64.js",
+      "_BrandLogo-b3f8a791.js",
       "_vendor-code-highlighter-89154160.js",
       "_vendor-vue-quill-971ab16e.js",
       "_vendor-tel-input-41c9962c.js",
@@ -4425,7 +4425,7 @@
       "resources/js/Pages/User/Developer/Documentation.vue",
       "resources/js/Pages/User/Developer/Index.vue",
       "resources/js/Pages/User/Developer/Menu.vue",
-      "_App-bacb82eb.js",
+      "_App-213a55d9.js",
       "resources/js/Pages/User/Layout/Menu.vue",
       "resources/js/Pages/User/Layout/MobileSidebar.vue",
       "resources/js/Pages/User/Layout/Sidebar.vue",
@@ -4447,7 +4447,7 @@
       "resources/js/Pages/User/Templates/Edit.vue",
       "resources/js/Pages/User/Templates/Index.vue"
     ],
-    "file": "assets/app-face9afb.js",
+    "file": "assets/app-3b75b995.js",
     "imports": [
       "_vendor-code-highlighter-89154160.js",
       "_vendor-apexcharts-fa17c35b.js",
