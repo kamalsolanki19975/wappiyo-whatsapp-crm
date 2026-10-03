@@ -117,10 +117,20 @@ class ContactGroupController extends BaseController
     public function delete(Request $request)
     {
         $uuids = $request->input('uuids', []);
+        $all = $request->boolean('all');
         $organizationId = session()->get('current_organization');
         $deletedGroups = [];
 
-        if (empty($uuids)) {
+        if (empty($uuids) && !$all) {
+            return redirect('/contact-groups')->with(
+                'status', [
+                    'type' => 'error', 
+                    'message' => __('No contact groups selected to delete')
+                ]
+            );
+        }
+
+        if ($all) {
             $contactgroups = ContactGroup::where('organization_id', $organizationId)->get();
             Contact::whereNotNull('id')->where('organization_id', $organizationId)->update(['contact_group_id' => null]);
             ContactGroup::whereNotNull('id')->where('organization_id', $organizationId)->delete();

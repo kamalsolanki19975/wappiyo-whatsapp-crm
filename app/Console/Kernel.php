@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->job(new \App\Jobs\SendCampaignJob)->everyThreeMinutes();
+        $schedule->command('wappiyo:send-renewal-reminders')->daily();
     }
 
     /**

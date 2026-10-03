@@ -87,11 +87,11 @@ class ContactService
         $contact->save();
     }
 
-    public function delete($uuids){
+    public function delete($uuids, bool $deleteAll = false){
         $deletedContacts = [];
 
-        if (empty($uuids)) {
-            // Delete all contacts (soft delete)
+        if ($deleteAll) {
+            // Explicit delete all contacts (soft delete)
             $contacts = Contact::where('organization_id', $this->organizationId)->get();
             Contact::whereNotNull('id')->where('organization_id', $this->organizationId)->delete();
 
@@ -111,7 +111,7 @@ class ContactService
                 ->update([
                     'is_read' => 1
                 ]);
-        } else {
+        } elseif (!empty($uuids) && is_array($uuids)) {
             // Delete contacts by UUIDs (soft delete)
             foreach($uuids as $uuid){
                 $contact = Contact::where('uuid', $uuid)->where('organization_id', $this->organizationId)->first();
@@ -136,11 +136,18 @@ class ContactService
             }
 
             Contact::whereIn('uuid', $uuids)->where('organization_id', $this->organizationId)->delete();
+        } else {
+            // Safe guard: Do not perform any deletion if neither uuids nor deleteAll is specified
+            return $deletedContacts;
         }
 
         // Trigger webhook with deleted contacts
-        WebhookHelper::triggerWebhookEvent('contact.deleted', [
-            'list' => $deletedContacts
-        ], $this->organizationId);
+        if (!empty($deletedContacts)) {
+            WebhookHelper::triggerWebhookEvent('contact.deleted', [
+                'list' => $deletedContacts
+            ], $this->organizationId);
+        }
+
+        return $deletedContacts;
     }
 }

@@ -191,6 +191,26 @@ const isOwner = computed(() => {
                     </Link>
                 </Tooltip>
 
+                <!-- Calls -->
+                <Tooltip :content="$t('Calls')" :position="'right'" :className="!menuIconsOnly ? 'hidden' : ''">
+                    <Link
+                        href="/calls"
+                        :class="[
+                            'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
+                            $page.url.startsWith('/calls')
+                                ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
+                                : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white',
+                            menuIconsOnly ? 'justify-center px-2' : ''
+                        ]"
+                        @click="closeSidebar"
+                    >
+                        <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.45-5.15-3.76-6.59-6.59l1.97-1.57c.28-.28.37-.68.25-1.02A11.36 11.36 0 0 1 8.96 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.62c0-.55-.45-1-.99-1z"/>
+                        </svg>
+                        <span v-if="!menuIconsOnly" class="truncate">{{ $t('Calls') }}</span>
+                    </Link>
+                </Tooltip>
+
                 <!-- Contacts -->
                 <Tooltip :content="$t('Contacts')" :position="'right'" :className="!menuIconsOnly ? 'hidden' : ''">
                     <Link
@@ -251,7 +271,7 @@ const isOwner = computed(() => {
                         href="/automation/basic"
                         :class="[
                             'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
-                            $page.url.startsWith('/automation')
+                            $page.url.startsWith('/automation/basic') || $page.url.startsWith('/automation/builder')
                                 ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
                                 : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white',
                             menuIconsOnly ? 'justify-center px-2' : ''
@@ -260,6 +280,24 @@ const isOwner = computed(() => {
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                         <span v-if="!menuIconsOnly" class="truncate">{{ $t('Automation') }}</span>
+                    </Link>
+                </Tooltip>
+
+                <!-- AI Assistant -->
+                <Tooltip :content="$t('AI Assistant')" :position="'right'" :className="!menuIconsOnly ? 'hidden' : ''">
+                    <Link
+                        href="/ai-assistant"
+                        :class="[
+                            'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150',
+                            $page.url.startsWith('/ai-assistant') || $page.url.startsWith('/automation/ai')
+                                ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
+                                : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 hover:text-slate-900 dark:hover:text-white',
+                            menuIconsOnly ? 'justify-center px-2' : ''
+                        ]"
+                        @click="closeSidebar"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        <span v-if="!menuIconsOnly" class="truncate">{{ $t('AI Assistant') }}</span>
                     </Link>
                 </Tooltip>
             </div>

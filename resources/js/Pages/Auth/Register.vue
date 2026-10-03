@@ -12,9 +12,9 @@
 
       <div class="text-center space-y-1 mb-8">
         <h1 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-          {{ $t('Create your workspace') }}
+          {{ currentStep === 1 ? $t('Create your workspace') : $t('Verify Your Mail ID') }}
         </h1>
-        <p class="text-xs text-slate-500 dark:text-zinc-400">
+        <p v-if="currentStep === 1" class="text-xs text-slate-500 dark:text-zinc-400">
           {{ $t('Already have an account?') }}
           <Link
             href="/login"
@@ -28,7 +28,7 @@
 
     <div class="sm:mx-auto sm:w-full sm:max-w-xl px-4">
       <!-- Pre-selected Plan Banner -->
-      <div v-if="props.selectedPlan" class="mb-4 p-3 rounded-2xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800 text-xs text-[#6C5CE7] dark:text-purple-300 flex items-center justify-between">
+      <div v-if="props.selectedPlan && currentStep === 1" class="mb-4 p-3 rounded-2xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800 text-xs text-[#6C5CE7] dark:text-purple-300 flex items-center justify-between">
         <div class="flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-[#6C5CE7] animate-pulse"></span>
           <span><strong>{{ $t('Plan Selected:') }}</strong> {{ $t('14-day free trial will start after setup.') }}</span>
@@ -37,7 +37,24 @@
       </div>
 
       <div class="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 py-8 px-6 sm:px-10 rounded-2xl shadow-xl shadow-slate-900/5 dark:shadow-black/40">
-        <form @submit.prevent="submitForm" class="space-y-4">
+        
+        <!-- STEP 1: Registration Form -->
+        <form v-if="currentStep === 1" @submit.prevent="handleSendOtp" class="space-y-4">
+          <!-- Duplicate email / global error banner -->
+          <div v-if="globalError" class="p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs font-medium flex items-start gap-2.5">
+            <svg class="w-4 h-4 text-rose-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+            </svg>
+            <div>
+              <p class="font-semibold">{{ globalError }}</p>
+              <div v-if="isDuplicateEmail" class="mt-1">
+                <Link href="/login" class="underline font-bold text-rose-800 dark:text-rose-200 hover:text-rose-900">
+                  {{ $t('Click here to Log In') }} &rarr;
+                </Link>
+              </div>
+            </div>
+          </div>
+
           <!-- Name Row -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <FormInput 
@@ -46,6 +63,7 @@
               :error="form.errors.first_name" 
               placeholder="Alex"
               class="w-full"
+              required
             />
             <FormInput 
               v-model="form.last_name" 
@@ -64,19 +82,23 @@
               :error="form.errors.organization_name" 
               placeholder="Acme Corp"
               class="w-full"
+              required
             />
           </div>
 
           <!-- Contact Row: Email & Phone -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <FormInput 
-              v-model="form.email" 
-              :name="$t('Email Address')" 
-              :error="form.errors.email" 
-              type="email"
-              placeholder="alex@acmecorp.com"
-              class="w-full"
-            />
+            <div>
+              <FormInput 
+                v-model="form.email" 
+                :name="$t('Email Address')" 
+                :error="form.errors.email" 
+                type="email"
+                placeholder="alex@acmecorp.com"
+                class="w-full"
+                required
+              />
+            </div>
             <FormPhoneInput 
               v-model="form.phone" 
               :name="$t('Phone Number')" 
@@ -95,6 +117,7 @@
               type="password" 
               placeholder="••••••••••••"
               class="w-full"
+              required
             />
             <FormInput 
               v-model="form.password_confirmation" 
@@ -103,6 +126,7 @@
               type="password" 
               placeholder="••••••••••••"
               class="w-full"
+              required
             />
           </div>
 
@@ -110,57 +134,116 @@
             {{ form.errors.recaptcha_response }}
           </p>
 
-          <!-- OTP Step 1: Send OTP -->
-          <div v-if="!otpSent" class="pt-2">
+          <div class="pt-2">
             <button
-              type="button"
-              class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-[#22C55E] via-[#16A34A] to-[#022828] hover:from-[#15803D] hover:to-[#011d1d] shadow-md shadow-emerald-500/20 active:scale-[0.98] transition-all disabled:opacity-50"
-              @click="sendOtp"
-              :disabled="isLoadingOtp || !form.phone"
+              type="submit"
+              class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-[#22C55E] via-[#16A34A] to-[#022828] hover:from-[#15803D] hover:to-[#011d1d] shadow-md shadow-emerald-500/20 active:scale-[0.98] transition-all disabled:opacity-50 cursor-pointer"
+              :disabled="isLoading"
             >
-              <svg v-if="isLoadingOtp" class="animate-spin w-4 h-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <svg v-if="isLoading" class="animate-spin w-4 h-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              <span>{{ isLoadingOtp ? t('Sending OTP...') : t('Send Phone Verification OTP') }}</span>
+              <span>{{ isLoading ? $t('Sending Verification Code...') : $t('Continue & Verify Email') }}</span>
             </button>
           </div>
+        </form>
 
-          <!-- OTP Sent Feedback -->
-          <div v-if="otpMessage" class="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-800/60 text-emerald-700 dark:text-emerald-400 text-xs font-medium flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span>{{ otpMessage }}</span>
+        <!-- STEP 2: Dedicated Email OTP Verification Screen -->
+        <div v-else class="space-y-6">
+          <div class="text-center space-y-2">
+            <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 mb-2">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <h2 class="text-xl font-bold text-slate-900 dark:text-white">
+              {{ $t('Verify Your Mail ID') }}
+            </h2>
+            <p class="text-xs text-slate-500 dark:text-zinc-400">
+              {{ $t('We have sent a verification code to:') }}
+            </p>
+            <p class="text-sm font-semibold text-slate-800 dark:text-zinc-100 flex items-center justify-center gap-1.5">
+              <span>{{ form.email }}</span>
+              <button 
+                type="button" 
+                @click="changeEmail" 
+                class="text-xs text-emerald-600 dark:text-emerald-400 hover:underline font-medium ml-1"
+              >
+                ({{ $t('Change') }})
+              </button>
+            </p>
           </div>
 
-          <!-- OTP Step 2: Verify & Submit -->
-          <div v-if="otpSent" class="space-y-3 pt-2">
-            <FormInput
-              v-model="form.otp"
-              :name="t('Enter 4-Digit OTP Code')"
-              :error="form.errors.otp"
-              type="text"
-              maxlength="4"
-              placeholder="1234"
-              class="w-full text-center tracking-widest text-lg font-mono font-bold"
-            />
+          <!-- Error / Info Message -->
+          <div v-if="otpError" class="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs font-medium text-center">
+            {{ otpError }}
+          </div>
 
+          <div v-if="resendSuccessMsg" class="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 text-xs font-medium text-center">
+            {{ resendSuccessMsg }}
+          </div>
+
+          <!-- 6-digit OTP Inputs: [ _ ][ _ ][ _ ][ _ ][ _ ][ _ ] -->
+          <div class="flex justify-center items-center gap-2 sm:gap-3 py-2" @paste="handlePaste">
+            <template v-for="(digit, index) in otpDigits" :key="index">
+              <input
+                :ref="el => { if (el) otpInputRefs[index] = el; }"
+                v-model="otpDigits[index]"
+                type="text"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength="1"
+                class="w-11 h-13 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-bold font-mono rounded-xl border border-slate-300 dark:border-zinc-700 bg-slate-50 dark:bg-zinc-800/80 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all shadow-inner"
+                @input="handleInput(index, $event)"
+                @keydown="handleKeyDown(index, $event)"
+                @focus="$event.target.select()"
+              />
+            </template>
+          </div>
+
+          <!-- Action Button: Verify Your Mail ID -->
+          <div>
             <button
               type="button"
-              @click="verifyOtp"
-              :disabled="isVerifying || !form.otp || form.otp.length !== 4"
-              class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-[#22C55E] to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 shadow-md shadow-emerald-500/20 active:scale-[0.98] transition-all disabled:opacity-50"
+              id="verify-mail-id-btn"
+              @click="submitOtpVerification"
+              :disabled="isVerifying || !isOtpComplete"
+              class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-[#22C55E] via-[#16A34A] to-[#022828] hover:from-[#15803D] hover:to-[#011d1d] shadow-md shadow-emerald-500/20 active:scale-[0.98] transition-all disabled:opacity-50 cursor-pointer"
             >
               <svg v-if="isVerifying" class="animate-spin w-4 h-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              <span>{{ isVerifying ? t('Verifying...') : t('Verify OTP & Create Workspace') }}</span>
+              <span>{{ isVerifying ? $t('Verifying...') : $t('Verify Your Mail ID') }}</span>
             </button>
           </div>
-        </form>
+
+          <!-- Resend and Expiration Countdown -->
+          <div class="flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 dark:text-zinc-400 pt-2 gap-2">
+            <div>
+              <span>{{ $t("Didn't receive the code?") }} </span>
+              <button
+                type="button"
+                @click="handleResendOtp"
+                :disabled="resendCooldown > 0 || isResending"
+                class="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 hover:underline disabled:opacity-50 disabled:no-underline cursor-pointer"
+              >
+                {{ resendCooldown > 0 ? $t('Resend in {s}s', { s: resendCooldown }) : $t('Resend OTP') }}
+              </button>
+            </div>
+
+            <div class="flex items-center gap-1 font-mono text-[11px] text-slate-600 dark:text-zinc-300">
+              <svg class="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>{{ $t('OTP expires in:') }} <strong class="text-emerald-600 dark:text-emerald-400">{{ formattedTimer }}</strong></span>
+            </div>
+          </div>
+        </div>
 
         <!-- Social login -->
-        <div v-if="companyConfig?.allow_facebook_login === '1' || companyConfig?.allow_google_login === '1'" class="mt-6">
+        <div v-if="currentStep === 1 && (companyConfig?.allow_facebook_login === '1' || companyConfig?.allow_google_login === '1')" class="mt-6">
           <div class="relative">
             <div class="absolute inset-0 flex items-center">
               <div class="w-full border-t border-slate-200/80 dark:border-zinc-800"></div>
@@ -205,88 +288,269 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue';
-    import { Link, useForm } from '@inertiajs/vue3';
-    import { useI18n } from 'vue-i18n';
-    import BrandLogo from '@/Components/UI/BrandLogo.vue';
-    import FormInput from '@/Components/FormInput.vue';
-    import FormPhoneInput from '@/Components/FormPhoneInput.vue';
-    import axios from 'axios';
+import { ref, computed, onUnmounted, nextTick } from 'vue';
+import { Link, useForm } from '@inertiajs/vue3';
+import { useI18n } from 'vue-i18n';
+import BrandLogo from '@/Components/UI/BrandLogo.vue';
+import FormInput from '@/Components/FormInput.vue';
+import FormPhoneInput from '@/Components/FormPhoneInput.vue';
+import axios from 'axios';
 
-    const { t } = useI18n();
+const { t } = useI18n();
 
-    const props = defineProps({
-        companyConfig: Object,
-        selectedPlan: String,
-    });
-    const companyConfig = props.companyConfig;
+const props = defineProps({
+  companyConfig: Object,
+  selectedPlan: String,
+});
+const companyConfig = props.companyConfig;
 
-    const form = useForm({
-        first_name: '',
-        last_name: '',
-        organization_name: '',
-        email: '',
-        phone: '',
-        password: '',
-        password_confirmation: '',
-        otp: '',
-        recaptcha_response: '',
-        plan: props.selectedPlan || '',
-    });
+const currentStep = ref(1);
+const isLoading = ref(false);
+const isVerifying = ref(false);
+const isResending = ref(false);
+const globalError = ref('');
+const isDuplicateEmail = ref(false);
+const otpError = ref('');
+const resendSuccessMsg = ref('');
 
-    const isLoadingOtp = ref(false);
-    const isVerifying = ref(false);
-    const otpSent = ref(false);
-    const otpMessage = ref('');
+// 6-digit OTP state
+const otpDigits = ref(['', '', '', '', '', '']);
+const otpInputRefs = ref([]);
 
-    const sendOtp = async () => {
-        if (!form.phone) return;
-        isLoadingOtp.value = true;
-        form.errors.otp = null;
-        otpMessage.value = '';
+// Timers
+const expirySeconds = ref(600); // 10 minutes
+let expiryInterval = null;
+const resendCooldown = ref(0);
+let cooldownInterval = null;
 
-        try {
-            const response = await axios.post('/send-otp', { phone: form.phone });
-            if (response.data.success) {
-                otpSent.value = true;
-                form.otp = '';
-                otpMessage.value = t('OTP sent successfully to your phone.');
-            } else {
-                form.errors.otp = response.data.message || t('Failed to send OTP');
-            }
-        } catch (error) {
-            form.errors.otp = error.response?.data?.message || t('Failed to send OTP');
-        } finally {
-            isLoadingOtp.value = false;
-        }
+const form = useForm({
+  first_name: '',
+  last_name: '',
+  organization_name: '',
+  email: '',
+  phone: '',
+  password: '',
+  password_confirmation: '',
+  plan: props.selectedPlan || '',
+});
+
+const isOtpComplete = computed(() => {
+  return otpDigits.value.every(d => d.trim().length === 1);
+});
+
+const fullOtp = computed(() => {
+  return otpDigits.value.join('').trim();
+});
+
+const formattedTimer = computed(() => {
+  const m = Math.floor(expirySeconds.value / 60);
+  const s = expirySeconds.value % 60;
+  return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+});
+
+const startExpiryTimer = () => {
+  if (expiryInterval) clearInterval(expiryInterval);
+  expirySeconds.value = 600;
+  expiryInterval = setInterval(() => {
+    if (expirySeconds.value > 0) {
+      expirySeconds.value--;
+    } else {
+      clearInterval(expiryInterval);
+      otpError.value = t('Verification code has expired. Please request a new OTP.');
+    }
+  }, 1000);
+};
+
+const startCooldownTimer = (seconds = 60) => {
+  if (cooldownInterval) clearInterval(cooldownInterval);
+  resendCooldown.value = seconds;
+  cooldownInterval = setInterval(() => {
+    if (resendCooldown.value > 0) {
+      resendCooldown.value--;
+    } else {
+      clearInterval(cooldownInterval);
+    }
+  }, 1000);
+};
+
+const handleSendOtp = async () => {
+  globalError.value = '';
+  isDuplicateEmail.value = false;
+  form.clearErrors();
+
+  if (!form.first_name || !form.email || !form.password || !form.password_confirmation || !form.organization_name) {
+    globalError.value = t('Please fill in all required fields.');
+    return;
+  }
+
+  if (form.password !== form.password_confirmation) {
+    form.setError('password_confirmation', t('The password field confirmation does not match.'));
+    return;
+  }
+
+  isLoading.value = true;
+
+  try {
+    const payload = {
+      first_name: form.first_name,
+      last_name: form.last_name,
+      organization_name: form.organization_name,
+      email: form.email,
+      phone: form.phone,
+      password: form.password,
+      password_confirmation: form.password_confirmation,
+      plan: form.plan,
     };
 
-    const verifyOtp = async () => {
-        if (!form.otp || form.otp.length !== 4) return;
-        isVerifying.value = true;
-        form.errors.otp = null;
+    const response = await axios.post('/send-otp', payload);
 
-        try {
-            const response = await axios.post('/verify-otp', {
-                phone: form.phone,
-                otp: form.otp,
-            });
-            if (response.data.success) {
-                otpMessage.value = t('OTP verified successfully.');
-                submitForm();
-            } else {
-                form.errors.otp = response.data.message || t('Invalid OTP');
-            }
-        } catch (error) {
-            form.errors.otp = error.response?.data?.message || t('Failed to verify OTP');
-        } finally {
-            isVerifying.value = false;
-        }
-    };
-
-    const submitForm = () => {
-        form.post('/signup', {
-            preserveScroll: true,
+    if (response.data.success) {
+      currentStep.value = 2;
+      otpDigits.value = ['', '', '', '', '', ''];
+      otpError.value = '';
+      resendSuccessMsg.value = '';
+      startExpiryTimer();
+      startCooldownTimer(60);
+      nextTick(() => {
+        otpInputRefs.value[0]?.focus();
+      });
+    }
+  } catch (error) {
+    if (error.response?.status === 422) {
+      const errors = error.response.data.errors || {};
+      if (errors.email) {
+        globalError.value = errors.email[0];
+        isDuplicateEmail.value = errors.email[0].toLowerCase().includes('already exists');
+        form.setError('email', errors.email[0]);
+      } else {
+        Object.keys(errors).forEach(key => {
+          form.setError(key, errors[key][0]);
         });
+        globalError.value = error.response.data.message || t('Validation failed. Please correct the errors.');
+      }
+    } else {
+      globalError.value = error.response?.data?.message || t('Failed to send verification code. Please try again.');
+    }
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+const handleInput = (index, event) => {
+  const value = event.target.value.replace(/[^0-9]/g, '');
+  if (value.length > 0) {
+    otpDigits.value[index] = value.slice(-1);
+    if (index < 5) {
+      otpInputRefs.value[index + 1]?.focus();
+    }
+  } else {
+    otpDigits.value[index] = '';
+  }
+};
+
+const handleKeyDown = (index, event) => {
+  if (event.key === 'Backspace') {
+    if (!otpDigits.value[index] && index > 0) {
+      otpDigits.value[index - 1] = '';
+      otpInputRefs.value[index - 1]?.focus();
+    } else {
+      otpDigits.value[index] = '';
+    }
+  } else if (event.key === 'ArrowLeft' && index > 0) {
+    otpInputRefs.value[index - 1]?.focus();
+  } else if (event.key === 'ArrowRight' && index < 5) {
+    otpInputRefs.value[index + 1]?.focus();
+  }
+};
+
+const handlePaste = (event) => {
+  event.preventDefault();
+  const pasteData = (event.clipboardData || window.clipboardData).getData('text');
+  const digits = pasteData.replace(/[^0-9]/g, '').slice(0, 6).split('');
+  if (digits.length > 0) {
+    for (let i = 0; i < 6; i++) {
+      otpDigits.value[i] = digits[i] || '';
+    }
+    const nextIndex = Math.min(digits.length, 5);
+    otpInputRefs.value[nextIndex]?.focus();
+  }
+};
+
+const submitOtpVerification = async () => {
+  if (!isOtpComplete.value) return;
+
+  isVerifying.value = true;
+  otpError.value = '';
+
+  try {
+    const payload = {
+      email: form.email,
+      otp: fullOtp.value,
+      first_name: form.first_name,
+      last_name: form.last_name,
+      organization_name: form.organization_name,
+      phone: form.phone,
+      password: form.password,
+      plan: form.plan,
     };
+
+    const response = await axios.post('/verify-otp', payload);
+
+    if (response.data.success) {
+      if (response.data.redirect) {
+        window.location.href = response.data.redirect;
+      } else {
+        window.location.href = '/onboarding';
+      }
+    } else {
+      otpError.value = response.data.message || t('Invalid OTP code.');
+    }
+  } catch (error) {
+    otpError.value = error.response?.data?.message || t('Verification failed. Please try again.');
+  } finally {
+    isVerifying.value = false;
+  }
+};
+
+const handleResendOtp = async () => {
+  if (resendCooldown.value > 0 || isResending.value) return;
+
+  isResending.value = true;
+  otpError.value = '';
+  resendSuccessMsg.value = '';
+
+  try {
+    const response = await axios.post('/resend-otp', { email: form.email });
+    if (response.data.success) {
+      resendSuccessMsg.value = t('A new 6-digit code has been sent to your email.');
+      otpDigits.value = ['', '', '', '', '', ''];
+      startExpiryTimer();
+      startCooldownTimer(60);
+      nextTick(() => {
+        otpInputRefs.value[0]?.focus();
+      });
+    }
+  } catch (error) {
+    if (error.response?.data?.seconds_remaining) {
+      startCooldownTimer(error.response.data.seconds_remaining);
+    }
+    otpError.value = error.response?.data?.message || t('Failed to resend OTP.');
+  } finally {
+    isResending.value = false;
+  }
+};
+
+const changeEmail = () => {
+  currentStep.value = 1;
+  otpDigits.value = ['', '', '', '', '', ''];
+  otpError.value = '';
+  resendSuccessMsg.value = '';
+  if (expiryInterval) clearInterval(expiryInterval);
+  if (cooldownInterval) clearInterval(cooldownInterval);
+};
+
+onUnmounted(() => {
+  if (expiryInterval) clearInterval(expiryInterval);
+  if (cooldownInterval) clearInterval(cooldownInterval);
+});
 </script>

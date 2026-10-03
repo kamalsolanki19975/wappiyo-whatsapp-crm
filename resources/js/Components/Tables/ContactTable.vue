@@ -167,7 +167,7 @@ function deleteItems(value) {
 
     router.visit(props.type === 'contact' ? '/contacts' : '/contact-groups', {
         method: 'delete',
-        data: { 'uuids': isAll ? [] : itemsToDelete },
+        data: { 'uuids': isAll ? [] : itemsToDelete, 'all': isAll },
         preserveState: true,
         onSuccess: () => {
             localStorage.removeItem(props.type === 'contact' ? 'checkedContacts' : 'checkedGroups');

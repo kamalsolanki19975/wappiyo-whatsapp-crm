@@ -1,0 +1,1384 @@
+{
+  "info": {
+    "_postman_id": "wappiyo-saas-crm-api-v1",
+    "name": "Wappiyo WhatsApp SaaS & CRM API",
+    "description": "Complete Postman API Collection for Wappiyo WhatsApp SaaS & CRM platform.\n\nIncludes REST API v1, WhatsApp Messaging, Meta WhatsApp Calling, Contacts, Contact Groups, Canned Replies, Campaigns, Authentication, Webhooks, Leads, and Admin Endpoints.\n\nAuthentication:\n- API endpoints use Bearer Token authentication via the `Authorization: Bearer {{apiToken}}` header.\n- Web session endpoints use CSRF and Laravel session cookies.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:8000",
+      "type": "string",
+      "description": "Base URL of the Wappiyo application server"
+    },
+    {
+      "key": "apiToken",
+      "value": "YOUR_ORGANIZATION_API_KEY_HERE",
+      "type": "string",
+      "description": "Organization Bearer API Key generated in Workspace Settings"
+    },
+    {
+      "key": "contactUuid",
+      "value": "550e8400-e29b-41d4-a716-446655440000",
+      "type": "string",
+      "description": "Sample Contact UUID"
+    },
+    {
+      "key": "groupUuid",
+      "value": "660e8400-e29b-41d4-a716-446655440001",
+      "type": "string",
+      "description": "Sample Contact Group UUID"
+    },
+    {
+      "key": "cannedReplyUuid",
+      "value": "770e8400-e29b-41d4-a716-446655440002",
+      "type": "string",
+      "description": "Sample Canned Reply UUID"
+    },
+    {
+      "key": "callUuid",
+      "value": "880e8400-e29b-41d4-a716-446655440003",
+      "type": "string",
+      "description": "Sample Call UUID"
+    },
+    {
+      "key": "testPhone",
+      "value": "+919876543210",
+      "type": "string",
+      "description": "Sample WhatsApp Phone Number in E.164 format"
+    },
+    {
+      "key": "testEmail",
+      "value": "customer@example.com",
+      "type": "string",
+      "description": "Sample Customer Email"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{apiToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "1. Authentication & Registration",
+      "description": "Public user registration, OTP email verification, login, password recovery",
+      "item": [
+        {
+          "name": "Send Registration OTP",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"Aarav\",\n  \"last_name\": \"Patel\",\n  \"organization_name\": \"Aarav Tech Labs\",\n  \"email\": \"aarav.patel@example.com\",\n  \"password\": \"SecurePassword123!\",\n  \"password_confirmation\": \"SecurePassword123!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/send-otp",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "send-otp"
+              ]
+            },
+            "description": "Validates registration fields (including case-insensitive duplicate email check) and sends a 6-digit OTP code to the provided email address."
+          }
+        },
+        {
+          "name": "Verify Registration OTP",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"aarav.patel@example.com\",\n  \"otp\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/verify-otp",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "verify-otp"
+              ]
+            },
+            "description": "Verifies the 6-digit OTP code, marks email_verified_at, creates the organization & owner team record, and sets up the user session."
+          }
+        },
+        {
+          "name": "Login (User / Admin)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@wappiyo.com\",\n  \"password\": \"password123\",\n  \"remember\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "login"
+              ]
+            },
+            "description": "Authenticates user credentials and returns session cookie or redirects to intended dashboard."
+          }
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"customer@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "forgot-password"
+              ]
+            },
+            "description": "Dispatches a secure password reset token link to the user's registered email address."
+          }
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"SAMPLE_RESET_TOKEN\",\n  \"email\": \"customer@example.com\",\n  \"password\": \"NewSecurePassword123!\",\n  \"password_confirmation\": \"NewSecurePassword123!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reset-password"
+              ]
+            },
+            "description": "Validates the reset token and updates the user's password with Bcrypt hashing."
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "logout"
+              ]
+            },
+            "description": "Terminates the authenticated user session and invalidates CSRF token."
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. WhatsApp Messaging API",
+      "description": "Send single text, template, and media messages via official Meta WhatsApp Business API",
+      "item": [
+        {
+          "name": "Send Text / Interactive Message",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"{{testPhone}}\",\n  \"first_name\": \"Karan\",\n  \"last_name\": \"Mehta\",\n  \"email\": \"karan@example.com\",\n  \"message\": \"Hello Karan, welcome to our WhatsApp CRM service!\",\n  \"header\": \"Welcome Notice\",\n  \"footer\": \"Reply STOP to unsubscribe\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/send",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "send"
+              ]
+            },
+            "description": "Sends a custom text message to a contact. Automatically creates the contact record in CRM if it does not yet exist."
+          }
+        },
+        {
+          "name": "Send Template Message",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"{{testPhone}}\",\n  \"first_name\": \"Karan\",\n  \"last_name\": \"Mehta\",\n  \"email\": \"karan@example.com\",\n  \"template\": {\n    \"name\": \"sales_promotional_v1\",\n    \"language\": \"en_US\",\n    \"components\": [\n      {\n        \"type\": \"body\",\n        \"parameters\": [\n          {\n            \"type\": \"text\",\n            \"text\": \"Karan\"\n          }\n        ]\n      }\n    ]\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/send/template",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "send",
+                "template"
+              ]
+            },
+            "description": "Sends an approved Meta WhatsApp template broadcast message with dynamic variable parameter bindings."
+          }
+        },
+        {
+          "name": "Send Media Message",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"{{testPhone}}\",\n  \"first_name\": \"Karan\",\n  \"last_name\": \"Mehta\",\n  \"email\": \"karan@example.com\",\n  \"media_type\": \"image\",\n  \"media_url\": \"https://example.com/assets/brochure.jpg\",\n  \"file_name\": \"brochure.jpg\",\n  \"caption\": \"Here is our enterprise product catalog.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/send/media",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "send",
+                "media"
+              ]
+            },
+            "description": "Sends an image, document, audio, or video media message with an optional caption to a customer."
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Meta WhatsApp Calling Module",
+      "description": "Meta official WhatsApp Business calling endpoints: outbound call initiation, call history, active call details, call termination, notes, and dispositions",
+      "item": [
+        {
+          "name": "List Call History & Analytics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/calls?page=1&per_page=15&status=all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "calls"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "15"
+                },
+                {
+                  "key": "status",
+                  "value": "all",
+                  "description": "Filter by status: all, initiating, ringing, connected, completed, missed, failed, rejected"
+                }
+              ]
+            },
+            "description": "Returns paginated call history for the organization with call duration, agent mapping, contact details, notes, and disposition tags."
+          }
+        },
+        {
+          "name": "Initiate Outbound Call",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"{{testPhone}}\",\n  \"name\": \"Karan Mehta\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/calls",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "calls"
+              ]
+            },
+            "description": "Initiates a WhatsApp voice call to a customer. Protected by a 15-second idempotent lock to prevent double calling, and checks for active concurrent calls."
+          }
+        },
+        {
+          "name": "Get Call Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/calls/{{callUuid}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "calls",
+                "{{callUuid}}"
+              ]
+            },
+            "description": "Retrieves real-time status and metadata for a specific call record by UUID."
+          }
+        },
+        {
+          "name": "End Active Call",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/calls/{{callUuid}}/end",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "calls",
+                "{{callUuid}}",
+                "end"
+              ]
+            },
+            "description": "Terminates an ongoing WhatsApp call, updates the ended_at timestamp, and computes total call duration in seconds."
+          }
+        },
+        {
+          "name": "Update Call Notes",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notes\": \"Discussed enterprise pricing and SLA terms. Customer requested proposal.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/calls/{{callUuid}}/notes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "calls",
+                "{{callUuid}}",
+                "notes"
+              ]
+            },
+            "description": "Saves CRM agent notes directly on the call timeline."
+          }
+        },
+        {
+          "name": "Update Call Disposition",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"disposition\": \"follow_up_scheduled\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/calls/{{callUuid}}/disposition",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "calls",
+                "{{callUuid}}",
+                "disposition"
+              ]
+            },
+            "description": "Tags the call outcome (e.g. interested, not_interested, follow_up_scheduled, resolved, wrong_number)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Contacts & Audiences",
+      "description": "CRM Contact management, search, pagination, create, update, and delete",
+      "item": [
+        {
+          "name": "List Contacts",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/contacts?page=1&per_page=15",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "contacts"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "15"
+                }
+              ]
+            },
+            "description": "Lists all contacts belonging to the authenticated organization with pagination."
+          }
+        },
+        {
+          "name": "Create Contact",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"Pooja\",\n  \"last_name\": \"Desai\",\n  \"phone\": \"+919988776655\",\n  \"email\": \"pooja.desai@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/contacts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "contacts"
+              ]
+            },
+            "description": "Creates a new contact in CRM. Validates phone number format and enforces organization contact quota limit."
+          }
+        },
+        {
+          "name": "Update Contact",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"Pooja\",\n  \"last_name\": \"Sharma\",\n  \"phone\": \"+919988776655\",\n  \"email\": \"pooja.sharma@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/contacts/{{contactUuid}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "contacts",
+                "{{contactUuid}}"
+              ]
+            },
+            "description": "Updates contact details by UUID. Enforces tenant boundary isolation."
+          }
+        },
+        {
+          "name": "Delete Contact",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/contacts/{{contactUuid}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "contacts",
+                "{{contactUuid}}"
+              ]
+            },
+            "description": "Soft deletes a contact record by UUID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Contact Groups",
+      "description": "Audience segmentation and contact grouping endpoints",
+      "item": [
+        {
+          "name": "List Contact Groups",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/contact-groups?page=1&per_page=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "contact-groups"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Lists all contact groups for the authenticated organization."
+          }
+        },
+        {
+          "name": "Create Contact Group",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"VIP Enterprise Clients\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/contact-groups",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "contact-groups"
+              ]
+            },
+            "description": "Creates a new contact group. Name must be unique within the organization."
+          }
+        },
+        {
+          "name": "Update Contact Group",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"VIP Enterprise Clients Q4\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/contact-groups/{{groupUuid}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "contact-groups",
+                "{{groupUuid}}"
+              ]
+            },
+            "description": "Renames a contact group by UUID."
+          }
+        },
+        {
+          "name": "Delete Contact Group",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/contact-groups/{{groupUuid}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "contact-groups",
+                "{{groupUuid}}"
+              ]
+            },
+            "description": "Soft deletes a contact group and removes group associations from attached contacts."
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Canned Replies & Automation",
+      "description": "Instant canned response templates and keyword auto-reply rules",
+      "item": [
+        {
+          "name": "List Canned Replies",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/canned-replies?page=1&per_page=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "canned-replies"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Lists all configured canned auto-replies."
+          }
+        },
+        {
+          "name": "Create Canned Reply",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Business Hours Notice\",\n  \"trigger\": \"hours\",\n  \"match_criteria\": \"contains\",\n  \"response_type\": \"text\",\n  \"response\": \"Our office hours are Monday to Friday, 9:00 AM - 6:00 PM IST.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/canned-replies",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "canned-replies"
+              ]
+            },
+            "description": "Creates an auto-reply rule triggered by exact match or contains keyword matching."
+          }
+        },
+        {
+          "name": "Update Canned Reply",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Business Hours Notice\",\n  \"trigger\": \"timing\",\n  \"match_criteria\": \"contains\",\n  \"response_type\": \"text\",\n  \"response\": \"Our office hours are Monday to Saturday, 9:00 AM - 7:00 PM IST.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/canned-replies/{{cannedReplyUuid}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "canned-replies",
+                "{{cannedReplyUuid}}"
+              ]
+            },
+            "description": "Updates trigger and message content of an existing canned reply."
+          }
+        },
+        {
+          "name": "Delete Canned Reply",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/canned-replies/{{cannedReplyUuid}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "canned-replies",
+                "{{cannedReplyUuid}}"
+              ]
+            },
+            "description": "Deletes a canned reply by UUID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Campaigns API",
+      "description": "Bulk broadcast campaigns scheduling and dispatch",
+      "item": [
+        {
+          "name": "Create / Schedule Campaign",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Q4 Enterprise Broadcast\",\n  \"template_uuid\": \"tmpl_sample_uuid\",\n  \"contact_group_uuid\": \"{{groupUuid}}\",\n  \"variables\": {\n    \"1\": \"Customer\"\n  },\n  \"scheduled_at\": \"2026-10-01 10:00:00\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/campaigns",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "campaigns"
+              ]
+            },
+            "description": "Schedules a broadcast campaign for a contact group using an approved WhatsApp template."
+          }
+        }
+      ]
+    },
+    {
+      "name": "8. Webhooks & Integrations",
+      "description": "Meta WhatsApp Business Platform and Payment Gateway Webhook receivers",
+      "item": [
+        {
+          "name": "Meta WhatsApp Webhook Verification (Challenge)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/webhook/waba?hub.mode=subscribe&hub.verify_token=wappiyo_meta_verify_token_123&hub.challenge=1158201444",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhook",
+                "waba"
+              ],
+              "query": [
+                {
+                  "key": "hub.mode",
+                  "value": "subscribe"
+                },
+                {
+                  "key": "hub.verify_token",
+                  "value": "wappiyo_meta_verify_token_123"
+                },
+                {
+                  "key": "hub.challenge",
+                  "value": "1158201444"
+                }
+              ]
+            },
+            "description": "Verification endpoint invoked by Meta when setting up the webhook callback in the Meta Developer App Dashboard."
+          }
+        },
+        {
+          "name": "Meta WhatsApp Webhook Inbound Event",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-Hub-Signature-256",
+                "value": "sha256=MOCK_HMAC_SIGNATURE",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"object\": \"whatsapp_business_account\",\n  \"entry\": [\n    {\n      \"id\": \"100200300400\",\n      \"changes\": [\n        {\n          \"value\": {\n            \"messaging_product\": \"whatsapp\",\n            \"metadata\": {\n              \"display_phone_number\": \"15551234567\",\n              \"phone_number_id\": \"999888777\"\n            },\n            \"messages\": [\n              {\n                \"from\": \"919876543210\",\n                \"id\": \"wamid.HBgLM...==\",\n                \"timestamp\": \"1727546400\",\n                \"text\": {\n                  \"body\": \"Hello, need help with my account\"\n                },\n                \"type\": \"text\"\n              }\n            ]\n          },\n          \"field\": \"messages\"\n        }\n      ]\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/webhook/waba",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhook",
+                "waba"
+              ]
+            },
+            "description": "Receives inbound customer messages, delivery receipts (sent, delivered, read), and call event notifications from Meta."
+          }
+        },
+        {
+          "name": "Payment Webhook (Stripe / Razorpay)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event\": \"payment.succeeded\",\n  \"data\": {\n    \"id\": \"tx_mock_12345\",\n    \"amount\": 9900,\n    \"currency\": \"USD\",\n    \"status\": \"paid\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/webhook/stripe",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhook",
+                "stripe"
+              ]
+            },
+            "description": "Receives subscription and invoice payment status updates from payment processors."
+          }
+        },
+        {
+          "name": "PayPal Webhook",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event_type\": \"PAYMENT.SALE.COMPLETED\",\n  \"resource\": {\n    \"id\": \"PAY-12345\",\n    \"state\": \"completed\",\n    \"amount\": {\n      \"total\": \"99.00\",\n      \"currency\": \"USD\"\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/paypal_webhook",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "paypal_webhook"
+              ]
+            },
+            "description": "Captures PayPal subscription payment events."
+          }
+        }
+      ]
+    },
+    {
+      "name": "9. Public Website & Leads",
+      "description": "Website contact lead capture and public utility endpoints",
+      "item": [
+        {
+          "name": "Submit Contact Lead",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"Vikram\",\n  \"last_name\": \"Aditya\",\n  \"email\": \"vikram@buyer.com\",\n  \"phone\": \"+919811122233\",\n  \"message\": \"Interested in enterprise WhatsApp CRM with voice calling\",\n  \"hp_check\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/contact-us",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "contact-us"
+              ]
+            },
+            "description": "Public contact form submission. Protected by anti-spam honeypot (hp_check) and a 60-second rate limiter."
+          }
+        },
+        {
+          "name": "Get Translations",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/translations/en",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "translations",
+                "en"
+              ]
+            },
+            "description": "Returns translated localization key-value pairs for the requested locale code."
+          }
+        }
+      ]
+    },
+    {
+      "name": "10. Admin Platform Management",
+      "description": "Super Admin platform reporting, client breakdown, renewal-due lists, and system notifications",
+      "item": [
+        {
+          "name": "Admin Overview & Client Reports",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/reports?start_date=2026-09-01&end_date=2026-09-30",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "reports"
+              ],
+              "query": [
+                {
+                  "key": "start_date",
+                  "value": "2026-09-01"
+                },
+                {
+                  "key": "end_date",
+                  "value": "2026-09-30"
+                }
+              ]
+            },
+            "description": "Returns platform summary statistics and client-wise breakdown of messages, calls, call minutes, campaigns, contacts, and tickets."
+          }
+        },
+        {
+          "name": "Admin Export Report CSV",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/csv",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/reports/export?range=30d",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "reports",
+                "export"
+              ],
+              "query": [
+                {
+                  "key": "range",
+                  "value": "30d"
+                }
+              ]
+            },
+            "description": "Streams a complete CSV download of client activity with formula injection sanitization."
+          }
+        },
+        {
+          "name": "Admin Subscriptions Renewal Due",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/subscriptions/renewal-due?filter=1_7d",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "subscriptions",
+                "renewal-due"
+              ],
+              "query": [
+                {
+                  "key": "filter",
+                  "value": "1_7d",
+                  "description": "Options: 1_7d, 8_14d, 15_30d, expired"
+                }
+              ]
+            },
+            "description": "Lists organizations whose subscriptions are expiring within the specified threshold."
+          }
+        },
+        {
+          "name": "Admin Broadcast Notification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"audience\": \"all\",\n  \"title\": \"Scheduled Platform Maintenance\",\n  \"message\": \"The system will undergo brief maintenance on Sunday at 02:00 AM UTC.\",\n  \"type\": \"info\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/notifications/send",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "notifications",
+                "send"
+              ]
+            },
+            "description": "Broadcasts in-app notifications to all users, admins, or active subscribers."
+          }
+        }
+      ]
+    }
+  ]
+}

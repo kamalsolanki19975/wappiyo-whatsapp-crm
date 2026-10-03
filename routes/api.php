@@ -54,5 +54,13 @@ Route::middleware([AuthenticateBearerToken::class])->group(function () {
     Route::post('/canned-replies', [App\Http\Controllers\ApiController::class, 'storeCannedReply']);
     Route::put('/canned-replies/{uuid}', [App\Http\Controllers\ApiController::class, 'storeCannedReply']);
     Route::delete('/canned-replies/{uuid}', [App\Http\Controllers\ApiController::class, 'destroyCannedReply']);
+
+    // Calling API Endpoints
+    Route::get('/calls', [App\Http\Controllers\ApiController::class, 'listCalls']);
+    Route::post('/calls', [App\Http\Controllers\ApiController::class, 'initiateCall']);
+    Route::get('/calls/{uuid}', [App\Http\Controllers\ApiController::class, 'getCall']);
+    Route::post('/calls/{uuid}/end', [App\Http\Controllers\ApiController::class, 'endCall']);
+    Route::post('/calls/{uuid}/notes', [App\Http\Controllers\ApiController::class, 'updateCallNotes']);
+    Route::post('/calls/{uuid}/disposition', [App\Http\Controllers\ApiController::class, 'updateCallDisposition']);
 });
 Route::post('/paypal_webhook', [App\Http\Controllers\ApiController::class, 'paypalWebhook']);

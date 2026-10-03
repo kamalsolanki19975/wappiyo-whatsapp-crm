@@ -44,24 +44,6 @@ class InstallerController extends BaseController
             ) {
                 return redirect('install/folders');
             }
-
-             session()->put('database', [
-                    'host' => '127.0.0.1',//$request->input('host'),
-                    'port' => 3306, //$request->input('port'),
-                    'database' =>'whatsappio', //$request->input('dbname'),
-                    'username' =>'master', //$request->input('dbuser'),
-                    'password' =>'Kamal@2025', //$request->input('dbpass'),
-             ]);
-            session()->put('user', [
-            'project_name' => 'Whatasappiyp',
-            'project_url' => 'http://wappiyo.kamcodify.in/',
-            'first_name' => 'Kamal', 
-            'last_name' => 'Solanki',
-            'email' => 'prashantdixit.official@gmail.com',
-            'password' => '1234567890',
-        ]);
-
-
         }
 
         if($step === 'app'){
@@ -107,11 +89,11 @@ class InstallerController extends BaseController
                 'connections' => [
                     "db_check" => [
                         'driver' => 'mysql',
-                        'host' => '127.0.0.1',//$request->input('host'),
-                        'port' => 3306, //$request->input('port'),
-                        'database' =>'whatsappio', //$request->input('dbname'),
-                        'username' =>'master', //$request->input('dbuser'),
-                        'password' =>'Kamal@2025', //$request->input('dbpass'),
+                        'host' => $request->input('host'),
+                        'port' => (int)($request->input('port') ?: 3306),
+                        'database' => $request->input('dbname'),
+                        'username' => $request->input('dbuser'),
+                        'password' => $request->input('dbpass'),
                     ],
                 ],
             ],
@@ -132,20 +114,12 @@ class InstallerController extends BaseController
 
                 session()->put('database', [
                     'host' => $request->input('host'), 
-                    'port' => $request->input('port'),
+                    'port' => (int)($request->input('port') ?: 3306),
                     'prefix' => $request->input('dbprefix'),
                     'database' => $request->input('dbname'),
                     'username' => $request->input('dbuser'),
                     'password' => $request->input('dbpass'),
                 ]);
-
-                // session()->put('database', [
-                //     'host' => '127.0.0.1',//$request->input('host'),
-                //     'port' => 3306, //$request->input('port'),
-                //     'database' =>'whatsappio', //$request->input('dbname'),
-                //     'username' =>'master', //$request->input('dbuser'),
-                //     'password' =>'Kamal@2025', //$request->input('dbpass'),
-                // ]);
 
                 return redirect('install/app');
             } else {

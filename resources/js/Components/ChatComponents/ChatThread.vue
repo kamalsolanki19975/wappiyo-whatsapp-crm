@@ -92,6 +92,42 @@ const getMessageDate = (item) => {
                     </div>
                 </div>
             </div>
+
+            <!-- WhatsApp Call Event -->
+            <div v-else-if="chat[0]?.type === 'call'" class="flex justify-center my-3">
+                <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl bg-white dark:bg-zinc-800/90 border border-slate-200/80 dark:border-zinc-700 text-xs shadow-xs">
+                    <span
+                        :class="[
+                            'w-7 h-7 rounded-xl flex items-center justify-center font-bold text-white',
+                            chat[0].value?.direction === 'inbound' ? 'bg-blue-600' : 'bg-emerald-600'
+                        ]"
+                    >
+                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.45-5.15-3.76-6.59-6.59l1.97-1.57c.28-.28.37-.68.25-1.02A11.36 11.36 0 0 1 8.96 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.62c0-.55-.45-1-.99-1z"/>
+                        </svg>
+                    </span>
+                    <div>
+                        <div class="font-bold text-slate-800 dark:text-zinc-200 capitalize flex items-center gap-1.5">
+                            <span>{{ chat[0].value?.direction }} WhatsApp Call</span>
+                            <span
+                                :class="[
+                                    'px-1.5 py-0.2 rounded-full text-[10px] font-semibold capitalize',
+                                    chat[0].value?.status === 'connected' || chat[0].value?.status === 'completed'
+                                        ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400'
+                                        : 'bg-rose-50 text-rose-700 dark:bg-rose-950/60 dark:text-rose-400'
+                                ]"
+                            >
+                                {{ chat[0].value?.status }}
+                            </span>
+                        </div>
+                        <div class="text-[11px] text-slate-400 dark:text-zinc-500 flex items-center gap-2 mt-0.5">
+                            <span v-if="chat[0].value?.duration">Duration: {{ Math.floor(chat[0].value.duration / 60) }}:{{ (chat[0].value.duration % 60).toString().padStart(2, '0') }}</span>
+                            <span v-if="chat[0].value?.disposition">• {{ chat[0].value.disposition }}</span>
+                            <span>• {{ chat[0].value?.created_at }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </template>
     </div>
 </template>

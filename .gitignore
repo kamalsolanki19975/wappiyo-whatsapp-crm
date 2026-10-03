@@ -48,3 +48,10 @@ Thumbs.db
 # Test & Coverage Artifacts
 .phpunit.result.cache
 /coverage
+
+# Database Dumps & Backup Archives
+dump.rdb
+*.rdb
+*.sql.gz
+/storage/app/backups/*
+!/storage/app/backups/.gitkeep

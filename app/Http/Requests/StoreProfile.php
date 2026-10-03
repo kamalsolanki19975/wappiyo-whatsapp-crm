@@ -22,12 +22,11 @@ class StoreProfile extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => ['required', 'email', new UniqueEmail(auth()->user()->id)]
+        return [
+            'first_name' => 'required|string|max:100',
+            'last_name' => 'nullable|string|max:100',
+            'phone' => 'nullable|string|max:30',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ];
-
-        return $rules;
     }
 }

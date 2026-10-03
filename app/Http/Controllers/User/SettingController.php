@@ -56,17 +56,56 @@ class SettingController extends BaseController
         $settings = Setting::whereIn('key', ['is_embedded_signup_active', 'whatsapp_client_id', 'whatsapp_config_id'])
             ->pluck('value', 'key');
 
+        $orgId = session()->get('current_organization');
+        $org = Organization::where('id', $orgId)->first();
+        $callingService = new \App\Services\Calling\CallingService($orgId);
+
+        $orgMetadata = $org && $org->metadata ? json_decode($org->metadata, true) : [];
+        $callingEnabled = $orgMetadata['whatsapp']['calling_enabled'] ?? true;
+
+        $callingConfig = [
+            'configured' => $callingService->isCallingConfigured(),
+            'enabled' => $callingEnabled,
+            'status' => $callingService->getCallingStatus(),
+            'webhook_url' => $org ? url('/webhook/whatsapp/' . $org->identifier) : null,
+            'webhook_field' => 'calls',
+        ];
+
         $data = [
             'embeddedSignupActive' => $settings->get('is_embedded_signup_active', 0),
             'graphAPIVersion' => config('graph.api_version'),
             'appId' => $settings->get('whatsapp_client_id', null),
             'configId' => $settings->get('whatsapp_config_id', null),
-            'settings' => Organization::where('id', session()->get('current_organization'))->first(),
+            'settings' => $org,
             'modules' => Addon::get(),
+            'callingConfig' => $callingConfig,
             'title' => __('Settings'),
         ];
 
         return Inertia::render('User/Settings/Whatsapp', $data);
+    }
+
+    public function toggleCalling(Request $request) {
+        $organizationId = session()->get('current_organization');
+        $org = Organization::findOrFail($organizationId);
+        $metadata = $org->metadata ? json_decode($org->metadata, true) : [];
+
+        $enabled = (bool) $request->input('enabled', true);
+        if (!isset($metadata['whatsapp'])) {
+            $metadata['whatsapp'] = [];
+        }
+        $metadata['whatsapp']['calling_enabled'] = $enabled;
+        if (!isset($metadata['whatsapp_calling'])) {
+            $metadata['whatsapp_calling'] = [];
+        }
+        $metadata['whatsapp_calling']['enabled'] = $enabled;
+        $org->metadata = json_encode($metadata);
+        $org->save();
+
+        return back()->with('status', [
+            'type' => 'success',
+            'message' => $enabled ? __('WhatsApp Calling has been enabled.') : __('WhatsApp Calling has been disabled.')
+        ]);
     }
 
     public function storeWhatsappSettings(StoreWhatsappSettings $request) {

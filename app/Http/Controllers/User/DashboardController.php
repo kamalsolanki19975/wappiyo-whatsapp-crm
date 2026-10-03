@@ -68,6 +68,7 @@ class DashboardController extends BaseController
 
         $data['onboardingState'] = [
             'completed' => (bool) ($onboardingMeta['completed'] ?? false),
+            'completed_at' => $onboardingMeta['completed_at'] ?? null,
             'dismissed' => (bool) ($onboardingMeta['dismissed'] ?? false),
             'progress' => (int) round(($completedStepsCount / 4) * 100),
             'completedCount' => $completedStepsCount,

@@ -31,8 +31,12 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Propaganistas\LaravelPhone\PhoneNumber;
 use App\Models\Otp;
+use App\Models\Notification;
+use App\Mail\SignupOtpMail;
 use Carbon\Carbon;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Session;
 use Str;
 
@@ -81,6 +85,8 @@ class AuthController extends BaseController
                 }
             }
         }
+
+        $this->createLoginNotification($user, $request);
 
         return redirect($user->role == 'admin' ? 'admin/dashboard' : '/dashboard');
     }
@@ -456,134 +462,293 @@ class AuthController extends BaseController
         );
     }
 
-    public function sendOtp(Request $request)
+    public function sendOtp(SignupRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'phone' => 'required|phone',
-        ]);
+        $normalizedEmail = strtolower(trim((string) $request->input('email')));
 
-        if ($validator->fails()) {
+        // Check email uniqueness before sending OTP
+        if (User::whereRaw('LOWER(email) = ?', [$normalizedEmail])->whereNull('deleted_at')->exists()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Invalid phone number',
-                'errors' => $validator->errors()
+                'message' => __('An account with this email already exists. Please log in or use a different email address.'),
+                'errors' => [
+                    'email' => [__('An account with this email already exists. Please log in or use a different email address.')]
+                ]
             ], 422);
         }
 
-        $phone = $request->input('phone');
-        $otp = rand(1000, 9999);
+        // Cryptographically secure 6-digit OTP
+        $otp = sprintf('%06d', random_int(100000, 999999));
+        $hashedOtp = Hash::make($otp);
 
         Otp::updateOrCreate(
-            ['phone' => $phone],
-            ['otp' => $otp]
+            ['email' => $normalizedEmail],
+            [
+                'phone' => $request->input('phone'),
+                'otp' => $hashedOtp,
+                'expires_at' => now()->addMinutes(10),
+                'attempts' => 0,
+                'verified_at' => null,
+            ]
         );
 
-        // $formattedphone = $phone;
-        $formattedPhoneE164 = phone($request->input('phone'), $request->input('country'))->formatE164();
-        $formattedphone = ltrim($formattedPhoneE164, '+');
-
+        // Store registration info in session for completion upon verification
+        session()->put('pending_registration_' . md5($normalizedEmail), [
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'organization_name' => $request->input('organization_name'),
+            'email' => $normalizedEmail,
+            'phone' => $request->input('phone'),
+            'password' => $request->input('password'),
+            'plan' => $request->input('plan'),
+        ]);
 
         try {
-            // $response = Http::withHeaders([
-            //     'accept' => 'application/json',
-            //     'authkey' => '282280AEE4Kj2nzJG67fe5ee3P1',
-            //     'content-type' => 'application/json',
-            // ])->post('https://control.msg91.com/api/v5/flow', [
-            //             'template_id' => '677fb3c1d6fc05016e7de192',
-            //             'recipients' => [
-            //                 [
-            //                     'mobiles' => $formattedphone,
-            //                     'var1' => $otp,
-            //                 ]
-            //             ]
-            //         ]);
-
-            // Log::info('MSG91 OTP Send Response:', $response->json());
-
-            $url = "https://graph.facebook.com/v18.0/675025299022404/messages";
-            $response = Http::withToken($this->accessToken)->post($url, [
-                'messaging_product' => 'whatsapp',
-                'to' => $formattedphone, // Format: 15551234567
-                'type' => 'template',
-                'template' => [
-                    'name' => 'singup',
-                    'language' => [
-                        'code' => 'en'
-                    ],
-                    'components' => [
-                        [
-                            'type' => 'body',
-                            'parameters' => [
-                                [
-                                    'type' => 'text',
-                                    'text' => $otp
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]);
-
-            Log::info('Whatsaoo OTP Send Response:', $response->json());
-            if (!$response->successful()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Failed to send OTP via SMS'
-                ], 500);
-            }
-
-
-            return response()->json([
-                'success' => true,
-                'message' => 'OTP sent successfully on your whatsapp number'
-            ]);
-        } catch (\Exception $e) {
-            Log::error('MSG91 Error: ' . $e->getMessage());
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Error sending OTP',
-                'error' => $e->getMessage()
-            ], 500);
+            Mail::to($normalizedEmail)->send(new SignupOtpMail(
+                (string) $request->input('first_name', 'User'),
+                $otp,
+                10
+            ));
+        } catch (\Throwable $e) {
+            Log::warning('Email delivery failed for OTP: ' . $e->getMessage());
         }
-    }
 
+        return response()->json([
+            'success' => true,
+            'step' => 'verify_otp',
+            'email' => $normalizedEmail,
+            'message' => __('Verification code sent to your email ID.'),
+        ]);
+    }
 
     public function verifyOtp(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'phone' => 'required|phone',
-            'otp' => 'required|digits:4',
+            'email' => 'required|email',
+            'otp' => 'required|digits:6',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'Invalid input',
+                'success' => false,
+                'message' => __('Invalid verification code format. Please enter a 6-digit code.'),
                 'errors' => $validator->errors()
             ], 422);
         }
 
-        $phone = $request->input('phone');
-        $otp = $request->input('otp');
+        $normalizedEmail = strtolower(trim((string) $request->input('email')));
+        $inputOtp = (string) $request->input('otp');
 
-        $otpRecord = Otp::where('phone', $phone)->first();
+        $otpRecord = Otp::where('email', $normalizedEmail)->latest()->first();
 
         if (!$otpRecord) {
-            return response()->json([ 'success' => false,'message' => 'OTP not found'], 422);
+            return response()->json([
+                'success' => false,
+                'message' => __('Verification code not found. Please request a new OTP.')
+            ], 422);
         }
 
-        if ($otpRecord->otp !== $otp) {
-            return response()->json([ 'success' => false,'message' => 'Invalid OTP'], 422);
+        if ($otpRecord->isExpired()) {
+            return response()->json([
+                'success' => false,
+                'message' => __('Verification code has expired. Please request a new OTP.')
+            ], 422);
         }
 
-        // OTP verified, remove record
-        $otpRecord->delete();
+        if ($otpRecord->attempts >= 5) {
+            return response()->json([
+                'success' => false,
+                'message' => __('Too many incorrect attempts. Please request a new OTP.')
+            ], 422);
+        }
+
+        if (!$otpRecord->isValid($inputOtp)) {
+            $otpRecord->increment('attempts');
+            $remaining = max(0, 5 - $otpRecord->attempts);
+            return response()->json([
+                'success' => false,
+                'message' => __('Invalid verification code. :attempts attempt(s) remaining.', ['attempts' => $remaining])
+            ], 422);
+        }
+
+        // OTP verified
+        $otpRecord->update(['verified_at' => now()]);
+
+        // Retrieve registration data from session
+        $pendingData = session()->get('pending_registration_' . md5($normalizedEmail));
+
+        // If session was cleared (e.g. different browser tab), fallback to request attributes if passed
+        if (!$pendingData) {
+            $pendingData = [
+                'first_name' => $request->input('first_name', 'User'),
+                'last_name' => $request->input('last_name', ''),
+                'organization_name' => $request->input('organization_name'),
+                'email' => $normalizedEmail,
+                'phone' => $request->input('phone', $otpRecord->phone),
+                'password' => $request->input('password', Str::random(16)),
+                'plan' => $request->input('plan'),
+            ];
+        }
+
+        // Double check email uniqueness before final insert
+        if (User::whereRaw('LOWER(email) = ?', [$normalizedEmail])->whereNull('deleted_at')->exists()) {
+            return response()->json([
+                'success' => false,
+                'message' => __('An account with this email already exists. Please log in or use a different email address.')
+            ], 422);
+        }
+
+        $user = User::create([
+            'first_name' => $pendingData['first_name'],
+            'last_name' => $pendingData['last_name'],
+            'email' => $normalizedEmail,
+            'phone' => $pendingData['phone'] ?? null,
+            'password' => Hash::make($pendingData['password']),
+            'role' => 'user',
+            'status' => '1',
+            'email_verified_at' => now(),
+        ]);
+
+        // Create Organization
+        $organizationName = !empty($pendingData['organization_name'])
+            ? $pendingData['organization_name']
+            : ($user->first_name . "'s organization");
+
+        $timestamp = now()->format('YmdHis');
+        $randomString = Str::random(4);
+        $organization = Organization::create([
+            'identifier' => $timestamp . $user->id . $randomString,
+            'name' => $organizationName,
+            'timezone' => 'Asia/Kolkata',
+            'metadata' => json_encode(['timezone' => 'Asia/Kolkata']),
+            'created_by' => $user->id
+        ]);
+
+        // Create Team Owner
+        Team::create([
+            'organization_id' => $organization->id,
+            'user_id' => $user->id,
+            'role' => 'owner',
+            'status' => 'active',
+            'created_by' => $user->id
+        ]);
+
+        $trialConfig = Setting::where('key', 'trial_period')->first();
+        $trialDays = (isset($trialConfig->value) && (int) $trialConfig->value > 0) ? (int) $trialConfig->value : 14;
+
+        Subscription::create([
+            'organization_id' => $organization->id,
+            'status' => 'trial',
+            'plan_id' => null,
+            'start_date' => now(),
+            'valid_until' => now()->addDays($trialDays),
+        ]);
+
+        // Clean up pending session
+        session()->forget('pending_registration_' . md5($normalizedEmail));
+
+        // Authenticate
+        Auth::guard('user')->login($user, true);
+        session()->put('current_organization', $organization->id);
+
+        // Create Login Notification
+        $this->createLoginNotification($user, $request);
 
         return response()->json([
             'success' => true,
-            'message' => 'OTP verified'
+            'message' => __('Email verified successfully! Workspace ready.'),
+            'redirect' => '/onboarding',
+        ]);
+    }
+
+    public function resendOtp(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
         ]);
 
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => __('Invalid email address.'),
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $normalizedEmail = strtolower(trim((string) $request->input('email')));
+        $otpRecord = Otp::where('email', $normalizedEmail)->latest()->first();
+
+        // Enforce 60-second cooldown
+        if ($otpRecord && $otpRecord->updated_at && now()->diffInSeconds($otpRecord->updated_at) < 60) {
+            $remaining = 60 - now()->diffInSeconds($otpRecord->updated_at);
+            return response()->json([
+                'success' => false,
+                'message' => __('Please wait :seconds seconds before requesting another code.', ['seconds' => $remaining]),
+                'seconds_remaining' => $remaining
+            ], 429);
+        }
+
+        $otp = sprintf('%06d', random_int(100000, 999999));
+        $hashedOtp = Hash::make($otp);
+
+        Otp::updateOrCreate(
+            ['email' => $normalizedEmail],
+            [
+                'otp' => $hashedOtp,
+                'expires_at' => now()->addMinutes(10),
+                'attempts' => 0,
+                'verified_at' => null,
+            ]
+        );
+
+        $pendingData = session()->get('pending_registration_' . md5($normalizedEmail));
+        $firstName = $pendingData['first_name'] ?? 'User';
+
+        try {
+            Mail::to($normalizedEmail)->send(new SignupOtpMail($firstName, $otp, 10));
+        } catch (\Throwable $e) {
+            Log::warning('Email delivery failed for resend OTP: ' . $e->getMessage());
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => __('A new verification code has been sent to your email.'),
+        ]);
+    }
+
+    public function createLoginNotification(User $user, Request $request): void
+    {
+        try {
+            $now = now()->setTimezone(config('app.timezone', 'Asia/Kolkata'));
+            $userAgent = (string) $request->header('User-Agent');
+            $device = 'Web Browser';
+
+            if (str_contains($userAgent, 'Edg')) {
+                $device = 'Microsoft Edge';
+            } elseif (str_contains($userAgent, 'Chrome')) {
+                $device = 'Google Chrome';
+            } elseif (str_contains($userAgent, 'Safari')) {
+                $device = 'Apple Safari';
+            } elseif (str_contains($userAgent, 'Firefox')) {
+                $device = 'Mozilla Firefox';
+            } elseif (str_contains($userAgent, 'Postman') || str_contains($userAgent, 'curl')) {
+                $device = 'API Client';
+            }
+
+            Notification::create([
+                'user_id' => $user->id,
+                'title' => __('New Login'),
+                'comment' => __('Your Wappiyo account was successfully logged in on :date at :time from :device.', [
+                    'date' => $now->format('M d, Y'),
+                    'time' => $now->format('h:i A'),
+                    'device' => $device,
+                ]),
+                'url' => '/dashboard',
+                'seen' => false,
+            ]);
+        } catch (\Throwable $e) {
+            Log::warning('Failed to create login notification: ' . $e->getMessage());
+        }
     }
 
 

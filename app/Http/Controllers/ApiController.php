@@ -673,10 +673,132 @@ class ApiController extends Controller
 
         $this->whatsappService = new WhatsappService($accessToken, $apiVersion, $appId, $phoneNumberId, $wabaId, $organizationId);
     }
-    public function paypalWebhook(Request $request)
+    public function listCalls(Request $request)
     {
-        $payload=$request->all();
-        file_put_contents('/var/www/html/public/paypal.txt', json_encode($payload).PHP_EOL,FILE_APPEND);
+        $organizationId = $request->get('organization');
+        $callingService = new \App\Services\Calling\CallingService($organizationId);
+        
+        $systemUser = \App\Models\User::first() ?: new \App\Models\User(['id' => 0]);
+        $history = $callingService->getCallHistory($request, $systemUser, (int) $request->input('per_page', 15));
+
+        return response()->json($history);
     }
 
+    public function initiateCall(Request $request)
+    {
+        $organizationId = $request->get('organization');
+        $callingService = new \App\Services\Calling\CallingService($organizationId);
+
+        $validator = Validator::make($request->all(), [
+            'contact_uuid' => 'nullable|string',
+            'phone' => 'nullable|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 422);
+        }
+
+        $contact = null;
+        if ($request->filled('contact_uuid')) {
+            $contact = Contact::where('organization_id', $organizationId)
+                ->where('uuid', $request->input('contact_uuid'))
+                ->first();
+        } elseif ($request->filled('phone')) {
+            $contact = Contact::where('organization_id', $organizationId)
+                ->where('phone', $request->input('phone'))
+                ->first();
+
+            if (!$contact) {
+                $contact = Contact::create([
+                    'first_name' => $request->input('name') ?: 'Contact',
+                    'phone' => $request->input('phone'),
+                    'organization_id' => $organizationId,
+                    'created_by' => 0,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        }
+
+        if (!$contact) {
+            return response()->json(['error' => 'Contact not found or invalid phone.'], 404);
+        }
+
+        try {
+            $systemUser = \App\Models\User::first() ?: new \App\Models\User(['id' => 0]);
+            $call = $callingService->initiateCall($systemUser, $contact, $request->all());
+
+            return response()->json([
+                'success' => true,
+                'call' => $call,
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
+    }
+
+    public function getCall(Request $request, string $uuid)
+    {
+        $organizationId = $request->get('organization');
+        $call = \App\Models\Call::with(['contact', 'agent'])
+            ->where('organization_id', $organizationId)
+            ->where('uuid', $uuid)
+            ->first();
+
+        if (!$call) {
+            return response()->json(['error' => 'Call not found.'], 404);
+        }
+
+        return response()->json(['call' => $call]);
+    }
+
+    public function endCall(Request $request, string $uuid)
+    {
+        $organizationId = $request->get('organization');
+        $callingService = new \App\Services\Calling\CallingService($organizationId);
+        $systemUser = \App\Models\User::first() ?: new \App\Models\User(['id' => 0]);
+
+        try {
+            $call = $callingService->endCall($uuid, $systemUser);
+            return response()->json(['success' => true, 'call' => $call]);
+        } catch (\Throwable $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
+    }
+
+    public function updateCallNotes(Request $request, string $uuid)
+    {
+        $organizationId = $request->get('organization');
+        $callingService = new \App\Services\Calling\CallingService($organizationId);
+        $systemUser = \App\Models\User::first() ?: new \App\Models\User(['id' => 0]);
+
+        try {
+            $call = $callingService->updateNotes($uuid, $request->input('notes', ''), $systemUser);
+            return response()->json(['success' => true, 'call' => $call]);
+        } catch (\Throwable $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
+    }
+
+    public function updateCallDisposition(Request $request, string $uuid)
+    {
+        $organizationId = $request->get('organization');
+        $callingService = new \App\Services\Calling\CallingService($organizationId);
+        $systemUser = \App\Models\User::first() ?: new \App\Models\User(['id' => 0]);
+
+        try {
+            $call = $callingService->updateDisposition($uuid, $request->input('disposition', ''), $systemUser);
+            return response()->json(['success' => true, 'call' => $call]);
+        } catch (\Throwable $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
+    }
+
+    public function paypalWebhook(Request $request)
+    {
+        $payload = $request->all();
+        \Illuminate\Support\Facades\Log::info('PayPal Webhook received', $payload);
+        return response()->json(['status' => 'received']);
+    }
 }
+

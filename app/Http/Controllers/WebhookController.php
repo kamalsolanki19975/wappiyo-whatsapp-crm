@@ -100,13 +100,15 @@ class WebhookController extends BaseController
             if (isset($metadata->whatsapp->app_secret) && !empty($metadata->whatsapp->app_secret)) {
                 $appSecret = $metadata->whatsapp->app_secret;
                 $headerSignature = $request->header('X-Hub-Signature-256');
-                if ($headerSignature) {
-                    $payload = $request->getContent();
-                    $calculatedSignature = 'sha256=' . hash_hmac('sha256', $payload, $appSecret);
+                if (!$headerSignature) {
+                    return $this->invalidSignatureResponse();
+                }
 
-                    if (!$this->isValidSignature($calculatedSignature, $headerSignature)) {
-                        return $this->invalidSignatureResponse();
-                    }
+                $payload = $request->getContent();
+                $calculatedSignature = 'sha256=' . hash_hmac('sha256', $payload, $appSecret);
+
+                if (!$this->isValidSignature($calculatedSignature, $headerSignature)) {
+                    return $this->invalidSignatureResponse();
                 }
             }
 
@@ -153,7 +155,14 @@ class WebhookController extends BaseController
 
     protected function handlePostRequest(Request $request, Organization $organization)
     {
-        $res = $request->entry[0]['changes'][0];
+        $entry = $request->input('entry.0');
+        $change = $entry['changes'][0] ?? null;
+
+        if (!$change || !isset($change['field'])) {
+            return Response::json(['status' => 'ignored', 'message' => 'Malformed or empty webhook payload'], 200);
+        }
+
+        $res = $change;
 
         //Log::info($request);
 
@@ -360,6 +369,8 @@ class WebhookController extends BaseController
             $updatedMetadataJson = json_encode($metadataArray);
             $organizationConfig->metadata = $updatedMetadataJson;
             $organizationConfig->save();
+        } else if ($res['field'] === 'calls') {
+            \App\Services\Calling\CallEventProcessor::process($res, $organization);
         }
 
         return Response::json(['status' => 'success'], 200);

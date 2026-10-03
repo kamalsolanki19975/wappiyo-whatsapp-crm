@@ -1,56 +1,62 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
+import axios from 'axios';
 import Badge from './Badge.vue';
+import { useI18n } from 'vue-i18n';
 
-const props = defineProps({
-    unreadCount: {
-        type: Number,
-        default: 0,
-    },
-});
+const { t } = useI18n();
 
-// Mock notification items for presentation layer
-const notifications = ref([
-    {
-        id: 1,
-        title: 'New WhatsApp Message',
-        description: 'You received a new inbound message on your channel.',
-        time: '5m ago',
-        unread: true,
-        type: 'chat',
-        link: '/chats',
-    },
-    {
-        id: 2,
-        title: 'Campaign Broadcast Completed',
-        description: 'September Promotional Campaign sent to 450 contacts.',
-        time: '1h ago',
-        unread: false,
-        type: 'campaign',
-        link: '/campaigns',
-    },
-    {
-        id: 3,
-        title: 'Template Approved',
-        description: 'Meta approved your "Order Confirmation" template.',
-        time: '3h ago',
-        unread: false,
-        type: 'template',
-        link: '/templates',
-    },
-]);
+const notifications = ref([]);
+const unreadCount = ref(0);
+const isLoading = ref(false);
 
-const markAllAsRead = () => {
-    notifications.value.forEach(n => n.unread = false);
+const fetchNotifications = async () => {
+    try {
+        const response = await axios.get('/notifications');
+        notifications.value = response.data.notifications || [];
+        unreadCount.value = response.data.unread_count || 0;
+    } catch {
+        // Silent fallback
+    }
 };
+
+const markAsRead = async (item) => {
+    if (!item.seen) {
+        item.seen = true;
+        unreadCount.value = Math.max(0, unreadCount.value - 1);
+        try {
+            await axios.post(`/notifications/${item.id}/read`);
+        } catch {
+            // ignore
+        }
+    }
+    if (item.url) {
+        router.visit(item.url);
+    }
+};
+
+const markAllAsRead = async () => {
+    notifications.value.forEach(n => n.seen = true);
+    unreadCount.value = 0;
+    try {
+        await axios.post('/notifications/read-all');
+    } catch {
+        // ignore
+    }
+};
+
+onMounted(() => {
+    fetchNotifications();
+});
 </script>
 
 <template>
     <Popover class="relative">
         <PopoverButton
-            class="relative rounded-xl p-2 text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800 hover:text-slate-900 dark:hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6C5CE7]"
+            @click="fetchNotifications"
+            class="relative rounded-xl p-2 text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800 hover:text-slate-900 dark:hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6C5CE7] cursor-pointer"
             title="Notifications"
         >
             <span class="sr-only">Notifications</span>
@@ -61,11 +67,11 @@ const markAllAsRead = () => {
 
             <!-- Unread Ping Indicator -->
             <span
-                v-if="unreadCount > 0 || notifications.some(n => n.unread)"
-                class="absolute top-1.5 right-1.5 flex h-2 w-2"
+                v-if="unreadCount > 0"
+                class="absolute top-1.5 right-1.5 flex h-2.5 w-2.5"
             >
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#EC4899] opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-[#EC4899]"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#EC4899]"></span>
             </span>
         </PopoverButton>
 
@@ -78,22 +84,23 @@ const markAllAsRead = () => {
             leave-to-class="transform scale-95 opacity-0 -translate-y-1"
         >
             <PopoverPanel
-                class="absolute right-0 z-50 mt-2 w-80 sm:w-96 rounded-2xl bg-white dark:bg-[#18181B] shadow-floating border border-slate-200/80 dark:border-zinc-800 overflow-hidden focus:outline-none"
+                class="absolute right-0 z-50 mt-2 w-80 sm:w-96 rounded-2xl bg-white dark:bg-[#18181B] shadow-2xl border border-slate-200/80 dark:border-zinc-800 overflow-hidden focus:outline-none"
             >
                 <!-- Header -->
-                <div class="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-zinc-800 bg-slate-50/50 dark:bg-zinc-900/40">
+                <div class="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-zinc-800 bg-slate-50/70 dark:bg-zinc-900/60">
                     <div class="flex items-center gap-2">
-                        <h4 class="font-bold text-sm text-slate-900 dark:text-white">Notifications</h4>
+                        <h4 class="font-bold text-sm text-slate-900 dark:text-white">{{ $t('Notifications') }}</h4>
                         <Badge variant="primary" size="xs">
-                            {{ unreadCount || notifications.filter(n => n.unread).length }} new
+                            {{ unreadCount }} {{ $t('new') }}
                         </Badge>
                     </div>
                     <button
+                        v-if="unreadCount > 0"
                         type="button"
-                        class="text-xs text-[#6C5CE7] dark:text-purple-400 hover:underline font-medium"
+                        class="text-xs text-[#6C5CE7] dark:text-purple-400 hover:underline font-semibold cursor-pointer"
                         @click="markAllAsRead"
                     >
-                        Mark all as read
+                        {{ $t('Mark all as read') }}
                     </button>
                 </div>
 
@@ -102,23 +109,22 @@ const markAllAsRead = () => {
                     <div
                         v-for="item in notifications"
                         :key="item.id"
+                        @click="markAsRead(item)"
                         :class="[
                             'p-3.5 hover:bg-slate-50 dark:hover:bg-zinc-800/60 transition-colors flex items-start gap-3 cursor-pointer',
-                            item.unread ? 'bg-purple-50/30 dark:bg-purple-950/20' : ''
+                            !item.seen ? 'bg-purple-50/40 dark:bg-purple-950/20' : ''
                         ]"
                     >
                         <!-- Icon -->
                         <div
                             :class="[
                                 'w-8 h-8 rounded-xl flex items-center justify-center shrink-0 text-sm mt-0.5',
-                                item.type === 'chat' ? 'bg-cyan-50 dark:bg-cyan-950/50 text-[#06B6D4]' :
-                                item.type === 'campaign' ? 'bg-purple-50 dark:bg-purple-950/50 text-[#6C5CE7]' :
-                                'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600'
+                                !item.seen ? 'bg-purple-100 dark:bg-purple-900/50 text-[#6C5CE7] dark:text-purple-300' : 'bg-slate-100 dark:bg-zinc-800 text-slate-500 dark:text-zinc-400'
                             ]"
                         >
-                            <span v-if="item.type === 'chat'">💬</span>
-                            <span v-else-if="item.type === 'campaign'">📢</span>
-                            <span v-else>✓</span>
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                            </svg>
                         </div>
 
                         <!-- Content -->
@@ -128,24 +134,25 @@ const markAllAsRead = () => {
                                     {{ item.title }}
                                 </h5>
                                 <span class="text-[10px] text-slate-400 dark:text-zinc-500 whitespace-nowrap ml-2">
-                                    {{ item.time }}
+                                    {{ item.created_at }}
                                 </span>
                             </div>
                             <p class="text-xs text-slate-500 dark:text-zinc-400 line-clamp-2 leading-relaxed">
-                                {{ item.description }}
+                                {{ item.comment }}
                             </p>
                         </div>
+                    </div>
+
+                    <div v-if="!notifications.length" class="text-center py-8 text-xs text-slate-400 dark:text-zinc-500">
+                        {{ $t('No notifications at this time.') }}
                     </div>
                 </div>
 
                 <!-- Footer -->
                 <div class="p-2.5 border-t border-slate-100 dark:border-zinc-800 bg-slate-50/50 dark:bg-zinc-900/40 text-center">
-                    <Link
-                        href="/chats"
-                        class="text-xs font-semibold text-[#6C5CE7] dark:text-purple-400 hover:text-[#5B46D6] transition-colors"
-                    >
-                        View all activity →
-                    </Link>
+                    <span class="text-[11px] text-slate-400 dark:text-zinc-500">
+                        {{ $t('Notifications update in real time') }}
+                    </span>
                 </div>
             </PopoverPanel>
         </transition>

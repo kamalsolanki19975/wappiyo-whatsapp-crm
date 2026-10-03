@@ -9,6 +9,7 @@ import Modal from '@/Components/Modal.vue';
 import Avatar from '@/Components/UI/Avatar.vue';
 import Badge from '@/Components/UI/Badge.vue';
 import Button from '@/Components/UI/Button.vue';
+import CallButton from '@/Components/Calling/CallButton.vue';
 import { trans } from 'laravel-vue-i18n';
 
 const props = defineProps({
@@ -138,6 +139,15 @@ const getAddressDetail = (value, key) => {
                         <span>{{ $t('Open Chat') }}</span>
                     </Button>
                 </Link>
+
+                <!-- WhatsApp Call Button -->
+                <CallButton
+                    :contact="contact"
+                    :phone="contact.phone"
+                    variant="green"
+                    size="xs"
+                    :showLabel="true"
+                />
 
                 <!-- Edit Contact -->
                 <Link :href="'/contacts/' + contact.uuid + '?edit=true'">
@@ -286,6 +296,21 @@ const getAddressDetail = (value, key) => {
                     {{ $t('Team Notes') }}
                     <span v-if="contact.notes?.length" class="ml-1 px-1.5 py-0.5 rounded-full bg-purple-100 dark:bg-purple-950/60 text-[#6C5CE7] text-[10px]">
                         {{ contact.notes.length }}
+                    </span>
+                </button>
+                <button
+                    type="button"
+                    @click="activeTab = 'calls'"
+                    :class="[
+                        'pb-3 px-3 border-b-2 transition-all duration-150',
+                        activeTab === 'calls'
+                            ? 'border-[#6C5CE7] text-[#6C5CE7] dark:text-purple-400 font-bold'
+                            : 'border-transparent text-slate-500 dark:text-zinc-400 hover:text-slate-800 dark:hover:text-zinc-200'
+                    ]"
+                >
+                    {{ $t('Calls') }}
+                    <span v-if="contact.calls?.length" class="ml-1 px-1.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 text-[10px]">
+                        {{ contact.calls.length }}
                     </span>
                 </button>
             </div>
@@ -443,6 +468,68 @@ const getAddressDetail = (value, key) => {
 
                     <div v-else class="text-center py-6 text-slate-400 dark:text-zinc-500 text-xs">
                         {{ $t('No internal notes recorded for this contact yet.') }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: CALLS HISTORY -->
+            <div v-if="activeTab === 'calls'" class="space-y-4">
+                <div class="rounded-2xl bg-white dark:bg-[#111113] border border-slate-200/80 dark:border-zinc-800 p-5 shadow-xs space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-zinc-500">
+                            {{ $t('WhatsApp Call History') }}
+                        </h3>
+                        <CallButton
+                            :contact="contact"
+                            :phone="contact.phone"
+                            variant="primary"
+                            size="xs"
+                            :showLabel="true"
+                        />
+                    </div>
+
+                    <div v-if="contact.calls && contact.calls.length > 0" class="divide-y divide-slate-100 dark:divide-zinc-800/60">
+                        <div
+                            v-for="call in contact.calls"
+                            :key="call.id"
+                            class="py-3 flex items-center justify-between gap-3 text-xs"
+                        >
+                            <div class="flex items-center gap-3">
+                                <span
+                                    :class="[
+                                        'w-7 h-7 rounded-xl flex items-center justify-center font-bold text-white',
+                                        call.direction === 'inbound' ? 'bg-blue-600' : 'bg-emerald-600'
+                                    ]"
+                                >
+                                    <svg v-if="call.direction === 'inbound'" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                                    </svg>
+                                    <svg v-else class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                                    </svg>
+                                </span>
+                                <div>
+                                    <div class="font-bold text-slate-800 dark:text-zinc-200 capitalize flex items-center gap-2">
+                                        <span>{{ call.direction }} Call</span>
+                                        <Badge :variant="call.status === 'connected' || call.status === 'completed' ? 'success' : 'danger'" size="xs" class="capitalize">
+                                            {{ call.status }}
+                                        </Badge>
+                                    </div>
+                                    <div class="text-[11px] text-slate-400 dark:text-zinc-500 mt-0.5">
+                                        <span v-if="call.duration">{{ Math.floor(call.duration / 60) }}:{{ (call.duration % 60).toString().padStart(2, '0') }} • </span>
+                                        <span v-if="call.disposition">{{ call.disposition }} • </span>
+                                        <span>{{ call.created_at }}</span>
+                                    </div>
+                                    <p v-if="call.notes" class="mt-1 text-slate-600 dark:text-zinc-400 text-xs italic bg-slate-50 dark:bg-zinc-800/60 p-2 rounded-lg">
+                                        "{{ call.notes }}"
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-else class="text-center py-8 text-slate-400 dark:text-zinc-500 text-xs">
+                        {{ $t('No WhatsApp calls logged with this customer yet.') }}
                     </div>
                 </div>
             </div>

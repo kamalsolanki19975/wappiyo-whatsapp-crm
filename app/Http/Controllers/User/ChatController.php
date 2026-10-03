@@ -61,4 +61,23 @@ class ChatController extends BaseController
             ]
         );
     }
+
+    public function getMedia($id)
+    {
+        $organizationId = session()->get('current_organization');
+        $chat = Chat::with('media')
+            ->where('organization_id', $organizationId)
+            ->findOrFail($id);
+
+        if (!$chat->media || empty($chat->media->path)) {
+            abort(404);
+        }
+
+        $path = storage_path('app/' . $chat->media->path);
+        if (!file_exists($path)) {
+            abort(404);
+        }
+
+        return response()->download($path, $chat->media->name ?? basename($path));
+    }
 }

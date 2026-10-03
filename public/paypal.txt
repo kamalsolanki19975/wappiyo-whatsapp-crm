@@ -1,1 +1,0 @@
-{"template_id":"677fb3c1d6fc05016e7de192","recipients":[{"mobiles":"918299886767","var1":"2019"}]}

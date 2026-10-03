@@ -34,7 +34,7 @@ class CampaignDetailsExport implements FromCollection, WithHeadings
             ->get();
 
         $logs = $campaignLogs->map(function ($log) use ($campaign) {
-            return [
+            $row = [
                 'campaign_name' => $campaign->name,
                 'template_name' => $campaign->template ? $campaign->template->name : '',
                 'first_name' => $log->contact ? $log->contact->first_name : '',
@@ -43,9 +43,19 @@ class CampaignDetailsExport implements FromCollection, WithHeadings
                 'updated_at' => $log->updated_at,
                 'status' => ($log->status == 'success' && $log->chat) ? $log->chat->status : $log->status
             ];
+
+            return array_map([$this, 'sanitizeCellValue'], $row);
         });
 
         return $logs;
+    }
+
+    private function sanitizeCellValue($value)
+    {
+        if (is_string($value) && preg_match('/^[=\+\-@\t\r]/', $value)) {
+            return "'" . $value;
+        }
+        return $value;
     }
 
     public function headings(): array

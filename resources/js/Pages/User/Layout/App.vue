@@ -102,6 +102,27 @@
             @close="isProfileModalOpen = false"
         />
 
+        <!-- Global WhatsApp Calling UI (Incoming Call, Active Dial / Call Modal, Minimized Call Bar) -->
+        <IncomingCallModal
+            :is-open="isIncomingModalOpen"
+            :incoming-call="incomingCall"
+            @accepted="acceptIncomingCall"
+            @declined="declineIncomingCall"
+        />
+
+        <CallModal
+            :is-open="isCallModalOpen"
+            :contact="callContact"
+            :existing-call="activeCall"
+            @close="closeCallModal"
+        />
+
+        <ActiveCallBar
+            :active-call="activeCall"
+            :is-minimized="isCallBarMinimized"
+            @open="openActiveCall"
+        />
+
         <audio ref="audioPlayer" allow="autoplay"></audio>
     </div>
 </template>
@@ -120,10 +141,14 @@ import ProfileModal from "@/Components/ProfileModal.vue";
 import PwaStatusBanner from "@/Components/UI/PwaStatusBanner.vue";
 import PwaInstallPrompt from "@/Components/UI/PwaInstallPrompt.vue";
 import MobileBottomNav from "@/Components/UI/MobileBottomNav.vue";
+import CallModal from "@/Components/Calling/CallModal.vue";
+import IncomingCallModal from "@/Components/Calling/IncomingCallModal.vue";
+import ActiveCallBar from "@/Components/Calling/ActiveCallBar.vue";
 import { getEchoInstance, disconnectEcho } from '../../../echo';
 import { useCommandPalette } from "@/Composables/useCommandPalette";
 import { useTheme } from "@/Composables/useTheme";
 import { usePwa } from "@/Composables/usePwa";
+import { useCalling } from "@/Composables/useCalling";
 
 const { setupKeyboardListener } = useCommandPalette();
 const { initTheme } = useTheme();
@@ -134,6 +159,20 @@ const {
     initInstallPrompt,
     setAppBadge,
 } = usePwa();
+const {
+    activeCall,
+    callContact,
+    isCallModalOpen,
+    incomingCall,
+    isIncomingModalOpen,
+    isCallBarMinimized,
+    startCall,
+    openActiveCall,
+    closeCallModal,
+    acceptIncomingCall,
+    declineIncomingCall,
+    handleCallBroadcast,
+} = useCalling();
 
 const mobileSidebarRef = ref(null);
 const viewTopBar = ref(true);
@@ -225,6 +264,13 @@ onMounted(() => {
         setAppBadge(newCount);
     });
 
+    const handleGlobalStartCall = (e) => {
+        if (e.detail?.contact || e.detail?.phone) {
+            startCall(e.detail.contact, e.detail.phone);
+        }
+    };
+    window.addEventListener('wappiyo:start-call', handleGlobalStartCall);
+
     if (organization.value?.id) {
         try {
             const echo = getEchoInstance(
@@ -241,6 +287,10 @@ onMounted(() => {
                         unreadMessages.value += 1;
                     }
                 });
+
+                echo.channel('calls.ch' + organization.value.id).listen('CallEvent', (event) => {
+                    handleCallBroadcast(event);
+                });
             }
         } catch (e) {
             console.warn("Pusher echo initialization skipped or failed:", e);
@@ -249,6 +299,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+    window.removeEventListener('wappiyo:start-call', handleGlobalStartCall);
     if (cleanupKeyboard) {
         cleanupKeyboard();
     }
@@ -260,6 +311,7 @@ onUnmounted(() => {
             );
             if (echo) {
                 echo.leave('chats.ch' + organization.value.id);
+                echo.leave('calls.ch' + organization.value.id);
             }
         } catch (_) {}
     }

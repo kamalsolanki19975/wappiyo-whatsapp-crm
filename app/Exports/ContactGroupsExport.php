@@ -24,8 +24,16 @@ class ContactGroupsExport implements FromCollection, WithHeadings
                 'group_name' => $group->name,
             ];
 
-            return $row;
+            return array_map([$this, 'sanitizeCellValue'], $row);
         });
+    }
+
+    private function sanitizeCellValue($value)
+    {
+        if (is_string($value) && preg_match('/^[=\+\-@\t\r]/', $value)) {
+            return "'" . $value;
+        }
+        return $value;
     }
 
     public function headings(): array

@@ -53,8 +53,16 @@ class ContactsExport implements FromCollection, WithHeadings
                 }
             }
 
-            return $row;
+            return array_map([$this, 'sanitizeCellValue'], $row);
         });
+    }
+
+    private function sanitizeCellValue($value)
+    {
+        if (is_string($value) && preg_match('/^[=\+\-@\t\r]/', $value)) {
+            return "'" . $value;
+        }
+        return $value;
     }
 
     public function headings(): array

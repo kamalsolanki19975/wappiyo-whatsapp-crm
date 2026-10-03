@@ -52,7 +52,7 @@ class ContactGroupsImport implements ToModel, WithHeadingRow
                 $this->successfulImports++;
                 return $contactGroup;
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             /*Log::error('Error importing contact: ' . $e->getMessage(), [
                 'row' => $row,
                 'exception' => $e,

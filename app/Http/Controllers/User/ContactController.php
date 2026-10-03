@@ -127,7 +127,18 @@ class ContactController extends BaseController
     public function delete(Request $request)
     {
         $uuids = $request->input('uuids', []);
-        $this->contactService()->delete($uuids);
+        $all = $request->boolean('all');
+
+        if (empty($uuids) && !$all) {
+            return redirect('/contacts')->with(
+                'status', [
+                    'type' => 'error', 
+                    'message' => __('No contacts selected to delete')
+                ]
+            );
+        }
+
+        $this->contactService()->delete($uuids, $all);
 
         return redirect('/contacts')->with(
             'status', [

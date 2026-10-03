@@ -102,7 +102,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://wappiyo.kamcodify.in/'),
+    'url' => env('APP_URL', 'https://wappiyo.com/'),
 
     'asset_url' => env('ASSET_URL'),
 

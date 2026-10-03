@@ -223,7 +223,102 @@
                 </form>
             </div>
 
-            <!-- 3. Webhook Configuration Card -->
+            <!-- 3. WhatsApp Voice Calling Card (Meta Cloud API) -->
+            <div v-if="isConnected" class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-white/10 p-6 sm:p-8 shadow-sm space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-100 dark:border-white/5 pb-5">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 shadow-xs">
+                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.45-5.15-3.76-6.59-6.59l1.97-1.57c.28-.28.37-.68.25-1.02A11.36 11.36 0 0 1 8.96 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.62c0-.55-.45-1-.99-1z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 class="text-base font-bold text-slate-900 dark:text-white">
+                                    {{ $t('WhatsApp Voice Calling (Meta Cloud API)') }}
+                                </h3>
+                                <span
+                                    v-if="props.callingConfig?.enabled"
+                                    class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                                >
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    {{ $t('Enabled') }}
+                                </span>
+                                <span
+                                    v-else
+                                    class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400"
+                                >
+                                    {{ $t('Disabled') }}
+                                </span>
+                            </div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                                {{ $t('Enable CRM agents to place and receive official WhatsApp voice calls directly inside Wappiyo.') }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Calling Toggle Button -->
+                    <button
+                        type="button"
+                        @click="toggleCalling(!props.callingConfig?.enabled)"
+                        :disabled="isCallingToggling"
+                        :class="[
+                            'px-4 py-2 rounded-xl text-xs font-bold transition shadow-xs cursor-pointer shrink-0',
+                            props.callingConfig?.enabled
+                                ? 'bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-300 border border-rose-200 dark:border-rose-800 hover:bg-rose-100'
+                                : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-600/30'
+                        ]"
+                    >
+                        {{ isCallingToggling ? $t('Updating...') : (props.callingConfig?.enabled ? $t('Disable Calling') : $t('Enable Calling')) }}
+                    </button>
+                </div>
+
+                <!-- Calling Details & Requirements -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <!-- Status Card -->
+                    <div class="p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 space-y-2">
+                        <div class="font-bold text-slate-800 dark:text-zinc-200">
+                            {{ $t('Calling Status & Eligibility') }}
+                        </div>
+                        <p class="text-slate-500 dark:text-slate-400 leading-relaxed">
+                            {{ $t('Phone ID') }}: <span class="font-mono font-semibold text-slate-700 dark:text-zinc-300">{{ whatsappData?.phone_number_id || '—' }}</span>
+                        </p>
+                        <p class="text-slate-500 dark:text-slate-400 leading-relaxed">
+                            {{ $t('WABA ID') }}: <span class="font-mono font-semibold text-slate-700 dark:text-zinc-300">{{ whatsappData?.waba_id || '—' }}</span>
+                        </p>
+                        <div class="pt-1">
+                            <span
+                                :class="[
+                                    'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold',
+                                    props.callingConfig?.enabled
+                                        ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
+                                        : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400'
+                                ]"
+                            >
+                                <span class="w-2 h-2 rounded-full" :class="props.callingConfig?.enabled ? 'bg-emerald-500' : 'bg-slate-400'"></span>
+                                <span>{{ props.callingConfig?.enabled ? $t('Meta WhatsApp Calling Active') : $t('Calling Disabled') }}</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Meta Webhook Requirement Notice -->
+                    <div class="p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 space-y-2">
+                        <div class="font-bold text-slate-800 dark:text-zinc-200 flex items-center gap-1.5">
+                            <svg class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+                            </svg>
+                            <span>{{ $t('Meta Calling Webhook Requirement') }}</span>
+                        </div>
+                        <p class="text-slate-500 dark:text-slate-400 leading-relaxed">
+                            {{ $t('To receive real-time call ringing, answered, and completed events, ensure the') }}
+                            <code class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-zinc-800 font-mono text-[11px] text-purple-600 dark:text-purple-400">calls</code>
+                            {{ $t('field is subscribed in your Meta App Dashboard under WhatsApp &rarr; Configuration &rarr; Webhook fields.') }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Webhook Configuration Card -->
             <div v-if="isConnected" class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-white/10 p-6 sm:p-8 shadow-sm space-y-4">
                 <div>
                     <div class="flex items-center gap-2 mb-1">
@@ -446,7 +541,22 @@ const props = defineProps({
     configId: String,
     graphAPIVersion: String,
     currentURL: String,
+    callingConfig: Object,
 });
+
+const isCallingToggling = ref(false);
+
+function toggleCalling(enable) {
+    isCallingToggling.value = true;
+    router.post('/settings/whatsapp/calling-toggle', {
+        enabled: enable
+    }, {
+        preserveScroll: true,
+        onFinish: () => {
+            isCallingToggling.value = false;
+        }
+    });
+}
 
 const config = ref(props.settings?.metadata);
 const parsedSettings = ref(config.value ? JSON.parse(config.value) : null);

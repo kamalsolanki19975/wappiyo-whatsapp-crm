@@ -94,6 +94,12 @@ class Contact extends Model {
         return $this->hasMany(ChatLog::class);
     }
 
+    public function calls()
+    {
+        return $this->hasMany(Call::class, 'contact_id')->latest();
+    }
+
+
     public function contactsWithChats($organizationId, $searchTerm = null, $ticketingActive = false, $ticketState = null, $sortDirection = 'asc', $role = 'owner', $allowAgentsViewAllChats = true)
     {
         $query = $this->newQuery()
@@ -220,8 +226,19 @@ class Contact extends Model {
 
     public function getFormattedPhoneNumberAttribute($value)
     {
-        // Use the phone() helper function to format the phone number to international format
-        return phone($this->phone)->formatInternational();
+        if (empty($this->phone)) {
+            return '';
+        }
+
+        try {
+            $phone = $this->phone;
+            if (!str_starts_with($phone, '+')) {
+                $phone = '+' . $phone;
+            }
+            return phone($phone)->formatInternational();
+        } catch (\Throwable $e) {
+            return (string) $this->phone;
+        }
     }
 
     protected function decodeUnicodeBytes($value)

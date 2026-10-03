@@ -29,7 +29,13 @@ class ContactsImport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder im
         try {
             $this->totalImports++;
 
-            $phoneNumberValue = $row['phone'];
+            $rawPhone = $row['phone'] ?? null;
+            if (empty($rawPhone)) {
+                $this->failedImportsDueToFormat++;
+                return null;
+            }
+
+            $phoneNumberValue = trim((string)$rawPhone);
 
             if (!str_starts_with($phoneNumberValue, '+')) {
                 $phoneNumberValue = '+' . $phoneNumberValue;
@@ -48,17 +54,23 @@ class ContactsImport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder im
                 'phone' => [
                     'required',
                     function ($attribute, $value, $fail) use ($phoneNumberValue) {
-                        $phoneNumber = new PhoneNumber($phoneNumberValue);
+                        try {
+                            $phoneNumber = new PhoneNumber($phoneNumberValue);
 
-                        if (!$phoneNumber->isValid()) {
+                            if (!$phoneNumber->isValid()) {
+                                $this->failedImportsDueToFormat++;
+                                $fail('The '.$attribute.' is invalid.');
+                                return;
+                            }
+
+                            // Check if the phone number already exists in the database
+                            if (Contact::where('organization_id', session()->get('current_organization'))->where('phone', $phoneNumber)->whereNull('deleted_at')->exists()) {
+                                $this->failedImportsDueToDuplicates++;
+                                $fail('The '.$attribute.' already exists.');
+                            }
+                        } catch (\Throwable $ex) {
                             $this->failedImportsDueToFormat++;
                             $fail('The '.$attribute.' is invalid.');
-                        }
-
-                        // Check if the phone number already exists in the database
-                        if (Contact::where('organization_id', session()->get('current_organization'))->where('phone', $phoneNumber)->whereNull('deleted_at')->exists()) {
-                            $this->failedImportsDueToDuplicates++;
-                            $fail('The '.$attribute.' already exists.');
                         }
                     },
                 ]
@@ -89,9 +101,9 @@ class ContactsImport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder im
             $contact =  new Contact([
                 'organization_id'  => session()->get('current_organization'),
                 'first_name'  => $row['first_name'],
-                'last_name'   => $row['last_name'],
+                'last_name'   => $row['last_name'] ?? null,
                 'phone'       => phone($phoneNumberValue)->formatE164(), 
-                'email'       => $row['email'],
+                'email'       => $row['email'] ?? null,
                 'address'     => json_encode([
                     'street'        => $row['street'] ?? null,
                     'city'         => $row['city'] ?? null,
@@ -107,7 +119,7 @@ class ContactsImport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder im
                 $this->successfulImports++;
                 return $contact;
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             /*Log::error('Error importing contact: ' . $e->getMessage(), [
                 'row' => $row,
                 'exception' => $e,

@@ -16,8 +16,10 @@ class UniqueEmail implements Rule
     
     public function passes($attribute, $value)
     {
-        // Check if the email does not already exist in the users table
-        $query = User::where('email', $value)->where('deleted_at', NULL);
+        $normalized = strtolower(trim((string) $value));
+
+        // Check if normalized email already exists in the users table
+        $query = User::whereRaw('LOWER(email) = ?', [$normalized])->whereNull('deleted_at');
 
         // Exclude the user with the specified ID
         if ($this->ignoreId !== null) {
@@ -29,6 +31,6 @@ class UniqueEmail implements Rule
 
     public function message()
     {
-        return __('The email has already been taken.');
+        return __('An account with this email already exists. Please log in or use a different email address.');
     }
 }

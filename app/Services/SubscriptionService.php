@@ -420,6 +420,21 @@ class SubscriptionService
             }
         }
 
+        if ($feature == 'calling_limit') {
+            $count = \App\Models\Call::where('organization_id', $organizationId)->whereNull('deleted_at')->count();
+
+            if($subscription->status === 'trial' && $subscription->valid_until > now()){
+                $limit = optional(Setting::where('key', 'trial_limits')->first())->value;
+                $usageLimit = $limit ? json_decode($limit, true)['calls'] ?? '-1' : '-1';
+
+                return $usageLimit == -1 ? false : $count >= $usageLimit;
+            }
+
+            if ($subscriptionPlan) {
+                return $featureLimit == -1 ? false : $count >= $featureLimit;
+            }
+        }
+
         return false;
     }
 

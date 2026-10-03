@@ -68,7 +68,6 @@ Route::get('/terms-of-service', [App\Http\Controllers\FrontendController::class,
 Route::get('/legal', fn() => redirect('/terms', 301))->name('legal');
 Route::get('/refund-policy', [App\Http\Controllers\FrontendController::class, 'refundPolicy'])->name('refund.policy');
 Route::match(['get', 'post'], '/pages/{slug}', [App\Http\Controllers\FrontendController::class, 'pages']);
-Route::match(['get', 'post'], '/process-campaign', [App\Http\Controllers\FrontendController::class, 'buildTemplateChatMessage']);
 Route::get('/language/{locale}', [App\Http\Controllers\FrontendController::class, 'changeLanguage']);
 
 //File Route
@@ -87,11 +86,10 @@ Route::match(['get', 'post'], '/webhook/{processor}', [App\Http\Controllers\Webh
 Route::match(['get', 'post'], '/payment/{processor}', [App\Http\Controllers\PaymentController::class, 'processPayment']);
 
 Route::get('/campaign-send', [App\Http\Controllers\FrontendController::class, 'sendCampaign']);
-Route::get('/migrate-upgrade', [App\Http\Controllers\FrontendController::class, 'migrate']);
 
 Route::middleware(['guest', 'redirectIfAuthenticated:user,admin'])->group(function () {
     Route::get('/login', [App\Http\Controllers\AuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login');
+    Route::post('/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login.post');
     Route::get('/social-login/{type?}', [App\Http\Controllers\AuthController::class, 'socialLogin']);
     Route::get('/google/callback', [App\Http\Controllers\AuthController::class, 'googleCallback'])->name('google.callback');
     Route::get('/facebook/callback', [App\Http\Controllers\AuthController::class, 'handleFacebookCallback']);
@@ -102,6 +100,7 @@ Route::middleware(['guest', 'redirectIfAuthenticated:user,admin'])->group(functi
     // In routes/we.php (preferred for API routes)
     Route::post('/send-otp', [App\Http\Controllers\AuthController::class, 'sendOtp']);
     Route::post('/verify-otp', [App\Http\Controllers\AuthController::class, 'verifyOtp']);
+    Route::post('/resend-otp', [App\Http\Controllers\AuthController::class, 'resendOtp']);
     Route::get('/forgot-password', [App\Http\Controllers\AuthController::class, 'showForgotForm']);
     Route::post('/forgot-password', [App\Http\Controllers\AuthController::class, 'createPasswordResetToken']);
     Route::get('/reset-password', [App\Http\Controllers\AuthController::class, 'showResetForm'])->name('password.reset');
@@ -144,14 +143,21 @@ Route::middleware(['auth:user'])->group(function () {
             Route::delete('/onboarding/dismiss', [App\Http\Controllers\User\OnboardingController::class, 'dismissChecklist'])->name('onboarding.dismiss');
 
             Route::put('/profile', [App\Http\Controllers\ProfileController::class, 'update']);
+            Route::post('/profile/avatar', [App\Http\Controllers\ProfileController::class, 'updateAvatar']);
+            Route::delete('/profile/avatar', [App\Http\Controllers\ProfileController::class, 'deleteAvatar']);
+            Route::post('/profile/reset-password', [App\Http\Controllers\ProfileController::class, 'sendResetPasswordLink']);
             Route::put('/profile/password', [App\Http\Controllers\ProfileController::class, 'updatePassword']);
             Route::put('/profile/organization', [App\Http\Controllers\ProfileController::class, 'updateOrganization']);
+
+            Route::get('/notifications', [App\Http\Controllers\NotificationController::class, 'index']);
+            Route::post('/notifications/{id}/read', [App\Http\Controllers\NotificationController::class, 'markAsRead']);
+            Route::post('/notifications/read-all', [App\Http\Controllers\NotificationController::class, 'markAllAsRead']);
 
             Route::group(['middleware' => 'check.client.role'], function () {
                 Route::delete('dismiss-notification/{type}', [App\Http\Controllers\User\DashboardController::class, 'dismissNotification'])->name('dashboard.team.notification.dismiss');
                 Route::match(['get', 'post'], '/billing', [App\Http\Controllers\User\BillingController::class, 'index'])->name('user.billing.index');
                 Route::post('/pay', [App\Http\Controllers\User\BillingController::class, 'pay'])->name('user.billing.pay');
-                Route::resource('subscription', App\Http\Controllers\User\SubscriptionController::class);
+                Route::resource('subscription', App\Http\Controllers\User\SubscriptionController::class)->only(['index', 'store', 'show', 'destroy']);
             });
 
             Route::group(['middleware' => 'check.subscription'], function () {
@@ -165,8 +171,19 @@ Route::middleware(['auth:user'])->group(function () {
                 Route::delete('/chats/{uuid}', [App\Http\Controllers\User\ChatController::class, 'deleteChats']);
                 Route::get('/chat/send', [App\Http\Controllers\User\ChatController::class, 'sendMessage']);
                 Route::post('/chat/{uuid}/send/template', [App\Http\Controllers\User\ChatController::class, 'sendTemplateMessage']);
-                Route::get('/chat/test/{id}', [App\Http\Controllers\User\ChatController::class, 'sendAutoReply']);
                 Route::post('/chats/update-sort-direction', [App\Http\Controllers\User\ChatController::class, 'updateChatSortDirection']);
+
+                // WhatsApp Calling Routes
+                Route::get('/calls', [App\Http\Controllers\User\CallController::class, 'index'])->name('calls');
+                Route::get('/calls/export', [App\Http\Controllers\User\CallController::class, 'export'])->name('calls.export');
+                Route::get('/calls/analytics', [App\Http\Controllers\User\CallController::class, 'analytics'])->name('calls.analytics');
+                Route::get('/calls/check-permission/{phone}', [App\Http\Controllers\User\CallController::class, 'checkPermission'])->name('calls.check-permission');
+                Route::post('/calls', [App\Http\Controllers\User\CallController::class, 'store'])->name('calls.store');
+                Route::get('/calls/{uuid}', [App\Http\Controllers\User\CallController::class, 'show'])->name('calls.show');
+                Route::post('/calls/{uuid}/end', [App\Http\Controllers\User\CallController::class, 'end'])->name('calls.end');
+                Route::post('/calls/{uuid}/notes', [App\Http\Controllers\User\CallController::class, 'updateNotes'])->name('calls.notes');
+                Route::post('/calls/{uuid}/disposition', [App\Http\Controllers\User\CallController::class, 'updateDisposition'])->name('calls.disposition');
+                Route::post('/calls/{uuid}/follow-up', [App\Http\Controllers\User\CallController::class, 'scheduleFollowUp'])->name('calls.follow-up');
 
                 Route::get('/tickets/{status}', [App\Http\Controllers\User\ChatTicketController::class, 'index']);
                 Route::put('/tickets/{uuid}/update', [App\Http\Controllers\User\ChatTicketController::class, 'update']);
@@ -211,6 +228,11 @@ Route::middleware(['auth:user'])->group(function () {
                 Route::post('/automation/basic/{uuid}/duplicate', [App\Http\Controllers\User\CannedReplyController::class, 'duplicate'])->name('cannedReply.duplicate');
                 Route::post('/automation/test', [App\Http\Controllers\User\CannedReplyController::class, 'testWorkflow'])->name('cannedReply.test');
 
+                Route::get('/automation/ai', [App\Http\Controllers\User\AiAssistantController::class, 'index'])->name('automation.ai');
+                Route::get('/ai-assistant', [App\Http\Controllers\User\AiAssistantController::class, 'index'])->name('ai.assistant');
+                Route::post('/automation/ai/chat', [App\Http\Controllers\User\AiAssistantController::class, 'chat'])->name('automation.ai.chat');
+                Route::post('/automation/ai/clear', [App\Http\Controllers\User\AiAssistantController::class, 'clearHistory'])->name('automation.ai.clear');
+
                 Route::get('/support/{uuid?}', [App\Http\Controllers\User\TicketController::class, 'index'])->name('support');
                 Route::post('/support', [App\Http\Controllers\User\TicketController::class, 'store']);
                 Route::post('/support/{uuid}/comment', [App\Http\Controllers\User\TicketController::class, 'comment']);
@@ -233,6 +255,7 @@ Route::middleware(['auth:user'])->group(function () {
                     Route::post('/settings/whatsapp', [App\Http\Controllers\User\SettingController::class, 'storeWhatsappSettings']);
                     Route::post('/settings/whatsapp/business-profile', [App\Http\Controllers\User\SettingController::class, 'whatsappBusinessProfileUpdate']);
                     Route::delete('/settings/whatsapp/business-profile', [App\Http\Controllers\User\SettingController::class, 'deleteWhatsappIntegration']);
+                    Route::post('/settings/whatsapp/calling-toggle', [App\Http\Controllers\User\SettingController::class, 'toggleCalling'])->name('whatsapp.calling_toggle');
                     Route::post('/whatsapp/exchange-code', [App\Http\Controllers\User\SettingController::class, 'exchangeCode'])->name('whatsapp.exchange_code');
                     Route::match(['get', 'post'], '/settings/contacts', [App\Http\Controllers\User\SettingController::class, 'contacts']);
                     Route::match(['get', 'post'], '/settings/tickets', [App\Http\Controllers\User\SettingController::class, 'tickets']);
@@ -269,21 +292,21 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::post('/leads/{uuid}/convert', [App\Http\Controllers\Admin\LeadController::class, 'convert'])->name('admin.leads.convert');
     Route::delete('/leads/{uuid}', [App\Http\Controllers\Admin\LeadController::class, 'destroy'])->name('admin.leads.destroy');
 
-    Route::resource('users', App\Http\Controllers\Admin\UserController::class);
-    Route::resource('organizations', App\Http\Controllers\Admin\OrganizationController::class);
+    Route::resource('users', App\Http\Controllers\Admin\UserController::class)->except(['edit', 'create']);
+    Route::resource('organizations', App\Http\Controllers\Admin\OrganizationController::class)->except(['edit', 'create']);
     /*Route::resource('blog/posts', App\Http\Controllers\Admin\BlogController::class);
     Route::resource('blog/categories', App\Http\Controllers\Admin\BlogCategoryController::class);
     Route::resource('blog/authors', App\Http\Controllers\Admin\BlogAuthorController::class);
     Route::resource('blog/tags', App\Http\Controllers\Admin\BlogTagController::class);*/
-    Route::resource('tax-rates', App\Http\Controllers\Admin\TaxController::class);
-    Route::resource('coupons', App\Http\Controllers\Admin\CouponController::class);
-    Route::resource('faqs', App\Http\Controllers\Admin\FaqController::class);
-    Route::resource('testimonials', App\Http\Controllers\Admin\TestimonialController::class);
-    Route::resource('plans', App\Http\Controllers\Admin\SubscriptionPlanController::class);
-    Route::resource('team/users', App\Http\Controllers\Admin\TeamController::class);
-    Route::resource('team/roles', App\Http\Controllers\Admin\RoleController::class);
+    Route::resource('tax-rates', App\Http\Controllers\Admin\TaxController::class)->except(['edit', 'create']);
+    Route::resource('coupons', App\Http\Controllers\Admin\CouponController::class)->except(['edit', 'create']);
+    Route::resource('faqs', App\Http\Controllers\Admin\FaqController::class)->except(['edit']);
+    Route::resource('testimonials', App\Http\Controllers\Admin\TestimonialController::class)->except(['edit', 'create']);
+    Route::resource('plans', App\Http\Controllers\Admin\SubscriptionPlanController::class)->except(['edit']);
+    Route::resource('team/users', App\Http\Controllers\Admin\TeamController::class)->names('team.users')->except(['edit']);
+    Route::resource('team/roles', App\Http\Controllers\Admin\RoleController::class)->names('team.roles')->except(['edit']);
     Route::resource('billing', App\Http\Controllers\Admin\BillingController::class)->only(['index', 'store']);
-    Route::resource('addons', App\Http\Controllers\Admin\AddonController::class);
+    Route::resource('addons', App\Http\Controllers\Admin\AddonController::class)->only(['index', 'store']);
     Route::post('addons/install', [App\Http\Controllers\Admin\AddonController::class, 'install']);
     Route::post('/addons/setup/{slug?}', [App\Http\Controllers\Admin\AddonController::class, 'store']);
     Route::resource('payment-gateways', App\Http\Controllers\Admin\PaymentGatewayController::class)->only(['index', 'show', 'update']);
@@ -291,7 +314,7 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::post('/languages/{language}/import', [App\Http\Controllers\Admin\LanguageController::class, 'import']);
     Route::get('/languages/{language}/translations', [App\Http\Controllers\Admin\LanguageController::class, 'translations']);
     Route::get('/languages/{language}/default', [App\Http\Controllers\Admin\LanguageController::class, 'setDefault']);
-    Route::resource('languages', App\Http\Controllers\Admin\LanguageController::class);
+    Route::resource('languages', App\Http\Controllers\Admin\LanguageController::class)->except(['edit', 'create']);
     Route::post('/translations/{languageCode}/{key}', [App\Http\Controllers\Admin\LanguageController::class, 'updateTranslation']);
 
     /*Route::get('/pages', [App\Http\Controllers\Admin\PageController::class, 'index']);
@@ -328,8 +351,17 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::get('/settings/subscription', [App\Http\Controllers\Admin\SettingController::class, 'subscription']);
 
     Route::get('/user-logs/notifications', [App\Http\Controllers\Admin\NotificationController::class, 'index']);
+    Route::get('/notifications', [App\Http\Controllers\Admin\NotificationController::class, 'index']);
+    Route::post('/notifications/send', [App\Http\Controllers\Admin\NotificationController::class, 'send']);
+    Route::post('/notifications', [App\Http\Controllers\Admin\NotificationController::class, 'send']);
     Route::get('/user-logs/emails', [App\Http\Controllers\Admin\EmailLogController::class, 'index']);
 
+    Route::get('/subscriptions/renewal-due', [App\Http\Controllers\Admin\RenewalController::class, 'index'])->name('admin.renewals');
+    Route::post('/subscriptions/{id}/send-reminder', [App\Http\Controllers\Admin\RenewalController::class, 'sendManualReminder'])->name('admin.renewals.send');
+
     Route::put('/profile', [App\Http\Controllers\ProfileController::class, 'update']);
+    Route::post('/profile/avatar', [App\Http\Controllers\ProfileController::class, 'updateAvatar']);
+    Route::delete('/profile/avatar', [App\Http\Controllers\ProfileController::class, 'deleteAvatar']);
+    Route::post('/profile/reset-password', [App\Http\Controllers\ProfileController::class, 'sendResetPasswordLink']);
     Route::put('/profile/password', [App\Http\Controllers\ProfileController::class, 'updatePassword']);
 });

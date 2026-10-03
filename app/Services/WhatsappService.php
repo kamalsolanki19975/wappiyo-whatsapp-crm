@@ -401,9 +401,7 @@ class WhatsappService
         $requestData['type'] = $mediaType;
         $requestData[$mediaType]['id'] = $fileUploadResponse->data->h;
 
-        $responseObject = $this->sendHttpRequest('POST', $url, $requestData, $headers);
-
-        dd($responseObject);
+        //return $responseObject;
     }*/
 
     /**

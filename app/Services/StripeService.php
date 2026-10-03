@@ -29,8 +29,11 @@ class StripeService
         $this->subscriptionService = new SubscriptionService();
 
         $stripeInfo = PaymentGateway::where('name', 'Stripe')->first();
-        $this->config = json_decode($stripeInfo->metadata);
-        $this->stripe = new \Stripe\StripeClient($this->config->secret_key);
+        $this->config = ($stripeInfo && !empty($stripeInfo->metadata)) ? json_decode($stripeInfo->metadata) : (object)[];
+        $secretKey = $this->config->secret_key ?? env('STRIPE_SECRET', '');
+        if (!empty($secretKey) && class_exists('\Stripe\StripeClient')) {
+            $this->stripe = new \Stripe\StripeClient($secretKey);
+        }
     }
 
     public function handlePayment($amount, $planId = NULL)
@@ -253,7 +256,8 @@ class StripeService
     {
         // Attempt to validate the Webhook
         try {
-            $stripeEvent = \Stripe\Webhook::constructEvent($request->getContent(), $request->server('HTTP_STRIPE_SIGNATURE'), $this->config->webhook_secret);
+            $webhookSecret = $this->config->webhook_secret ?? env('STRIPE_WEBHOOK_SECRET', '');
+            $stripeEvent = \Stripe\Webhook::constructEvent($request->getContent(), $request->server('HTTP_STRIPE_SIGNATURE') ?? '', $webhookSecret);
         } catch(\UnexpectedValueException $e) {
             // Invalid payload
             //Log::info($e->getMessage());

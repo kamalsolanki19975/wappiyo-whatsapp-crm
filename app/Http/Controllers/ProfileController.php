@@ -18,15 +18,36 @@ class ProfileController extends BaseController
 {
     public function update(StoreProfile $request)
     {
-        $first_name = $request->first_name;
-        $last_name = $request->last_name;
-        $email = $request->email;
+        $user = auth()->user();
+        $data = [
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+        ];
 
-        $response = User::where('id', auth()->user()->id)->update([
-            'first_name' => $first_name,
-            'last_name' => $last_name,
-            'email' => $email,
-        ]);
+        if ($request->has('phone')) {
+            $data['phone'] = $request->input('phone');
+        }
+
+        // Email is strictly IMMUTABLE through normal profile settings (Requirement 19)
+        // If an email change is needed in future, it must be a separate verified workflow.
+        // We explicitly do NOT include 'email' in the update payload.
+
+        // Handle avatar upload if included in the request
+        if ($request->hasFile('avatar')) {
+            $request->validate([
+                'avatar' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+            ]);
+
+            // Remove old avatar if exists
+            if ($user->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
+            }
+
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $data['avatar'] = $path;
+        }
+
+        $user->update($data);
 
         return Redirect::back()->with(
             'status', [
@@ -34,6 +55,82 @@ class ProfileController extends BaseController
                 'message' => __('Profile updated successfully!')
             ]
         );
+    }
+
+    public function updateAvatar(Request $request)
+    {
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ]);
+
+        $user = auth()->user();
+
+        // Remove old avatar if exists
+        if ($user->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar)) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
+        }
+
+        $path = $request->file('avatar')->store('avatars', 'public');
+        $user->update(['avatar' => $path]);
+
+        return response()->json([
+            'success' => true,
+            'message' => __('Profile picture updated successfully!'),
+            'avatar_url' => asset('storage/' . $path),
+        ]);
+    }
+
+    public function deleteAvatar(Request $request)
+    {
+        $user = auth()->user();
+
+        if ($user->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar)) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
+        }
+
+        $user->update(['avatar' => null]);
+
+        return response()->json([
+            'success' => true,
+            'message' => __('Profile picture removed successfully!'),
+        ]);
+    }
+
+    public function sendResetPasswordLink(Request $request)
+    {
+        $user = auth()->user();
+
+        try {
+            (new \App\Services\PasswordResetService)->generateResetLink($user->email);
+
+            if ($request->wantsJson() || $request->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => __('We will send a password reset confirmation to your registered email address.')
+                ]);
+            }
+
+            return Redirect::back()->with(
+                'status', [
+                    'type' => 'success',
+                    'message' => __('We will send a password reset confirmation to your registered email address.')
+                ]
+            );
+        } catch (\Throwable $e) {
+            if ($request->wantsJson() || $request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => __('Failed to send password reset email. Please try again.')
+                ], 500);
+            }
+
+            return Redirect::back()->with(
+                'status', [
+                    'type' => 'error',
+                    'message' => __('Failed to send password reset email. Please try again.')
+                ]
+            );
+        }
     }
 
     public function updatePassword(StoreProfilePassword $request)

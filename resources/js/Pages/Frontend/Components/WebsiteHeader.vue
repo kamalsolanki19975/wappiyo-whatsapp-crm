@@ -1,7 +1,7 @@
 <template>
-    <header class="sticky top-0 z-50 w-full transition-all duration-200 bg-white/80 dark:bg-[#09090B]/85 backdrop-blur-md border-b border-slate-200/80 dark:border-zinc-800/80">
+    <header class="sticky top-0 z-50 w-full transition-all duration-200 bg-white/95 dark:bg-black backdrop-blur-md border-b border-slate-200/80 dark:border-neutral-900 shadow-xs dark:shadow-none">
         <!-- Top Announcement Bar (Subtle) -->
-        <div class="hidden sm:flex items-center justify-between px-6 py-1.5 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-cyan-500/10 border-b border-slate-200/50 dark:border-zinc-800/50 text-[11px] font-medium text-slate-600 dark:text-zinc-400">
+        <div class="hidden sm:flex items-center justify-between px-6 py-1.5 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-cyan-500/10 dark:from-emerald-950/20 dark:via-black dark:to-cyan-950/20 border-b border-slate-200/50 dark:border-neutral-900 text-[11px] font-medium text-slate-600 dark:text-zinc-400 dark:bg-black">
             <div class="flex items-center gap-2 mx-auto">
                 <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-600 text-white">
                     {{ $t('NEW') }}
@@ -38,7 +38,7 @@
 
                         <div
                             v-show="activeDropdown === 'product'"
-                            class="absolute top-full left-0 w-[540px] bg-white dark:bg-[#111113] rounded-2xl shadow-xl shadow-slate-900/10 dark:shadow-black/50 border border-slate-200/80 dark:border-zinc-800 p-4 grid grid-cols-2 gap-2 mt-1 z-50"
+                            class="absolute top-full left-0 w-[540px] bg-white dark:bg-[#0A0A0A] rounded-2xl shadow-xl shadow-slate-900/10 dark:shadow-black/70 border border-slate-200/80 dark:border-neutral-800 p-4 grid grid-cols-2 gap-2 mt-1 z-50"
                         >
                             <Link
                                 href="/product/inbox"
@@ -177,7 +177,7 @@
 
                         <div
                             v-show="activeDropdown === 'resources'"
-                            class="absolute top-full right-0 w-[260px] bg-white dark:bg-[#111113] rounded-2xl shadow-xl shadow-slate-900/10 dark:shadow-black/50 border border-slate-200/80 dark:border-zinc-800 p-2 space-y-1 mt-1 z-50"
+                            class="absolute top-full right-0 w-[260px] bg-white dark:bg-[#0A0A0A] rounded-2xl shadow-xl shadow-slate-900/10 dark:shadow-black/70 border border-slate-200/80 dark:border-neutral-800 p-2 space-y-1 mt-1 z-50"
                         >
                             <Link
                                 href="/faq"
@@ -266,7 +266,7 @@
         <!-- Mobile Drawer Navigation -->
         <div
             v-if="isMobileMenuOpen"
-            class="lg:hidden border-t border-slate-200/80 dark:border-zinc-800 bg-white/95 dark:bg-[#09090B]/95 backdrop-blur-xl px-4 py-5 space-y-4 max-h-[calc(100vh-4rem)] overflow-y-auto"
+            class="lg:hidden border-t border-slate-200/80 dark:border-neutral-900 bg-white/95 dark:bg-black backdrop-blur-xl px-4 py-5 space-y-4 max-h-[calc(100vh-4rem)] overflow-y-auto"
         >
             <div class="space-y-1">
                 <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-zinc-500 px-3 py-1 select-none">

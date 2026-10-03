@@ -31,7 +31,7 @@ class CampaignFailedMessagesExport implements FromCollection, WithHeadings
         return $failedLogs->map(function ($log) use ($campaign, $recoveryService) {
             $analysis = $recoveryService->analyzeFailure($log);
 
-            return [
+            $row = [
                 'campaign_name' => $campaign->name,
                 'template_name' => $campaign->template->name ?? '—',
                 'recipient_name' => ($log->contact->first_name ?? '') . ' ' . ($log->contact->last_name ?? ''),
@@ -45,7 +45,17 @@ class CampaignFailedMessagesExport implements FromCollection, WithHeadings
                 'last_attempt' => $log->last_retried_at ?? $log->updated_at,
                 'retry_status' => $log->retry_status ?? 'none',
             ];
+
+            return array_map([$this, 'sanitizeCellValue'], $row);
         });
+    }
+
+    private function sanitizeCellValue($value)
+    {
+        if (is_string($value) && preg_match('/^[=\+\-@\t\r]/', $value)) {
+            return "'" . $value;
+        }
+        return $value;
     }
 
     public function headings(): array

@@ -11,6 +11,7 @@ import Modal from '@/Components/Modal.vue';
 import Avatar from '@/Components/UI/Avatar.vue';
 import Badge from '@/Components/UI/Badge.vue';
 import Button from '@/Components/UI/Button.vue';
+import CallButton from '@/Components/Calling/CallButton.vue';
 import { trans } from 'laravel-vue-i18n';
 
 const props = defineProps(['contact', 'displayContactInfo', 'ticketingIsEnabled', 'ticket', 'addon']);
@@ -211,6 +212,15 @@ const toggleAiAssistant = () => {
                 <span class="hidden sm:inline">AI</span>
                 <span>✨</span>
             </button>
+
+            <!-- WhatsApp Call Action -->
+            <CallButton
+                :contact="contact"
+                :phone="contact?.phone"
+                variant="green"
+                size="xs"
+                :showLabel="true"
+            />
 
             <!-- Toggle Contact Info / CRM Panel -->
             <button

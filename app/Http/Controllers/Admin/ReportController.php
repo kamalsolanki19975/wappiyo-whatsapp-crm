@@ -79,15 +79,21 @@ class ReportController extends BaseController
             }
 
             fputcsv($handle, []);
-            fputcsv($handle, ['Organization Name', 'Status', 'Plan', 'Contacts', 'Chats', 'Campaigns', 'Registered At']);
+            fputcsv($handle, ['Client', 'Plan', 'Messages', 'Delivered', 'Failed', 'Calls', 'Call Minutes', 'Campaigns', 'Contacts', 'Users', 'Renewal Date', 'Status', 'Registered At']);
             foreach ($reportData['organizations'] as $org) {
                 fputcsv($handle, [
                     $org['name'],
-                    $org['status'],
                     $org['plan'],
-                    $org['contacts_count'],
                     $org['chats_count'],
+                    $org['delivered_count'],
+                    $org['failed_count'],
+                    $org['calls_count'],
+                    $org['call_minutes'],
                     $org['campaigns_count'],
+                    $org['contacts_count'],
+                    $org['users_count'],
+                    $org['renewal_date'],
+                    $org['status'],
                     $org['created_at'],
                 ]);
             }

@@ -651,24 +651,54 @@ class ReportingService
         $totalRevenue = DB::table('billing_transactions')->where('entity_type', 'payment')->sum('amount');
         $periodRevenue = DB::table('billing_transactions')->where('entity_type', 'payment')->whereBetween('created_at', [$startDate, $endDate])->sum('amount');
 
-        // 6. Organization activity breakdown
-        $orgBreakdown = Organization::with('subscription.plan')
+        // 6. Organization activity breakdown with comprehensive Client-Wise metrics (Requirement 45 & 46)
+        $orgBreakdown = Organization::with(['subscription.plan'])
             ->orderBy('id', 'desc')
-            ->limit(20)
+            ->limit(50)
             ->get()
-            ->map(function ($org) {
-                $chatsCount = Chat::where('organization_id', $org->id)->count();
+            ->map(function ($org) use ($startDate, $endDate) {
+                $chatsQuery = Chat::where('organization_id', $org->id)
+                    ->whereBetween('created_at', [$startDate, $endDate])
+                    ->whereNull('deleted_at');
+                $chatsCount = (clone $chatsQuery)->count();
+                $deliveredCount = (clone $chatsQuery)->whereIn('status', ['delivered', 'read'])->count();
+                $failedCount = (clone $chatsQuery)->where('status', 'failed')->count();
+
+                // Calling metrics
+                $callsQuery = \App\Models\Call::where('organization_id', $org->id)
+                    ->whereBetween('created_at', [$startDate, $endDate]);
+                $callsCount = (clone $callsQuery)->count();
+                $callSeconds = (clone $callsQuery)->sum('duration') ?: 0;
+                $callMinutes = round($callSeconds / 60, 1);
+                $avgDuration = $callsCount > 0 ? round($callSeconds / $callsCount) : 0;
+
                 $contactsCount = Contact::where('organization_id', $org->id)->whereNull('deleted_at')->count();
-                $campaignsCount = Campaign::where('organization_id', $org->id)->count();
+                $campaignsCount = Campaign::where('organization_id', $org->id)->whereBetween('created_at', [$startDate, $endDate])->count();
+                $usersCount = Team::where('organization_id', $org->id)->count();
+                $ticketsCount = \App\Models\Ticket::where('organization_id', $org->id)->whereBetween('created_at', [$startDate, $endDate])->count();
+
+                $rawValidUntil = $org->subscription ? ($org->subscription->getRawOriginal('valid_until') ?: $org->subscription->valid_until) : null;
+                $renewalDate = $rawValidUntil ? Carbon::parse($rawValidUntil)->format('M d, Y') : __('N/A');
+                $daysUntilRenewal = $rawValidUntil ? (int) now()->diffInDays(Carbon::parse($rawValidUntil), false) : null;
 
                 return [
                     'id' => $org->id,
                     'name' => $org->name,
                     'status' => $org->status ?? 'active',
-                    'plan' => $org->subscription && $org->subscription->plan ? $org->subscription->plan->name : 'Free / Trial',
+                    'plan' => $org->subscription && $org->subscription->plan ? $org->subscription->plan->name : ($org->subscription?->status === 'trial' ? 'Free Trial' : 'No Plan'),
+                    'subscription_status' => $org->subscription?->status ?? 'none',
+                    'renewal_date' => $renewalDate,
+                    'days_until_renewal' => $daysUntilRenewal,
                     'contacts_count' => $contactsCount,
                     'chats_count' => $chatsCount,
+                    'delivered_count' => $deliveredCount,
+                    'failed_count' => $failedCount,
+                    'calls_count' => $callsCount,
+                    'call_minutes' => $callMinutes,
+                    'avg_call_duration' => $avgDuration,
                     'campaigns_count' => $campaignsCount,
+                    'users_count' => $usersCount,
+                    'tickets_count' => $ticketsCount,
                     'created_at' => $org->created_at ? $org->created_at->format('Y-m-d') : '',
                 ];
             });

@@ -7,6 +7,7 @@ use App\Helpers\DateTimeHelper;
 use App\Models\Chat;
 use App\Models\ChatTicket;
 use App\Models\ChatNote;
+use App\Models\Call;
 use Carbon\Carbon;
 
 class ChatLog extends Model {
@@ -47,6 +48,9 @@ class ChatLog extends Model {
                 break;
             case 'notes':
                 $relatedEntity = ChatNote::find($entityId);
+                break;
+            case 'call':
+                $relatedEntity = Call::with(['agent', 'contact'])->find($entityId);
                 break;
         }
 
